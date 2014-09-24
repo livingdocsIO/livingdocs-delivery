@@ -3,7 +3,7 @@
 {% block content %}
 <ul style="padding-top: 40px">
 {% for article in articles %}
-<a href="/articles/{{ article.articleId }}">
+<a internal href="/articles/{{ article.articleId }}">
   <li class="teaser" style="background-image: url({{ article.teaserImage }})">
     <div class="table">
       <div class="cell">
