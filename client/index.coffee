@@ -1,7 +1,7 @@
 Nunjucks = require('nunjucks')
 nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views'))
 
-controllers = require('../lib/controllers.coffee')
+controllers = require('../shared/controllers.coffee')
 
 page.Context.prototype.render = (view, locals) ->
   nunjucks.render view, locals, (err, html) ->

@@ -1,13 +1,15 @@
 express = require('express')
-app = express()
 Nunjucks = require('nunjucks')
-nunjucks = Nunjucks.configure "#{__dirname}/views",
+path = require('path')
+
+app = express()
+root = path.join(__dirname, '..')
+
+nunjucks = Nunjucks.configure "#{root}/views",
   autoescape: false
   watch: process.env.NODE_ENV != 'production'
 
 nunjucks.express(app)
-
-controllers = require('./lib/controllers')
 
 map = (controller) ->
   (req, res, next) ->
@@ -20,14 +22,11 @@ map = (controller) ->
     controller(context, next)
 
 
-app.use('/components', express.static("#{__dirname}/components"))
-app.use('/assets', express.static("#{__dirname}/assets"))
-app.use('/views', express.static("#{__dirname}/views"))
-# app.get '/views', (req, res, next) ->
-#   body = Nunjucks.precompile("./views", { env: nunjucks })
-#   res.set('content-type', 'application/javascript')
-#   res.send(200, body)
+app.use('/components', express.static("#{root}/components"))
+app.use('/assets', express.static("#{root}/assets"))
+app.use('/views', express.static("#{root}/views"))
 
+controllers = require('../shared/controllers')
 app.get('/', map(controllers.articles))
 app.get('/articles', map(controllers.articles))
 app.get('/articles/:slug', map(controllers.article))

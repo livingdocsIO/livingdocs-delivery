@@ -9,7 +9,7 @@ module.exports = (grunt) ->
 
       dist:
         files:
-          'assets/index.js': ['./src/index.coffee'],
+          'assets/index.js': ['./client/index.coffee'],
 
 
     watch:
