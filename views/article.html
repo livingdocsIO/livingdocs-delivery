@@ -1,0 +1,7 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div class="article-wrapper">
+  <iframe src="/articles/{{article.document_id}}/raw" style="width:100%; height: 100%;"></iframe>
+</div>
+{% endblock %}

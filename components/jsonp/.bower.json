@@ -1,0 +1,15 @@
+{
+  "name": "jsonp",
+  "homepage": "https://github.com/LearnBoost/jsonp",
+  "version": "0.0.4",
+  "_release": "0.0.4",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.0.4",
+    "commit": "3769006538e2a59d0299e73d81f4f422e3c154a6"
+  },
+  "_source": "git://github.com/LearnBoost/jsonp.git",
+  "_target": "~0.0.4",
+  "_originalSource": "LearnBoost/jsonp",
+  "_direct": true
+}

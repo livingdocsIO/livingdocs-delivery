@@ -1,0 +1,19 @@
+{% extends "index.html" %}
+
+{% block content %}
+<ul style="padding-top: 40px">
+{% for article in articles %}
+<a href="/articles/{{ article.articleId }}">
+  <li class="teaser" style="background-image: url({{ article.teaserImage }})">
+    <div class="table">
+      <div class="cell">
+        <div class="constrain">
+          <h2>{{ article.title }}</h2>
+        </div>
+      </div>
+    </div>
+  </li>
+</a>
+{% endfor %}
+</ul>
+{% endblock %}

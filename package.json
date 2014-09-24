@@ -1,0 +1,17 @@
+{
+  "name": "delivery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marc Bachmann <marc.brookman@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "coffee-script": "^1.8.0",
+    "express": "^4.9.4",
+    "nunjucks": "^1.0.7",
+    "request": "^2.44.0"
+  }
+}
