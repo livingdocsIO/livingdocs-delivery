@@ -1,7 +1,7 @@
 {% extends "index.html" %}
 
 {% block content %}
-<ul style="padding-top: 40px">
+<ul style="padding-top: 60px">
 {% for article in articles %}
 <a internal href="/articles/{{ article.articleId }}">
   <li class="teaser" style="background-image: url({{ article.teaserImage }})">

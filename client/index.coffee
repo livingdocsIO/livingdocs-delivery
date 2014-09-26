@@ -1,6 +1,6 @@
 page = require('../components/page.js/index')
 Nunjucks = require('nunjucks')
-nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views'))
+nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views', true))
 
 controllers = require('../shared/controllers.coffee')
 
