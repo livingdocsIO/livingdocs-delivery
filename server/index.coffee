@@ -21,7 +21,7 @@ map = (controller) ->
 
     controller(context, next)
 
-
+app.use(require('compression')())
 app.use('/components', express.static("#{root}/components"))
 app.use('/assets', express.static("#{root}/assets"))
 app.use('/views', express.static("#{root}/views"))
