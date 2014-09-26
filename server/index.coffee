@@ -22,9 +22,9 @@ map = (controller) ->
     controller(context, next)
 
 app.use(require('compression')())
-app.use('/components', express.static("#{root}/components"))
-app.use('/assets', express.static("#{root}/assets"))
-app.use('/views', express.static("#{root}/views"))
+app.use('/components', express.static("#{root}/components", maxAge: 3600 * 1000 * 24 * 7))
+app.use('/assets', express.static("#{root}/assets", maxAge: 3600 * 1000 * 24 * 7))
+app.use('/views', express.static("#{root}/views", maxAge: 3600 * 1000 * 24 * 7))
 
 controllers = require('../shared/controllers')
 app.get('/', map(controllers.articles))
