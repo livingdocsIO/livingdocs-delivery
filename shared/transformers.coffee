@@ -18,7 +18,7 @@ exports.deduceTeaserImageFromData = (content) ->
 
 
 exports.articlesToTeasers = (articles) ->
-  teasers = for art in articles
+  for art in articles
     title: art.metadata?.title || exports.deduceTitleFromData(art.data.content)
     teaserImage: exports.constructImageUrl(art.metadata?.teaser_image || exports.deduceTeaserImageFromData(art.data.content))
     articleId: art.slug || art.document_id

@@ -17,7 +17,7 @@ map = (controller) ->
       path: req.path
       params: req.params
       render: res.render.bind(res)
-      locals: {}
+      locals: res.locals
 
     controller(context, next)
 

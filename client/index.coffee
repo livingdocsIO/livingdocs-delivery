@@ -1,3 +1,4 @@
+page = require('../components/page.js')
 Nunjucks = require('nunjucks')
 nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views'))
 
