@@ -11,6 +11,10 @@ module.exports = (grunt) ->
         files:
           'assets/index.js': ['./client/index.coffee'],
 
+    copy:
+      dist:
+        files:
+          'assets/livingdocs_stream.css': 'client/livingdocs_stream.css'
 
     watch:
       tests:
@@ -18,8 +22,9 @@ module.exports = (grunt) ->
         tasks: ['default']
 
 
+  grunt.loadNpmTasks('grunt-contrib-copy')
   grunt.loadNpmTasks('grunt-browserify')
   grunt.loadNpmTasks('grunt-contrib-watch')
 
-  grunt.registerTask('default', ['browserify'])
+  grunt.registerTask('default', ['browserify', 'copy'])
 
