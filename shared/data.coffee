@@ -1,6 +1,4 @@
-request = require('superagent')
-# require('../lib/request-client.coffee')
-# if process.browser then request = require('../lib/request-client.coffee') else request = require('../lib/request-server')
+request = require('ld-request')
 transformers = require('./transformers.coffee')
 
 processArticle = (article) ->
@@ -9,15 +7,15 @@ processArticle = (article) ->
   article
 
 exports.getArticle = (slug, callback) ->
-  request.get "http://staging.api.livingdocs.io/publications/public/#{slug}", (err, {body}) ->
-    return callback(new Error(body.error)) if body?.error
-    callback(null, processArticle(body.publication))
+  request.get "http://staging.api.livingdocs.io/publications/public/#{slug}", (err, data) ->
+    return callback(err) if err
+    callback(null, processArticle(data.publication))
 
 
 exports.getArticles = (callback) ->
-  request.get "http://staging.api.livingdocs.io/publications/public", (err, {body}) ->
-    return callback(new Error(body.error)) if body?.error
-    callback(null, body.publications)
+  request.get "http://staging.api.livingdocs.io/publications/public", (err, data) ->
+    return callback(err) if err
+    callback(null, data.publications)
 
 
 exports.getTeasers = (callback) ->

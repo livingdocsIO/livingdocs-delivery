@@ -18,8 +18,10 @@
     "grunt-contrib-copy": "^0.6.0",
     "jsonp": "0.0.4",
     "nunjucks": "^1.0.7",
-    "superagent": "^0.19.0",
-    "uglifyify": "^2.5.0"
+    "ld-request": "./lib/ld-request",
+    "ld-request-browser": "./lib/ld-request-browser",
+    "uglifyify": "^2.5.0",
+    "browserify-zepto": "^1.1.4"
   },
   "devDependencies": {
     "coffeeify": "^0.7.0",

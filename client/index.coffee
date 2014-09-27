@@ -1,3 +1,4 @@
+$ = require('browserify-zepto')
 page = require('../components/page.js/index')
 Nunjucks = require('nunjucks')
 nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views', true))
