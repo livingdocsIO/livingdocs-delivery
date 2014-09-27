@@ -30,7 +30,6 @@ controllers = require('../shared/controllers')
 app.get('/', map(controllers.articles))
 app.get('/articles', map(controllers.articles))
 app.get('/articles/:slug', map(controllers.article))
-app.get('/articles/:slug/raw', map(controllers.articleRaw))
 
 app.listen (process.env.PORT || '8080'), (err) ->
   console.log('Server started on http://localhost:8080')

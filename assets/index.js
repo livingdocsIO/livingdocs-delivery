@@ -1,6262 +1,1598 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var Nunjucks,controllers,nunjucks,page;page=require("../components/page.js/index"),Nunjucks=require("nunjucks"),nunjucks=new Nunjucks.Environment(new Nunjucks.WebLoader("/views",!0)),controllers=require("../shared/controllers.coffee"),page.Context.prototype.render=function(e,r){return nunjucks.render(e,r,function(e,r){return e?alert("Failed to render the view"):$("body").html(r)})},$(document).ready(function(){return page("/",controllers.articles),page("/articles",controllers.articles),page("/articles/:slug",controllers.article),$("a[internal]").click(function(e){return e.preventDefault(),page($(this).attr("href"))})});
-},{"../components/page.js/index":2,"../shared/controllers.coffee":7,"nunjucks":3}],2:[function(require,module,exports){
-!function(){function t(e,n){if("function"==typeof e)return t("*",e);if("function"==typeof n)for(var i=new a(e),o=1;o<arguments.length;++o)t.callbacks.push(i.middleware(arguments[o]));else"string"==typeof e?t.show(e,n):t.start(e)}function e(e){var n=window.location.pathname+window.location.search;n!=e.canonicalPath&&(t.stop(),e.unhandled=!0,window.location=e.canonicalPath)}function n(t,e){"/"==t[0]&&0!=t.indexOf(l)&&(t=l+t);var n=t.indexOf("?");if(this.canonicalPath=t,this.path=t.replace(l,"")||"/",this.title=document.title,this.state=e||{},this.state.path=t,this.querystring=~n?t.slice(n+1):"",this.pathname=~n?t.slice(0,n):t,this.params=[],this.hash="",~this.path.indexOf("#")){var a=this.path.split("#");this.path=a[0],this.hash=a[1]||"",this.querystring=this.querystring.split("#")[0]}}function a(t,e){e=e||{},this.path=t,this.method="GET",this.regexp=i(t,this.keys=[],e.sensitive,e.strict)}function i(t,e,n,a){return t instanceof RegExp?t:(t instanceof Array&&(t="("+t.join("|")+")"),t=t.concat(a?"":"/?").replace(/\/\(/g,"(?:/").replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g,function(t,n,a,i,o,r){return e.push({name:i,optional:!!r}),n=n||"",""+(r?"":n)+"(?:"+(r?n:"")+(a||"")+(o||a&&"([^/.]+?)"||"([^/]+?)")+")"+(r||"")}).replace(/([\/.])/g,"\\$1").replace(/\*/g,"(.*)"),new RegExp("^"+t+"$",n?"":"i"))}function o(e){if(e.state){var n=e.state.path;t.replace(n,e.state)}}function r(e){if(1==s(e)&&!(e.metaKey||e.ctrlKey||e.shiftKey||e.defaultPrevented)){for(var n=e.target;n&&"A"!=n.nodeName;)n=n.parentNode;if(n&&"A"==n.nodeName){var a=n.getAttribute("href");if((n.pathname!=location.pathname||!n.hash&&"#"!=a)&&!n.target&&h(n.href)){var i=n.pathname+n.search+(n.hash||""),o=i+n.hash;i=i.replace(l,""),l&&o==i||(e.preventDefault(),t.show(o))}}}}function s(t){return t=t||window.event,null==t.which?t.button:t.which}function h(t){var e=location.protocol+"//"+location.hostname;return location.port&&(e+=":"+location.port),0==t.indexOf(e)}var c,p=!0,l="";t.callbacks=[],t.base=function(t){return 0==arguments.length?l:void(l=t)},t.start=function(e){if(e=e||{},!c&&(c=!0,!1===e.dispatch&&(p=!1),!1!==e.popstate&&window.addEventListener("popstate",o,!1),!1!==e.click&&window.addEventListener("click",r,!1),p)){var n=location.pathname+location.search+location.hash;t.replace(n,null,!0,p)}},t.stop=function(){c=!1,removeEventListener("click",r,!1),removeEventListener("popstate",o,!1)},t.show=function(e,a,i){var o=new n(e,a);return!1!==i&&t.dispatch(o),o.unhandled||o.pushState(),o},t.replace=function(e,a,i,o){var r=new n(e,a);return r.init=i,null==o&&(o=!0),o&&t.dispatch(r),r.save(),r},t.dispatch=function(n){function a(){var o=t.callbacks[i++];return o?void o(n,a):e(n)}var i=0;a()},t.Context=n,n.prototype.pushState=function(){history.pushState(this.state,this.title,this.canonicalPath)},n.prototype.save=function(){history.replaceState(this.state,this.title,this.canonicalPath)},t.Route=a,a.prototype.middleware=function(t){var e=this;return function(n,a){return e.match(n.path,n.params)?t(n,a):void a()}},a.prototype.match=function(t,e){var n=this.keys,a=t.indexOf("?"),i=~a?t.slice(0,a):t,o=this.regexp.exec(i);if(!o)return!1;for(var r=1,s=o.length;s>r;++r){var h=n[r-1],c="string"==typeof o[r]?decodeURIComponent(o[r]):o[r];h?e[h.name]=void 0!==e[h.name]?e[h.name]:c:e.push(c)}return!0},"undefined"==typeof module?window.page=t:module.exports=t}();
+require=(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+var $,Nunjucks,controllers,nunjucks,page;$=require("browserify-zepto"),page=require("../components/page.js/index"),Nunjucks=require("../components/nunjucks/browser/nunjucks.min.js"),nunjucks=new Nunjucks.Environment(new Nunjucks.WebLoader("/views",!0)),controllers=require("../shared/controllers.coffee"),page.Context.prototype.render=function(e,r){return nunjucks.render(e,r,function(e,r){return e?alert("Failed to render the view"):$("body").html(r)})},$(document).ready(function(){return page("/",controllers.articles),page("/articles",controllers.articles),page("/articles/:slug",controllers.article),$(document).on("click","a[internal]",function(e){return e.preventDefault(),page($(this).attr("href"))})});
+},{"../components/nunjucks/browser/nunjucks.min.js":2,"../components/page.js/index":3,"../shared/controllers.coffee":5,"browserify-zepto":4}],2:[function(require,module,exports){
+!function(){var e={};!function(){function t(e,n,i){var r=function(){};r.prototype=e.prototype;var o=new r,s=/xyz/.test(function(){})?/\bparent\b/:/.*/;i=i||{};for(var a in i){var l=i[a],c=o[a];o[a]="function"==typeof c&&"function"==typeof l&&s.test(l)?function(e,t){return function(){var n=this.parent;this.parent=t;var i=e.apply(this,arguments);return this.parent=n,i}}(l,c):l}o.typename=n;var h=function(){o.init&&o.init.apply(this,arguments)};return h.prototype=o,h.prototype.constructor=h,h.extend=function(e,n){return"object"==typeof e&&(n=e,e="anonymous"),t(h,e,n)},h}e.object=t(Object,"Object",{})}(),function(){var t=Array.prototype,n=Object.prototype,i={"&":"&amp;",'"':"&quot;","'":"&#39;","<":"&lt;",">":"&gt;"},r=/[&"'<>]/g,o=function(e){return i[e]},s=e.lib={};s.withPrettyErrors=function(e,t,n){try{return n()}catch(i){if(i.Update||(i=new s.TemplateError(i)),i.Update(e),!t){var r=i;i=new Error(r.message),i.name=r.name}throw i}},s.TemplateError=function(e,t,n){var i=this;return e instanceof Error?(i=e,e=e.name+": "+e.message):Error.captureStackTrace&&Error.captureStackTrace(i),i.name="Template render error",i.message=e,i.lineno=t,i.colno=n,i.firstUpdate=!0,i.Update=function(e){var t="("+(e||"unknown path")+")";return this.firstUpdate&&(this.lineno&&this.colno?t+=" [Line "+this.lineno+", Column "+this.colno+"]":this.lineno&&(t+=" [Line "+this.lineno+"]")),t+="\n ",this.firstUpdate&&(t+=" "),this.message=t+(this.message||""),this.firstUpdate=!1,this},i},s.TemplateError.prototype=Error.prototype,s.escape=function(e){return e.replace(r,o)},s.isFunction=function(e){return"[object Function]"==n.toString.call(e)},s.isArray=Array.isArray||function(e){return"[object Array]"==n.toString.call(e)},s.isString=function(e){return"[object String]"==n.toString.call(e)},s.isObject=function(e){return"[object Object]"==n.toString.call(e)},s.groupBy=function(e,t){for(var n={},i=s.isFunction(t)?t:function(e){return e[t]},r=0;r<e.length;r++){var o=e[r],a=i(o,r);(n[a]||(n[a]=[])).push(o)}return n},s.toArray=function(e){return Array.prototype.slice.call(e)},s.without=function(e){var t=[];if(!e)return t;for(var n=-1,i=e.length,r=s.toArray(arguments).slice(1);++n<i;)-1===r.indexOf(e[n])&&t.push(e[n]);return t},s.extend=function(e,t){for(var n in t)e[n]=t[n];return e},s.repeat=function(e,t){for(var n="",i=0;t>i;i++)n+=e;return n},s.each=function(e,n,i){if(null!=e)if(t.each&&e.each==t.each)e.forEach(n,i);else if(e.length===+e.length)for(var r=0,o=e.length;o>r;r++)n.call(i,e[r],r,e)},s.map=function(e,n){var i=[];if(null==e)return i;if(t.map&&e.map===t.map)return e.map(n);for(var r=0;r<e.length;r++)i[i.length]=n(e[r],r);return e.length===+e.length&&(i.length=e.length),i},s.asyncIter=function(e,t,n){function i(){r++,r<e.length?t(e[r],r,i,n):n()}var r=-1;i()},s.asyncFor=function(e,t,n){function i(){a++;var s=r[a];o>a?t(s,e[s],a,o,i):n()}var r=s.keys(e),o=r.length,a=-1;i()},Array.prototype.indexOf||(Array.prototype.indexOf=function(e,t){if(null==e)throw new TypeError;var n=Object(e),i=n.length>>>0;if(0===i)return-1;var r=0;if(arguments.length>2&&(r=Number(arguments[2]),r!=r?r=0:0!=r&&1/0!=r&&r!=-1/0&&(r=(r>0||-1)*Math.floor(Math.abs(r)))),r>=i)return-1;for(var o=r>=0?r:Math.max(i-Math.abs(r),0);i>o;o++)if(o in n&&n[o]===t)return o;return-1}),Array.prototype.map||(Array.prototype.map=function(){throw new Error("map is unimplemented for this js engine")}),s.keys=function(e){if(Object.prototype.keys)return e.keys();var t=[];for(var n in e)e.hasOwnProperty(n)&&t.push(n);return t}}(),function(){function t(e,t,n){e instanceof t&&n.push(e),e instanceof s&&e.findAll(t,n)}function n(e,t){function o(e,t,n){for(var r=e.split("\n"),o=0;o<r.length;o++){if(r[o]&&(n&&o>0||!n))for(var s=0;t>s;s++)i.print(" ");o===r.length-1?i.print(r[o]):i.puts(r[o])}}if(t=t||0,o(e.typename+": ",t),e instanceof l)o("\n"),r.each(e.children,function(e){n(e,t+2)});else if(e instanceof et)o(e.extName+"."+e.prop),o("\n"),e.args&&n(e.args,t+2),e.contentArgs&&r.each(e.contentArgs,function(e){n(e,t+2)});else{var a=null,c=null;if(e.iterFields(function(e,t){e instanceof s?(a=a||{},a[t]=e):(c=c||{},c[t]=e)}),c?o(i.inspect(c,!0,null)+"\n",null,!0):o("\n"),a)for(var h in a)n(a[h],t+2)}}var i=e.util,r=e.lib,o=e.object,s=o.extend("Node",{init:function(e,t){this.lineno=e,this.colno=t;for(var n=this.fields,i=0,r=n.length;r>i;i++){var o=n[i],s=arguments[i+2];void 0===s&&(s=null),this[o]=s}},findAll:function(e,n){if(n=n||[],this instanceof l)for(var i=this.children,r=0,o=i.length;o>r;r++)t(i[r],e,n);else for(var s=this.fields,r=0,o=s.length;o>r;r++)t(this[s[r]],e,n);return n},iterFields:function(e){r.each(this.fields,function(t){e(this[t],t)},this)}}),a=s.extend("Value",{fields:["value"]}),l=s.extend("NodeList",{fields:["children"],init:function(e,t,n){this.parent(e,t,n||[])},addChild:function(e){this.children.push(e)}}),c=l.extend("Root"),h=a.extend("Literal"),u=a.extend("Symbol"),p=l.extend("Group"),f=l.extend("Array"),m=s.extend("Pair",{fields:["key","value"]}),d=l.extend("Dict"),v=s.extend("LookupVal",{fields:["target","val"]}),g=s.extend("If",{fields:["cond","body","else_"]}),y=g.extend("IfAsync"),k=s.extend("InlineIf",{fields:["cond","body","else_"]}),x=s.extend("For",{fields:["arr","name","body"]}),b=x.extend("AsyncEach"),E=x.extend("AsyncAll"),w=s.extend("Macro",{fields:["name","args","body"]}),T=s.extend("Import",{fields:["template","target"]}),L=s.extend("FromImport",{fields:["template","names"],init:function(e,t,n,i){this.parent(e,t,n,i||new l)}}),_=s.extend("FunCall",{fields:["name","args"]}),A=_.extend("Filter"),O=A.extend("FilterAsync",{fields:["name","args","symbol"]}),S=d.extend("KeywordArgs"),N=s.extend("Block",{fields:["name","body"]}),C=s.extend("Super",{fields:["blockName","symbol"]}),F=s.extend("TemplateRef",{fields:["template"]}),K=F.extend("Extends"),B=F.extend("Include"),I=s.extend("Set",{fields:["targets","value"]}),R=l.extend("Output"),P=h.extend("TemplateData"),M=s.extend("UnaryOp",{fields:["target"]}),j=s.extend("BinOp",{fields:["left","right"]}),V=j.extend("Or"),D=j.extend("And"),U=M.extend("Not"),W=j.extend("Add"),G=j.extend("Sub"),Y=j.extend("Mul"),H=j.extend("Div"),$=j.extend("FloorDiv"),z=j.extend("Mod"),X=j.extend("Pow"),q=M.extend("Neg"),J=M.extend("Pos"),Q=s.extend("Compare",{fields:["expr","ops"]}),Z=s.extend("CompareOperand",{fields:["expr","type"]}),et=(s.extend("CustomTag",{init:function(e,t,n){this.lineno=e,this.colno=t,this.name=n}}),s.extend("CallExtension",{fields:["extName","prop","args","contentArgs"],init:function(e,t,n,i){this.extName=e._name||e,this.prop=t,this.args=n||new l,this.contentArgs=i||[],this.autoescape=e.autoescape}})),tt=et.extend("CallExtensionAsync");e.nodes={Node:s,Root:c,NodeList:l,Value:a,Literal:h,Symbol:u,Group:p,Array:f,Pair:m,Dict:d,Output:R,TemplateData:P,If:g,IfAsync:y,InlineIf:k,For:x,AsyncEach:b,AsyncAll:E,Macro:w,Import:T,FromImport:L,FunCall:_,Filter:A,FilterAsync:O,KeywordArgs:S,Block:N,Super:C,Extends:K,Include:B,Set:I,LookupVal:v,BinOp:j,Or:V,And:D,Not:U,Add:W,Sub:G,Mul:Y,Div:H,FloorDiv:$,Mod:z,Pow:X,Neg:q,Pos:J,Compare:Q,CompareOperand:Z,CallExtension:et,CallExtensionAsync:tt,printNodes:n}}(),function(){function t(e,t,n){return function(){var o,s=r(arguments),a=i(arguments);if(s>e.length){o=Array.prototype.slice.call(arguments,0,e.length);for(var l=Array.prototype.slice.call(arguments,o.length,s),c=0;c<l.length;c++)c<t.length&&(a[t[c]]=l[c]);o.push(a)}else if(s<e.length){o=Array.prototype.slice.call(arguments,0,s);for(var c=s;c<e.length;c++){var h=e[c];o.push(a[h]),delete a[h]}o.push(a)}else o=arguments;return n.apply(this,o)}}function n(e){return e.__keywords=!0,e}function i(e){var t=e.length;if(t){var n=e[t-1];if(n&&n.hasOwnProperty("__keywords"))return n}return{}}function r(e){var t=e.length;if(0===t)return 0;var n=e[t-1];return n&&n.hasOwnProperty("__keywords")?t-1:t}function o(e){return"string"!=typeof e?e:void(this.val=e)}function s(e,t){return e instanceof o?new o(t):t.toString()}function a(e){var t=typeof e;return"string"===t?new o(e):"function"!==t?e:function(){var t=e.apply(this,arguments);return"string"==typeof t?new o(t):t}}function l(e,t){return e=void 0!==e&&null!==e?e:"",t&&"string"==typeof e&&(e=d.escape(e)),e}function c(e,t){return e=e||{},"function"==typeof e[t]?function(){return e[t].apply(e,arguments)}:e[t]}function h(e,t,n){if(!e)throw new Error("Unable to call `"+t+"`, which is undefined or falsey");if("function"!=typeof e)throw new Error("Unable to call `"+t+"`, which is not a function");return e.apply(this,n)}function u(e,t,n){var i=t.lookup(n);return void 0!==i&&null!==i?i:e.lookup(n)}function p(e,t,n){return e.lineno?e:new d.TemplateError(e,t,n)}function f(e,t,n,i){if(d.isArray(e)){var r=e.length;d.asyncIter(e,function(e,i,o){switch(t){case 1:n(e,i,r,o);break;case 2:n(e[0],e[1],i,r,o);break;case 3:n(e[0],e[1],e[2],i,r,o);break;default:e.push(i,o),n.apply(this,e)}},i)}else d.asyncFor(e,function(e,t,i,r,o){n(e,t,i,r,o)},i)}function m(e,t,n,i){function r(e,t){a++,s[e]=t,a==o&&i(null,s.join(""))}var o,s,a=0;if(d.isArray(e))if(o=e.length,s=new Array(o),0==o)i(null,"");else for(var l=0;l<e.length;l++){var c=e[l];switch(t){case 1:n(c,l,o,r);break;case 2:n(c[0],c[1],l,o,r);break;case 3:n(c[0],c[1],c[2],l,o,r);break;default:c.push(l,r),n.apply(this,c)}}else{var h=d.keys(e);if(o=h.length,s=new Array(o),0==o)i(null,"");else for(var l=0;l<h.length;l++){var u=h[l];n(u,e[u],l,o,r)}}}var d=e.lib,v=e.object,g=v.extend({init:function(e){this.variables={},this.parent=e},set:function(e,t,n){var i=e.split("."),r=this.variables,o=this;if(n){if(o=this.resolve(i[0]))return void o.set(e,t);o=this}for(var s=0;s<i.length-1;s++){var a=i[s];r[a]||(r[a]={}),r=r[a]}r[i[i.length-1]]=t},get:function(e){var t=this.variables[e];return void 0!==t&&null!==t?t:null},lookup:function(e){var t=this.parent,n=this.variables[e];return void 0!==n&&null!==n?n:t&&t.lookup(e)},resolve:function(e){var t=this.parent,n=this.variables[e];return null!=n?this:t&&t.resolve(e)},push:function(){return new g(this)},pop:function(){return this.parent}});o.prototype=Object.create(String.prototype),o.prototype.valueOf=function(){return this.val},o.prototype.toString=function(){return this.val},e.runtime={Frame:g,makeMacro:t,makeKeywordArgs:n,numArgs:r,suppressValue:l,memberLookup:c,contextOrFrameLookup:u,callWrap:h,handleError:p,isArray:d.isArray,keys:d.keys,SafeString:o,copySafeness:s,markSafe:a,asyncEach:f,asyncAll:m}}(),function(){function t(e,t,n,i){return{type:e,value:t,lineno:n,colno:i}}function n(e){this.str=e,this.index=0,this.len=e.length,this.lineno=0,this.colno=0,this.in_code=!1}var i=(e.lib," \n	\r"),r="()[]{}%*-+/#,:|.<>=!",o="0123456789",s="{%",a="%}",l="{{",c="}}",h="{#",u="#}",p="string",f="whitespace",m="data",d="block-start",v="block-end",g="variable-start",y="variable-end",k="comment",x="left-paren",b="right-paren",E="left-bracket",w="right-bracket",T="left-curly",L="right-curly",_="operator",A="comma",O="colon",S="pipe",N="int",C="float",F="boolean",K="symbol",B="special";n.prototype.nextToken=function(){var e=this.lineno,n=this.colno;if(this.in_code){var B,I=this.current();if(this.is_finished())return null;if('"'==I||"'"==I)return t(p,this.parseString(I),e,n);if(B=this._extract(i))return t(f,B,e,n);if((B=this._extractString(a))||(B=this._extractString("-"+a)))return this.in_code=!1,t(v,B,e,n);if(B=this._extractString(c))return this.in_code=!1,t(y,B,e,n);if(-1!=r.indexOf(I)){this.forward();var R,P=["==","!=","<=",">=","//","**"],M=I+this.current();switch(-1!==P.indexOf(M)&&(this.forward(),I=M),I){case"(":R=x;break;case")":R=b;break;case"[":R=E;break;case"]":R=w;break;case"{":R=T;break;case"}":R=L;break;case",":R=A;break;case":":R=O;break;case"|":R=S;break;default:R=_}return t(R,I,e,n)}if(B=this._extractUntil(i+r),B.match(/^[-+]?[0-9]+$/)){if("."==this.current()){this.forward();var j=this._extract(o);return t(C,B+"."+j,e,n)}return t(N,B,e,n)}if(B.match(/^(true|false)$/))return t(F,B,e,n);if(B)return t(K,B,e,n);throw new Error("Unexpected value while parsing: "+B)}var B,V=s.charAt(0)+l.charAt(0)+h.charAt(0)+u.charAt(0);if(this.is_finished())return null;if((B=this._extractString(s+"-"))||(B=this._extractString(s)))return this.in_code=!0,t(d,B,e,n);if(B=this._extractString(l))return this.in_code=!0,t(g,B,e,n);B="";var D,U=!1;for(this._matches(h)&&(U=!0,B=this._extractString(h));null!==(D=this._extractUntil(V))&&(B+=D,!(this._matches(s)||this._matches(l)||this._matches(h))||U);){if(this._matches(u)){if(!U)throw new Error("unexpected end of comment");B+=this._extractString(u);break}B+=this.current(),this.forward()}if(null===D&&U)throw new Error("expected end of comment, got end of file");return t(U?k:m,B,e,n)},n.prototype.parseString=function(e){this.forward();for(var t=(this.lineno,this.colno,"");!this.is_finished()&&this.current()!=e;){var n=this.current();if("\\"==n){switch(this.forward(),this.current()){case"n":t+="\n";break;case"t":t+="	";break;case"r":t+="\r";break;default:t+=this.current()}this.forward()}else t+=n,this.forward()}return this.forward(),t},n.prototype._matches=function(e){if(this.index+e.length>this.length)return null;var t=this.str.slice(this.index,this.index+e.length);return t==e},n.prototype._extractString=function(e){return this._matches(e)?(this.index+=e.length,e):null},n.prototype._extractUntil=function(e){return this._extractMatching(!0,e||"")},n.prototype._extract=function(e){return this._extractMatching(!1,e)},n.prototype._extractMatching=function(e,t){if(this.is_finished())return null;var n=t.indexOf(this.current());if(e&&-1==n||!e&&-1!=n){var i=this.current();this.forward();for(var r=t.indexOf(this.current());(e&&-1==r||!e&&-1!=r)&&!this.is_finished();)i+=this.current(),this.forward(),r=t.indexOf(this.current());return i}return""},n.prototype.is_finished=function(){return this.index>=this.len},n.prototype.forwardN=function(e){for(var t=0;e>t;t++)this.forward()},n.prototype.forward=function(){this.index++,"\n"==this.previous()?(this.lineno++,this.colno=0):this.colno++},n.prototype.back=function(){if(this.index--,"\n"==this.current()){this.lineno--;var e=this.src.lastIndexOf("\n",this.index-1);this.colno=-1==e?this.index:this.index-e}else this.colno--},n.prototype.current=function(){return this.is_finished()?"":this.str.charAt(this.index)},n.prototype.previous=function(){return this.str.charAt(this.index-1)},e.lexer={lex:function(e){return new n(e)},setTags:function(e){s=e.blockStart||s,a=e.blockEnd||a,l=e.variableStart||l,c=e.variableEnd||c,h=e.commentStart||h,u=e.commentEnd||u},TOKEN_STRING:p,TOKEN_WHITESPACE:f,TOKEN_DATA:m,TOKEN_BLOCK_START:d,TOKEN_BLOCK_END:v,TOKEN_VARIABLE_START:g,TOKEN_VARIABLE_END:y,TOKEN_COMMENT:k,TOKEN_LEFT_PAREN:x,TOKEN_RIGHT_PAREN:b,TOKEN_LEFT_BRACKET:E,TOKEN_RIGHT_BRACKET:w,TOKEN_LEFT_CURLY:T,TOKEN_RIGHT_CURLY:L,TOKEN_OPERATOR:_,TOKEN_COMMA:A,TOKEN_COLON:O,TOKEN_PIPE:S,TOKEN_INT:N,TOKEN_FLOAT:C,TOKEN_BOOLEAN:F,TOKEN_SYMBOL:K,TOKEN_SPECIAL:B}}(),function(){var t=e.lexer,n=e.nodes,i=e.object,r=e.lib,o=i.extend({init:function(e){this.tokens=e,this.peeked=null,this.breakOnBlocks=null,this.dropLeadingWhitespace=!1,this.extensions=[]},nextToken:function(e){var n;if(this.peeked){if(e||this.peeked.type!=t.TOKEN_WHITESPACE)return n=this.peeked,this.peeked=null,n;this.peeked=null}if(n=this.tokens.nextToken(),!e)for(;n&&n.type==t.TOKEN_WHITESPACE;)n=this.tokens.nextToken();return n},peekToken:function(){return this.peeked=this.peeked||this.nextToken(),this.peeked},pushToken:function(e){if(this.peeked)throw new Error("pushToken: can only push one token on between reads");this.peeked=e},fail:function(e,t,n){if((void 0===t||void 0===n)&&this.peekToken()){var i=this.peekToken();t=i.lineno,n=i.colno}throw void 0!==t&&(t+=1),void 0!==n&&(n+=1),new r.TemplateError(e,t,n)},skip:function(e){var t=this.nextToken();return t&&t.type==e?!0:(this.pushToken(t),!1)},expect:function(e){var t=this.nextToken();return t.type!==e&&this.fail("expected "+e+", got "+t.type,t.lineno,t.colno),t},skipValue:function(e,t){var n=this.nextToken();return n&&n.type==e&&n.value==t?!0:(this.pushToken(n),!1)},skipWhitespace:function(){return this.skip(t.TOKEN_WHITESPACE)},skipSymbol:function(e){return this.skipValue(t.TOKEN_SYMBOL,e)},advanceAfterBlockEnd:function(e){if(!e){var n=this.peekToken();n||this.fail("unexpected end of file"),n.type!=t.TOKEN_SYMBOL&&this.fail("advanceAfterBlockEnd: expected symbol token or explicit name to be passed"),e=this.nextToken().value}var n=this.nextToken();n&&n.type==t.TOKEN_BLOCK_END?"-"===n.value.charAt(0)&&(this.dropLeadingWhitespace=!0):this.fail("expected block end in "+e+" statement")},advanceAfterVariableEnd:function(){this.skip(t.TOKEN_VARIABLE_END)||this.fail("expected variable end")},parseFor:function(){var e,i,r=this.peekToken();this.skipSymbol("for")?(e=new n.For(r.lineno,r.colno),i="endfor"):this.skipSymbol("asyncEach")?(e=new n.AsyncEach(r.lineno,r.colno),i="endeach"):this.skipSymbol("asyncAll")?(e=new n.AsyncAll(r.lineno,r.colno),i="endall"):this.fail("parseFor: expected for{Async}",r.lineno,r.colno),e.name=this.parsePrimary(),e.name instanceof n.Symbol||this.fail("parseFor: variable name expected for loop");var o=this.peekToken().type;if(o==t.TOKEN_COMMA){var s=e.name;for(e.name=new n.Array(s.lineno,s.colno),e.name.addChild(s);this.skip(t.TOKEN_COMMA);){var a=this.parsePrimary();e.name.addChild(a)}}return this.skipSymbol("in")||this.fail('parseFor: expected "in" keyword for loop',r.lineno,r.colno),e.arr=this.parseExpression(),this.advanceAfterBlockEnd(r.value),e.body=this.parseUntilBlocks(i),this.advanceAfterBlockEnd(),e},parseMacro:function(){var e=this.peekToken();this.skipSymbol("macro")||this.fail("expected macro");var t=this.parsePrimary(!0),i=this.parseSignature(),r=new n.Macro(e.lineno,e.colno,t,i);return this.advanceAfterBlockEnd(e.value),r.body=this.parseUntilBlocks("endmacro"),this.advanceAfterBlockEnd(),r},parseImport:function(){var e=this.peekToken();this.skipSymbol("import")||this.fail("parseImport: expected import",e.lineno,e.colno);var t=this.parseExpression();this.skipSymbol("as")||this.fail('parseImport: expected "as" keyword',e.lineno,e.colno);var i=this.parsePrimary(),r=new n.Import(e.lineno,e.colno,t,i);return this.advanceAfterBlockEnd(e.value),r},parseFrom:function(){var e=this.peekToken();this.skipSymbol("from")||this.fail("parseFrom: expected from");var i=this.parsePrimary(),r=new n.FromImport(e.lineno,e.colno,i,new n.NodeList);this.skipSymbol("import")||this.fail("parseFrom: expected import",e.lineno,e.colno);for(var o=r.names;;){var s=this.peekToken();if(s.type==t.TOKEN_BLOCK_END){o.children.length||this.fail("parseFrom: Expected at least one import name",e.lineno,e.colno),"-"==s.value.charAt(0)&&(this.dropLeadingWhitespace=!0),this.nextToken();break}o.children.length>0&&!this.skip(t.TOKEN_COMMA)&&this.fail("parseFrom: expected comma",e.lineno,e.colno);var a=this.parsePrimary();if("_"==a.value.charAt(0)&&this.fail("parseFrom: names starting with an underscore cannot be imported",a.lineno,a.colno),this.skipSymbol("as")){var l=this.parsePrimary();o.addChild(new n.Pair(a.lineno,a.colno,a,l))}else o.addChild(a)}return r},parseBlock:function(){var e=this.peekToken();this.skipSymbol("block")||this.fail("parseBlock: expected block",e.lineno,e.colno);var t=new n.Block(e.lineno,e.colno);return t.name=this.parsePrimary(),t.name instanceof n.Symbol||this.fail("parseBlock: variable name expected",e.lineno,e.colno),this.advanceAfterBlockEnd(e.value),t.body=this.parseUntilBlocks("endblock"),this.peekToken()||this.fail("parseBlock: expected endblock, got end of file"),this.advanceAfterBlockEnd(),t},parseTemplateRef:function(e,t){var n=this.peekToken();this.skipSymbol(e)||this.fail("parseTemplateRef: expected "+e);var i=new t(n.lineno,n.colno);return i.template=this.parseExpression(),this.advanceAfterBlockEnd(n.value),i},parseExtends:function(){return this.parseTemplateRef("extends",n.Extends)},parseInclude:function(){return this.parseTemplateRef("include",n.Include)},parseIf:function(){var e,t=this.peekToken();this.skipSymbol("if")||this.skipSymbol("elif")?e=new n.If(t.lineno,t.colno):this.skipSymbol("ifAsync")?e=new n.IfAsync(t.lineno,t.colno):this.fail("parseIf: expected if or elif",t.lineno,t.colno),e.cond=this.parseExpression(),this.advanceAfterBlockEnd(t.value),e.body=this.parseUntilBlocks("elif","else","endif");var i=this.peekToken();switch(i&&i.value){case"elif":e.else_=this.parseIf();break;case"else":this.advanceAfterBlockEnd(),e.else_=this.parseUntilBlocks("endif"),this.advanceAfterBlockEnd();break;case"endif":e.else_=null,this.advanceAfterBlockEnd();break;default:this.fail("parseIf: expected endif, else, or endif, got end of file")}return e},parseSet:function(){var e=this.peekToken();this.skipSymbol("set")||this.fail("parseSet: expected set",e.lineno,e.colno);for(var i,r=new n.Set(e.lineno,e.colno,[]);(i=this.parsePrimary())&&(r.targets.push(i),this.skip(t.TOKEN_COMMA)););return this.skipValue(t.TOKEN_OPERATOR,"=")||this.fail("parseSet: expected = in set tag",e.lineno,e.colno),r.value=this.parseExpression(),this.advanceAfterBlockEnd(e.value),r},parseStatement:function(){var e,i=this.peekToken();if(i.type!=t.TOKEN_SYMBOL&&this.fail("tag name expected",i.lineno,i.colno),this.breakOnBlocks&&-1!==this.breakOnBlocks.indexOf(i.value))return null;switch(i.value){case"raw":return this.parseRaw();case"if":case"ifAsync":return this.parseIf();case"for":case"asyncEach":case"asyncAll":return this.parseFor();case"block":return this.parseBlock();case"extends":return this.parseExtends();case"include":return this.parseInclude();case"set":return this.parseSet();case"macro":return this.parseMacro();case"import":return this.parseImport();case"from":return this.parseFrom();default:if(this.extensions.length)for(var r=0;r<this.extensions.length;r++){var o=this.extensions[r];if(-1!==(o.tags||[]).indexOf(i.value))return o.parse(this,n,t)}this.fail("unknown block tag: "+i.value,i.lineno,i.colno)}return e},parseRaw:function(){this.advanceAfterBlockEnd();for(var e="",i=this.peekToken();;){var r=this.nextToken(!0);if(r||this.fail("expected endraw, got end of file"),r.type==t.TOKEN_BLOCK_START){var o=null,s=this.nextToken(!0);if(s.type==t.TOKEN_WHITESPACE&&(o=s,s=this.nextToken()),s.type==t.TOKEN_SYMBOL&&"endraw"==s.value){this.advanceAfterBlockEnd(s.value);break}e+=r.value,o&&(e+=o.value),e+=s.value}else e+=r.type===t.TOKEN_STRING?'"'+r.value+'"':r.value}var a=new n.Output(i.lineno,i.colno,[new n.TemplateData(i.lineno,i.colno,e)]);return a},parsePostfix:function(e){for(var i=this.peekToken();i;){if(i.type==t.TOKEN_LEFT_PAREN)e=new n.FunCall(i.lineno,i.colno,e,this.parseSignature());else if(i.type==t.TOKEN_LEFT_BRACKET){var r=this.parseAggregate();r.children.length>1&&this.fail("invalid index"),e=new n.LookupVal(i.lineno,i.colno,e,r.children[0])}else{if(i.type!=t.TOKEN_OPERATOR||"."!=i.value)break;this.nextToken();var o=this.nextToken();o.type!=t.TOKEN_SYMBOL&&this.fail("expected name as lookup value, got "+o.value,o.lineno,o.colno);var r=new n.Literal(o.lineno,o.colno,o.value);e=new n.LookupVal(i.lineno,i.colno,e,r)}i=this.peekToken()}return e},parseExpression:function(){var e=this.parseInlineIf();return e},parseInlineIf:function(){var e=this.parseOr();if(this.skipSymbol("if")){var t=this.parseOr(),i=e;e=new n.InlineIf(e.lineno,e.colno),e.body=i,e.cond=t,e.else_=this.skipSymbol("else")?this.parseOr():null}return e},parseOr:function(){for(var e=this.parseAnd();this.skipSymbol("or");){var t=this.parseAnd();e=new n.Or(e.lineno,e.colno,e,t)}return e},parseAnd:function(){for(var e=this.parseNot();this.skipSymbol("and");){var t=this.parseNot();e=new n.And(e.lineno,e.colno,e,t)}return e},parseNot:function(){var e=this.peekToken();return this.skipSymbol("not")?new n.Not(e.lineno,e.colno,this.parseNot()):this.parseCompare()},parseCompare:function(){for(var e=["==","!=","<",">","<=",">="],i=this.parseAdd(),r=[];;){var o=this.nextToken();if(!o)break;if(-1!==e.indexOf(o.value))r.push(new n.CompareOperand(o.lineno,o.colno,this.parseAdd(),o.value));else if(o.type==t.TOKEN_SYMBOL&&"in"==o.value)r.push(new n.CompareOperand(o.lineno,o.colno,this.parseAdd(),"in"));else{if(o.type!=t.TOKEN_SYMBOL||"not"!=o.value||!this.skipSymbol("in")){this.pushToken(o);break}r.push(new n.CompareOperand(o.lineno,o.colno,this.parseAdd(),"notin"))}}return r.length?new n.Compare(r[0].lineno,r[0].colno,i,r):i},parseAdd:function(){for(var e=this.parseSub();this.skipValue(t.TOKEN_OPERATOR,"+");){var i=this.parseSub();e=new n.Add(e.lineno,e.colno,e,i)}return e},parseSub:function(){for(var e=this.parseMul();this.skipValue(t.TOKEN_OPERATOR,"-");){var i=this.parseMul();e=new n.Sub(e.lineno,e.colno,e,i)}return e},parseMul:function(){for(var e=this.parseDiv();this.skipValue(t.TOKEN_OPERATOR,"*");){var i=this.parseDiv();e=new n.Mul(e.lineno,e.colno,e,i)}return e},parseDiv:function(){for(var e=this.parseFloorDiv();this.skipValue(t.TOKEN_OPERATOR,"/");){var i=this.parseFloorDiv();e=new n.Div(e.lineno,e.colno,e,i)}return e},parseFloorDiv:function(){for(var e=this.parseMod();this.skipValue(t.TOKEN_OPERATOR,"//");){var i=this.parseMod();e=new n.FloorDiv(e.lineno,e.colno,e,i)}return e},parseMod:function(){for(var e=this.parsePow();this.skipValue(t.TOKEN_OPERATOR,"%");){var i=this.parsePow();e=new n.Mod(e.lineno,e.colno,e,i)}return e},parsePow:function(){for(var e=this.parseUnary();this.skipValue(t.TOKEN_OPERATOR,"**");){var i=this.parseUnary();e=new n.Pow(e.lineno,e.colno,e,i)}return e},parseUnary:function(e){var i,r=this.peekToken();return i=this.skipValue(t.TOKEN_OPERATOR,"-")?new n.Neg(r.lineno,r.colno,this.parseUnary(!0)):this.skipValue(t.TOKEN_OPERATOR,"+")?new n.Pos(r.lineno,r.colno,this.parseUnary(!0)):this.parsePrimary(),e||(i=this.parseFilter(i)),i},parsePrimary:function(e){var i=this.nextToken(),r=null,o=null;return i?i.type==t.TOKEN_STRING?r=i.value:i.type==t.TOKEN_INT?r=parseInt(i.value,10):i.type==t.TOKEN_FLOAT?r=parseFloat(i.value):i.type==t.TOKEN_BOOLEAN&&("true"==i.value?r=!0:"false"==i.value?r=!1:this.fail("invalid boolean: "+i.val,i.lineno,i.colno)):this.fail("expected expression, got end of file"),null!==r?o=new n.Literal(i.lineno,i.colno,r):i.type==t.TOKEN_SYMBOL?(o=new n.Symbol(i.lineno,i.colno,i.value),e||(o=this.parsePostfix(o))):(this.pushToken(i),o=this.parseAggregate()),o?o:void this.fail("unexpected token: "+i.value,i.lineno,i.colno)},parseFilter:function(e){for(;this.skip(t.TOKEN_PIPE);){for(var i=this.expect(t.TOKEN_SYMBOL),r=i.value;this.skipValue(t.TOKEN_OPERATOR,".");)r+="."+this.expect(t.TOKEN_SYMBOL).value;if(e=new n.Filter(i.lineno,i.colno,new n.Symbol(i.lineno,i.colno,r),new n.NodeList(i.lineno,i.colno,[e])),this.peekToken().type==t.TOKEN_LEFT_PAREN){var o=this.parsePostfix(e);e.args.children=e.args.children.concat(o.args.children)}}return e},parseAggregate:function(){var e,i=this.nextToken();switch(i.type){case t.TOKEN_LEFT_PAREN:e=new n.Group(i.lineno,i.colno);break;case t.TOKEN_LEFT_BRACKET:e=new n.Array(i.lineno,i.colno);break;case t.TOKEN_LEFT_CURLY:e=new n.Dict(i.lineno,i.colno);break;default:return null}for(;;){var r=this.peekToken().type;if(r==t.TOKEN_RIGHT_PAREN||r==t.TOKEN_RIGHT_BRACKET||r==t.TOKEN_RIGHT_CURLY){this.nextToken();break}if(e.children.length>0&&(this.skip(t.TOKEN_COMMA)||this.fail("parseAggregate: expected comma after expression",i.lineno,i.colno)),e instanceof n.Dict){var o=this.parsePrimary();this.skip(t.TOKEN_COLON)||this.fail("parseAggregate: expected colon after dict key",i.lineno,i.colno);var s=this.parseExpression();e.addChild(new n.Pair(o.lineno,o.colno,o,s))}else{var a=this.parseExpression();e.addChild(a)}}return e},parseSignature:function(e,i){var r=this.peekToken();if(!i&&r.type!=t.TOKEN_LEFT_PAREN){if(e)return null;this.fail("expected arguments",r.lineno,r.colno)}r.type==t.TOKEN_LEFT_PAREN&&(r=this.nextToken());for(var o=new n.NodeList(r.lineno,r.colno),s=new n.KeywordArgs(r.lineno,r.colno),a=!1;;){if(r=this.peekToken(),!i&&r.type==t.TOKEN_RIGHT_PAREN){this.nextToken();break}if(i&&r.type==t.TOKEN_BLOCK_END)break;if(a&&!this.skip(t.TOKEN_COMMA))this.fail("parseSignature: expected comma after expression",r.lineno,r.colno);else{var l=this.parseExpression();this.skipValue(t.TOKEN_OPERATOR,"=")?s.addChild(new n.Pair(l.lineno,l.colno,l,this.parseExpression())):o.addChild(l)}a=!0}return s.children.length&&o.addChild(s),o},parseUntilBlocks:function(){var e=this.breakOnBlocks;this.breakOnBlocks=r.toArray(arguments);var t=this.parse();return this.breakOnBlocks=e,t},parseNodes:function(){for(var e,i=[];e=this.nextToken();)if(e.type==t.TOKEN_DATA){var r=e.value,o=this.peekToken(),s=o&&o.value;this.dropLeadingWhitespace&&(r=r.replace(/^\s*/,""),this.dropLeadingWhitespace=!1),o&&o.type==t.TOKEN_BLOCK_START&&"-"==s.charAt(s.length-1)&&(r=r.replace(/\s*$/,"")),i.push(new n.Output(e.lineno,e.colno,[new n.TemplateData(e.lineno,e.colno,r)]))}else if(e.type==t.TOKEN_BLOCK_START){var a=this.parseStatement();if(!a)break;i.push(a)}else if(e.type==t.TOKEN_VARIABLE_START){var l=this.parseExpression();this.advanceAfterVariableEnd(),i.push(new n.Output(e.lineno,e.colno,[l]))}else e.type!=t.TOKEN_COMMENT&&this.fail("Unexpected token at top-level: "+e.type,e.lineno,e.colno);return i},parse:function(){return new n.NodeList(0,0,this.parseNodes())},parseAsRoot:function(){return new n.Root(0,0,this.parseNodes())}});e.parser={parse:function(e,n){var i=new o(t.lex(e));return void 0!==n&&(i.extensions=n),i.parseAsRoot()}}}(),function(){function t(){return"hole_"+p++}function n(e,t){for(var n=null,i=0;i<e.length;i++){var r=t(e[i]);r!==e[i]&&(n||(n=e.slice()),n[i]=r)}return n||e}function i(e,t,r){if(!(e instanceof u.Node))return e;if(!r){var o=t(e);if(o&&o!==e)return o}if(e instanceof u.NodeList){var s=n(e.children,function(e){return i(e,t,r)});s!==e.children&&(e=new u[e.typename](e.lineno,e.colno,s))}else if(e instanceof u.CallExtension){var a=i(e.args,t,r),l=n(e.contentArgs,function(e){return i(e,t,r)});(a!==e.args||l!==e.contentArgs)&&(e=new u[e.typename](e.extName,e.prop,a,l))}else{var c=e.fields.map(function(t){return e[t]}),h=n(c,function(e){return i(e,t,r)});h!==c&&(e=new u[e.typename](e.lineno,e.colno),h.forEach(function(t,n){e[e.fields[n]]=t}))}return r?t(e)||e:e}function r(e,t){return i(e,t,!0)}function o(e,n,i){var o=[],s=r(i?e[i]:e,function(e){if(e instanceof u.Block)return e;if(e instanceof u.Filter&&-1!==n.indexOf(e.name.value)||e instanceof u.CallExtensionAsync){var i=new u.Symbol(e.lineno,e.colno,t());return o.push(new u.FilterAsync(e.lineno,e.colno,e.name,e.args,i)),i}});return i?e[i]=s:e=s,o.length?(o.push(e),new u.NodeList(e.lineno,e.colno,o)):e}function s(e,t){return r(e,function(e){return e instanceof u.Output?o(e,t):e instanceof u.For?o(e,t,"arr"):e instanceof u.If?o(e,t,"cond"):e instanceof u.CallExtension?o(e,t,"args"):void 0})}function a(e){return i(e,function(e){if(e instanceof u.Block){var n=!1,r=t();e.body=i(e.body,function(e){return e instanceof u.FunCall&&"super"==e.name.value?(n=!0,new u.Symbol(e.lineno,e.colno,r)):void 0}),n&&e.body.children.unshift(new u.Super(0,0,e.name,new u.Symbol(0,0,r)))}})}function l(e){return r(e,function(e){if(e instanceof u.If||e instanceof u.For){var t=!1;if(i(e,function(e){return e instanceof u.FilterAsync||e instanceof u.IfAsync||e instanceof u.AsyncEach||e instanceof u.AsyncAll||e instanceof u.CallExtensionAsync?(t=!0,e):void 0}),t){if(e instanceof u.If)return new u.IfAsync(e.lineno,e.colno,e.cond,e.body,e.else_);if(e instanceof u.For)return new u.AsyncEach(e.lineno,e.colno,e.arr,e.name,e.body)}}})}function c(e,t){return l(a(s(e,t)))}function h(e,t){return c(e,t||[])}var u=e.nodes,p=0;e.transformer={transform:h}}(),function(){function t(e){return function(t,n){this.compile(t.left,n),this.emit(e),this.compile(t.right,n)}}var n=e.lib,i=e.parser,r=e.transformer,o=e.nodes,s=e.object,a=e.runtime.Frame,l={"==":"==","!=":"!=","<":"<",">":">","<=":"<=",">=":">="},c=s.extend({init:function(){this.codebuf=[],this.lastId=0,this.buffer=null,this.bufferStack=[],this.isChild=!1,this.scopeClosers=""},fail:function(e,t,i){throw void 0!==t&&(t+=1),void 0!==i&&(i+=1),new n.TemplateError(e,t,i)},pushBufferId:function(e){this.bufferStack.push(this.buffer),this.buffer=e,this.emit("var "+this.buffer+' = "";')
+},popBufferId:function(){this.buffer=this.bufferStack.pop()},emit:function(e){this.codebuf.push(e)},emitLine:function(e){this.emit(e+"\n")},emitLines:function(){n.each(n.toArray(arguments),function(e){this.emitLine(e)},this)},emitFuncBegin:function(e){this.buffer="output",this.scopeClosers="",this.emitLine("function "+e+"(env, context, frame, runtime, cb) {"),this.emitLine("var lineno = null;"),this.emitLine("var colno = null;"),this.emitLine("var "+this.buffer+' = "";'),this.emitLine("try {")},emitFuncEnd:function(e){e||this.emitLine("cb(null, "+this.buffer+");"),this.closeScopeLevels(),this.emitLine("} catch (e) {"),this.emitLine("  cb(runtime.handleError(e, lineno, colno));"),this.emitLine("}"),this.emitLine("}"),this.buffer=null},addScopeLevel:function(){this.scopeClosers+="})"},closeScopeLevels:function(){this.emitLine(this.scopeClosers+";"),this.scopeClosers=""},withScopedSyntax:function(e){var t=this.scopeClosers;this.scopeClosers="",e.call(this),this.closeScopeLevels(),this.scopeClosers=t},makeCallback:function(e){var t=this.tmpid();return"function("+t+(e?","+e:"")+") {\nif("+t+") { cb("+t+"); return; }"},tmpid:function(){return this.lastId++,"t_"+this.lastId},_bufferAppend:function(e){this.emit(this.buffer+" += runtime.suppressValue("),e.call(this),this.emit(", env.autoesc);\n")},_compileChildren:function(e,t){for(var n=e.children,i=0,r=n.length;r>i;i++)this.compile(n[i],t)},_compileAggregate:function(e,t,n,i){n&&this.emit(n);for(var r=0;r<e.children.length;r++)r>0&&this.emit(","),this.compile(e.children[r],t);i&&this.emit(i)},_compileExpression:function(e,t){this.assertType(e,o.Literal,o.Symbol,o.Group,o.Array,o.Dict,o.FunCall,o.Filter,o.LookupVal,o.Compare,o.InlineIf,o.And,o.Or,o.Not,o.Add,o.Sub,o.Mul,o.Div,o.FloorDiv,o.Mod,o.Pow,o.Neg,o.Pos,o.Compare,o.NodeList),this.compile(e,t)},assertType:function(e){for(var t=n.toArray(arguments).slice(1),i=!1,r=0;r<t.length;r++)e instanceof t[r]&&(i=!0);i||this.fail("assertType: invalid type: "+e.typename,e.lineno,e.colno)},compileCallExtension:function(e,t,i){var r=(e.extName,e.args),s=e.contentArgs,a="boolean"==typeof e.autoescape?e.autoescape:!0;if(i||this.emit(this.buffer+" += runtime.suppressValue("),this.emit('env.getExtension("'+e.extName+'")["'+e.prop+'"]('),this.emit("context"),(r||s)&&this.emit(","),r&&(r instanceof o.NodeList||this.fail("compileCallExtension: arguments must be a NodeList, use `parser.parseSignature`"),n.each(r.children,function(e,n){this._compileExpression(e,t),(n!=r.children.length-1||s.length)&&this.emit(",")},this)),s.length&&n.each(s,function(e,n){if(n>0&&this.emit(","),e){var i=this.tmpid();this.emitLine("function(cb) {"),this.emitLine("if(!cb) { cb = function(err) { if(err) { throw err; }}}"),this.pushBufferId(i),this.withScopedSyntax(function(){this.compile(e,t),this.emitLine("cb(null, "+i+");")}),this.popBufferId(),this.emitLine("return "+i+";"),this.emitLine("}")}else this.emit("null")},this),i){var l=this.tmpid();this.emitLine(", "+this.makeCallback(l)),this.emitLine(this.buffer+" += runtime.suppressValue("+l+", "+a+" && env.autoesc);"),this.addScopeLevel()}else this.emit(")"),this.emit(", "+a+" && env.autoesc);\n")},compileCallExtensionAsync:function(e,t){this.compileCallExtension(e,t,!0)},compileNodeList:function(e,t){this._compileChildren(e,t)},compileLiteral:function(e){if("string"==typeof e.value){var t=e.value.replace(/\\/g,"\\\\");t=t.replace(/"/g,'\\"'),t=t.replace(/\n/g,"\\n"),t=t.replace(/\r/g,"\\r"),t=t.replace(/\t/g,"\\t"),this.emit('"'+t+'"')}else this.emit(e.value.toString())},compileSymbol:function(e,t){var n,i=e.value;this.emit((n=t.lookup(i))?n:'runtime.contextOrFrameLookup(context, frame, "'+i+'")')},compileGroup:function(e,t){this._compileAggregate(e,t,"(",")")},compileArray:function(e,t){this._compileAggregate(e,t,"[","]")},compileDict:function(e,t){this._compileAggregate(e,t,"{","}")},compilePair:function(e,t){var n=e.key,i=e.value;n instanceof o.Symbol?n=new o.Literal(n.lineno,n.colno,n.value):n instanceof o.Literal&&"string"==typeof n.value||this.fail("compilePair: Dict keys must be strings or names",n.lineno,n.colno),this.compile(n,t),this.emit(": "),this._compileExpression(i,t)},compileInlineIf:function(e,t){this.emit("("),this.compile(e.cond,t),this.emit("?"),this.compile(e.body,t),this.emit(":"),null!==e.else_?this.compile(e.else_,t):this.emit('""'),this.emit(")")},compileOr:t(" || "),compileAnd:t(" && "),compileAdd:t(" + "),compileSub:t(" - "),compileMul:t(" * "),compileDiv:t(" / "),compileMod:t(" % "),compileNot:function(e,t){this.emit("!"),this.compile(e.target,t)},compileFloorDiv:function(e,t){this.emit("Math.floor("),this.compile(e.left,t),this.emit(" / "),this.compile(e.right,t),this.emit(")")},compilePow:function(e,t){this.emit("Math.pow("),this.compile(e.left,t),this.emit(", "),this.compile(e.right,t),this.emit(")")},compileNeg:function(e,t){this.emit("-"),this.compile(e.target,t)},compilePos:function(e,t){this.emit("+"),this.compile(e.target,t)},compileCompare:function(e,t){this.compile(e.expr,t);for(var n=0;n<e.ops.length;n++){var i=e.ops[n];this.emit(" "+l[i.type]+" "),this.compile(i.expr,t)}},compileLookupVal:function(e,t){this.emit("runtime.memberLookup(("),this._compileExpression(e.target,t),this.emit("),"),this._compileExpression(e.val,t),this.emit(", env.autoesc)")},_getNodeName:function(e){switch(e.typename){case"Symbol":return e.value;case"FunCall":return"the return value of ("+this._getNodeName(e.name)+")";case"LookupVal":return this._getNodeName(e.target)+'["'+this._getNodeName(e.val)+'"]';case"Literal":return e.value.toString().substr(0,10);default:return"--expression--"}},compileFunCall:function(e,t){this.emit("(lineno = "+e.lineno+", colno = "+e.colno+", "),this.emit("runtime.callWrap("),this._compileExpression(e.name,t),this.emit(', "'+this._getNodeName(e.name).replace(/"/g,'\\"')+'", '),this._compileAggregate(e.args,t,"[","])"),this.emit(")")},compileFilter:function(e,t){var n=e.name;this.assertType(n,o.Symbol),this.emit('env.getFilter("'+n.value+'").call(context, '),this._compileAggregate(e.args,t),this.emit(")")},compileFilterAsync:function(e,t){var n=e.name;this.assertType(n,o.Symbol);var i=e.symbol.value;t.set(i,i),this.emit('env.getFilter("'+n.value+'").call(context, '),this._compileAggregate(e.args,t),this.emitLine(", "+this.makeCallback(i)),this.addScopeLevel()},compileKeywordArgs:function(e,t){var i=[];n.each(e.children,function(e){i.push(e.key.value)}),this.emit("runtime.makeKeywordArgs("),this.compileDict(e,t),this.emit(")")},compileSet:function(e,t){var i=[];n.each(e.targets,function(e){var n=e.value,r=t.lookup(n);null==r&&(r=this.tmpid(),this.emitLine("var "+r+";")),i.push(r)},this),this.emit(i.join(" = ")+" = "),this._compileExpression(e.value,t),this.emitLine(";"),n.each(e.targets,function(e,t){var n=i[t],r=e.value;this.emitLine('frame.set("'+r+'", '+n+", true);"),this.emitLine("if(!frame.parent) {"),this.emitLine('context.setVariable("'+r+'", '+n+");"),"_"!=r.charAt(0)&&this.emitLine('context.addExport("'+r+'");'),this.emitLine("}")},this)},compileIf:function(e,t,n){this.emit("if("),this._compileExpression(e.cond,t),this.emitLine(") {"),this.withScopedSyntax(function(){this.compile(e.body,t),n&&this.emit("cb()")}),e.else_?(this.emitLine("}\nelse {"),this.withScopedSyntax(function(){this.compile(e.else_,t),n&&this.emit("cb()")})):n&&(this.emitLine("}\nelse {"),this.emit("cb()")),this.emitLine("}")},compileIfAsync:function(e,t){this.emit("(function(cb) {"),this.compileIf(e,t,!0),this.emit("})(function() {"),this.addScopeLevel()},scanLoop:function(e){var t={};return e.iterFields(function(e){var i=e.findAll(o.LookupVal);n.each(i,function(e){e.target instanceof o.Symbol&&"loop"==e.target.value&&e.val instanceof o.Literal&&(t[e.val.value]=!0)})}),t},emitLoopBindings:function(e,t,n,i,r){r=r||n+".length";var o={index:i+" + 1",index0:i,revindex:r+" - "+i,revindex0:r+" - "+i+" - 1",first:i+" === 0",last:i+" === "+r+" - 1",length:r};for(var s in o)s in t&&this.emitLine('frame.set("loop.'+s+'", '+o[s]+");")},compileFor:function(e,t){var n=this.tmpid(),i=this.tmpid(),r=this.tmpid(),s=this.scanLoop(e);if(t=t.push(),this.emitLine("frame = frame.push();"),this.emit("var "+r+" = "),this._compileExpression(e.arr,t),this.emitLine(";"),this.emit("if("+r+") {"),e.name instanceof o.Array){this.emitLine("var "+n+";"),this.emitLine("if(runtime.isArray("+r+")) {"),this.emitLine("for("+n+"=0; "+n+" < "+r+".length; "+n+"++) {");for(var a=0;a<e.name.children.length;a++){var l=this.tmpid();this.emitLine("var "+l+" = "+r+"["+n+"]["+a+"]"),this.emitLine('frame.set("'+e.name.children[a].value+'", '+r+"["+n+"]["+a+"]);"),t.set(e.name.children[a].value,l)}this.emitLoopBindings(e,s,r,n),this.withScopedSyntax(function(){this.compile(e.body,t)}),this.emitLine("}"),this.emitLine("} else {");var c=e.name.children[0],h=e.name.children[1],u=this.tmpid(),p=this.tmpid();t.set(c.value,u),t.set(h.value,p),this.emitLine(n+" = -1;"),(s.revindex||s.revindex0||s.last||s.length)&&this.emitLine("var "+i+" = runtime.keys("+r+").length;"),this.emitLine("for(var "+u+" in "+r+") {"),this.emitLine(n+"++;"),this.emitLine("var "+p+" = "+r+"["+u+"];"),this.emitLine('frame.set("'+c.value+'", '+u+");"),this.emitLine('frame.set("'+h.value+'", '+p+");"),this.emitLoopBindings(e,s,r,n,i),this.withScopedSyntax(function(){this.compile(e.body,t)}),this.emitLine("}"),this.emitLine("}")}else{var p=this.tmpid();t.set(e.name.value,p),this.emitLine("for(var "+n+"=0; "+n+" < "+r+".length; "+n+"++) {"),this.emitLine("var "+p+" = "+r+"["+n+"];"),this.emitLine('frame.set("'+e.name.value+'", '+p+");"),this.emitLoopBindings(e,s,r,n),this.withScopedSyntax(function(){this.compile(e.body,t)}),this.emitLine("}")}this.emitLine("}"),this.emitLine("frame = frame.pop();")},_compileAsyncLoop:function(e,t,i){var r=this.tmpid(),s=this.tmpid(),a=this.tmpid(),l=this.scanLoop(e),c=i?"asyncAll":"asyncEach";if(t=t.push(),this.emitLine("frame = frame.push();"),this.emit("var "+a+" = "),this._compileExpression(e.arr,t),this.emitLine(";"),e.name instanceof o.Array)this.emit("runtime."+c+"("+a+", "+e.name.children.length+", function("),n.each(e.name.children,function(e){this.emit(e.value+",")},this),this.emit(r+","+s+",next) {"),n.each(e.name.children,function(e){var n=e.value;t.set(n,n),this.emitLine('frame.set("'+n+'", '+n+");")},this);else{var h=e.name.value;this.emitLine("runtime."+c+"("+a+", 1, function("+h+", "+r+", "+s+",next) {"),this.emitLine('frame.set("'+h+'", '+h+");"),t.set(h,h)}this.emitLoopBindings(e,l,a,r,s),this.withScopedSyntax(function(){var n;i&&(n=this.tmpid(),this.pushBufferId(n)),this.compile(e.body,t),this.emitLine("next("+r+(n?","+n:"")+");"),i&&this.popBufferId()});var u=this.tmpid();this.emitLine("}, "+this.makeCallback(u)),this.addScopeLevel(),i&&this.emitLine(this.buffer+" += "+u+";"),this.emitLine("frame = frame.pop();")},compileAsyncEach:function(e,t){this._compileAsyncLoop(e,t)},compileAsyncAll:function(e,t){this._compileAsyncLoop(e,t,!0)},_emitMacroBegin:function(e,t){var i=[],r=null,s="macro_"+this.tmpid();n.each(e.args.children,function(t,n){n===e.args.children.length-1&&t instanceof o.Dict?r=t:(this.assertType(t,o.Symbol),i.push(t))},this);var a=n.map(i,function(e){return"l_"+e.value});a.push("kwargs");var l=n.map(i,function(e){return'"'+e.value+'"'}),c=n.map(r&&r.children||[],function(e){return'"'+e.key.value+'"'});return this.emitLines("var "+s+" = runtime.makeMacro(","["+l.join(", ")+"], ","["+c.join(", ")+"], ","function ("+a.join(", ")+") {","frame = frame.push();","kwargs = kwargs || {};"),n.each(i,function(e){this.emitLine('frame.set("'+e.value+'", l_'+e.value+");"),t.set(e.value,"l_"+e.value)},this),r&&n.each(r.children,function(e){var n=e.key.value;this.emit('frame.set("'+n+'", kwargs.hasOwnProperty("'+n+'") ? kwargs["'+n+'"] : '),this._compileExpression(e.value,t),this.emitLine(");")},this),s},_emitMacroEnd:function(e){this.emitLine("frame = frame.pop();"),this.emitLine("return new runtime.SafeString("+e+");"),this.emitLine("});")},compileMacro:function(e,t){t=t.push();var n=this._emitMacroBegin(e,t),i=this.tmpid();this.pushBufferId(i),this.withScopedSyntax(function(){this.compile(e.body,t)}),this._emitMacroEnd(i),this.popBufferId();var r=e.name.value;t=t.pop(),t.set(r,n),t.parent?this.emitLine('frame.set("'+r+'", '+n+");"):("_"!=e.name.value.charAt(0)&&this.emitLine('context.addExport("'+r+'");'),this.emitLine('context.setVariable("'+r+'", '+n+");"))},compileImport:function(e,t){var n=this.tmpid(),i=e.target.value;this.emit("env.getTemplate("),this._compileExpression(e.template,t),this.emitLine(", "+this.makeCallback(n)),this.addScopeLevel(),this.emitLine(n+".getExported("+this.makeCallback(n)),this.addScopeLevel(),t.set(i,n),this.emitLine(t.parent?'frame.set("'+i+'", '+n+");":'context.setVariable("'+i+'", '+n+");")},compileFromImport:function(e,t){var i=this.tmpid();this.emit("env.getTemplate("),this._compileExpression(e.template,t),this.emitLine(", "+this.makeCallback(i)),this.addScopeLevel(),this.emitLine(i+".getExported("+this.makeCallback(i)),this.addScopeLevel(),n.each(e.names.children,function(e){var n,r,s=this.tmpid();e instanceof o.Pair?(n=e.key.value,r=e.value.value):(n=e.value,r=n),this.emitLine("if("+i+'.hasOwnProperty("'+n+'")) {'),this.emitLine("var "+s+" = "+i+"."+n+";"),this.emitLine("} else {"),this.emitLine("cb(new Error(\"cannot import '"+n+"'\")); return;"),this.emitLine("}"),t.set(r,s),this.emitLine(t.parent?'frame.set("'+r+'", '+s+");":'context.setVariable("'+r+'", '+s+");")},this)},compileBlock:function(e){if(!this.isChild){var t=this.tmpid();this.emitLine('context.getBlock("'+e.name.value+'")(env, context, frame, runtime, '+this.makeCallback(t)),this.emitLine(this.buffer+" += "+t+";"),this.addScopeLevel()}},compileSuper:function(e,t){var n=e.blockName.value,i=e.symbol.value;this.emitLine('context.getSuper(env, "'+n+'", b_'+n+", frame, runtime, "+this.makeCallback(i)),this.emitLine(i+" = runtime.markSafe("+i+");"),this.addScopeLevel(),t.set(i,i)},compileExtends:function(e,t){this.isChild&&this.fail("compileExtends: cannot extend multiple times",e.template.lineno,e.template.colno);var n=this.tmpid();this.emit("env.getTemplate("),this._compileExpression(e.template,t),this.emitLine(", true, "+this.makeCallback("parentTemplate")),this.emitLine("for(var "+n+" in parentTemplate.blocks) {"),this.emitLine("context.addBlock("+n+", parentTemplate.blocks["+n+"]);"),this.emitLine("}"),this.addScopeLevel(),this.isChild=!0},compileInclude:function(e,t){var n=this.tmpid(),i=this.tmpid();this.emit("env.getTemplate("),this._compileExpression(e.template,t),this.emitLine(", "+this.makeCallback(n)),this.addScopeLevel(),this.emitLine(n+".render(context.getVariables(), frame.push(), "+this.makeCallback(i)),this.emitLine(this.buffer+" += "+i),this.addScopeLevel()},compileTemplateData:function(e,t){this.compileLiteral(e,t)},compileOutput:function(e,t){for(var n=e.children,i=0,r=n.length;r>i;i++)n[i]instanceof o.TemplateData?n[i].value&&(this.emit(this.buffer+" += "),this.compileLiteral(n[i],t),this.emitLine(";")):(this.emit(this.buffer+" += runtime.suppressValue("),this.compile(n[i],t),this.emit(", env.autoesc);\n"))},compileRoot:function(e,t){t&&this.fail("compileRoot: root node can't have frame"),t=new a,this.emitFuncBegin("root"),this._compileChildren(e,t),this.isChild&&this.emitLine("parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);"),this.emitFuncEnd(this.isChild),this.isChild=!1;for(var n=e.findAll(o.Block),i=0;i<n.length;i++){var r=n[i],s=r.name.value;this.emitFuncBegin("b_"+s);var l=new a;this.compile(r.body,l),this.emitFuncEnd()}this.emitLine("return {");for(var i=0;i<n.length;i++){var r=n[i],s="b_"+r.name.value;this.emitLine(s+": "+s+",")}this.emitLine("root: root\n};")},compile:function(e,t){var n=this["compile"+e.typename];n?n.call(this,e,t):this.fail("compile: Cannot compile node: "+e.typename,e.lineno,e.colno)},getCode:function(){return this.codebuf.join("")}});e.compiler={compile:function(e,t,n,o){var s=new c;if(n&&n.length)for(var a=0;a<n.length;a++)"preprocess"in n[a]&&(e=n[a].preprocess(e,o));return s.compile(r.transform(i.parse(e,n),t,o)),s.getCode()},Compiler:c}}(),function(){var t=e.lib,n=e.runtime,i={abs:function(e){return Math.abs(e)},batch:function(e,t,n){for(var i=[],r=[],o=0;o<e.length;o++)o%t===0&&r.length&&(i.push(r),r=[]),r.push(e[o]);if(r.length){if(n)for(var o=r.length;t>o;o++)r.push(n);i.push(r)}return i},capitalize:function(e){var t=e.toLowerCase();return n.copySafeness(e,t.charAt(0).toUpperCase()+t.slice(1))},center:function(e,i){if(i=i||80,e.length>=i)return e;var r=i-e.length,o=t.repeat(" ",r/2-r%2),s=t.repeat(" ",r/2);return n.copySafeness(e,o+e+s)},"default":function(e,t){return e?e:t},dictsort:function(e,n,i){if(!t.isObject(e))throw new t.TemplateError("dictsort filter: val must be an object");var r=[];for(var o in e)r.push([o,e[o]]);var s;if(void 0===i||"key"===i)s=0;else{if("value"!==i)throw new t.TemplateError("dictsort filter: You can only sort by either key or value");s=1}return r.sort(function(e,i){var r=e[s],o=i[s];return n||(t.isString(r)&&(r=r.toUpperCase()),t.isString(o)&&(o=o.toUpperCase())),r>o?1:r==o?0:-1}),r},escape:function(e){return"string"==typeof e||e instanceof n.SafeString?t.escape(e):e},safe:function(e){return n.markSafe(e)},first:function(e){return e[0]},groupby:function(e,n){return t.groupBy(e,n)},indent:function(e,i,r){i=i||4;for(var o="",s=e.split("\n"),a=t.repeat(" ",i),l=0;l<s.length;l++)o+=0!=l||r?a+s[l]+"\n":s[l]+"\n";return n.copySafeness(e,o)},join:function(e,n,i){return n=n||"",i&&(e=t.map(e,function(e){return e[i]})),e.join(n)},last:function(e){return e[e.length-1]},length:function(e){return void 0!==e?e.length:0},list:function(e){if(t.isString(e))return e.split("");if(t.isObject(e)){var n=[];if(Object.keys)n=Object.keys(e);else for(var i in e)n.push(i);return t.map(n,function(t){return{key:t,value:e[t]}})}throw new t.TemplateError("list filter: type not iterable")},lower:function(e){return e.toLowerCase()},random:function(e){return e[Math.floor(Math.random()*e.length)]},replace:function(e,t,i,r){var o=e,s=o,a=1;for(o=o.replace(t,i);s!=o&&!(a>=r);)s=o,o=o.replace(t,i),a++;return n.copySafeness(e,o)},reverse:function(e){var r;return r=t.isString(e)?i.list(e):t.map(e,function(e){return e}),r.reverse(),t.isString(e)?n.copySafeness(e,r.join("")):r},round:function(e,t,n){t=t||0;var i,r=Math.pow(10,t);return i="ceil"==n?Math.ceil:"floor"==n?Math.floor:Math.round,i(e*r)/r},slice:function(e,t,n){for(var i=Math.floor(e.length/t),r=e.length%t,o=0,s=[],a=0;t>a;a++){var l=o+a*i;r>a&&o++;var c=o+(a+1)*i,h=e.slice(l,c);n&&a>=r&&h.push(n),s.push(h)}return s},sort:function(e,n,i,r){return e=t.map(e,function(e){return e}),e.sort(function(e,o){var s,a;return r?(s=e[r],a=o[r]):(s=e,a=o),!i&&t.isString(s)&&t.isString(a)&&(s=s.toLowerCase(),a=a.toLowerCase()),a>s?n?1:-1:s>a?n?-1:1:0}),e},string:function(e){return n.copySafeness(e,e)},title:function(e){for(var t=e.split(" "),r=0;r<t.length;r++)t[r]=i.capitalize(t[r]);return n.copySafeness(e,t.join(" "))},trim:function(e){return n.copySafeness(e,e.replace(/^\s*|\s*$/g,""))},truncate:function(e,t,i,r){var o=e;if(t=t||255,e.length<=t)return e;if(i)e=e.substring(0,t);else{var s=e.lastIndexOf(" ",t);-1===s&&(s=t),e=e.substring(0,s)}return e+=void 0!==r&&null!==r?r:"...",n.copySafeness(o,e)},upper:function(e){return e.toUpperCase()},urlencode:function(e){var n=encodeURIComponent;if(t.isString(e))return n(e);var i;if(t.isArray(e))i=e.map(function(e){return n(e[0])+"="+n(e[1])});else{i=[];for(var r in e)e.hasOwnProperty(r)&&i.push(n(r)+"="+n(e[r]))}return i.join("&")},urlize:function(e,t,n){isNaN(t)&&(t=1/0);var i=n===!0?' rel="nofollow"':"",r=/^(?:\(|<|&lt;)?(.*?)(?:\.|,|\)|\n|&gt;)?$/,o=/^[\w.!#$%&'*+\-\/=?\^`{|}~]+@[a-z\d\-]+(\.[a-z\d\-]+)+$/i,s=/^https?:\/\/.*$/,a=/^www\./,l=/\.(?:org|net|com)(?:\:|\/|$)/,c=e.split(/\s+/).filter(function(e){return e&&e.length}).map(function(e){var n=e.match(r),c=n&&n[1]||e;return s.test(c)?'<a href="'+c+'"'+i+">"+c.substr(0,t)+"</a>":a.test(c)?'<a href="http://'+c+'"'+i+">"+c.substr(0,t)+"</a>":o.test(c)?'<a href="mailto:'+c+'">'+c+"</a>":l.test(c)?'<a href="http://'+c+'"'+i+">"+c.substr(0,t)+"</a>":c});return c.join(" ")},wordcount:function(e){var t=e?e.match(/\w+/g):null;return t?t.length:null},"float":function(e,t){var n=parseFloat(e);return isNaN(n)?t:n},"int":function(e,t){var n=parseInt(e,10);return isNaN(n)?t:n}};i.d=i["default"],i.e=i.escape,e.filters=i}(),function(){function t(e){var t=-1,n=null;return{reset:function(){t=-1,n=null},next:function(){return t++,t>=e.length&&(t=0),n=e[t]}}}function n(e){e=e||",";var t=!0;return function(){var n=t?"":e;return t=!1,n}}var i={range:function(e,t,n){t?n||(n=1):(t=e,e=0,n=1);for(var i=[],r=e;t>r;r+=n)i.push(r);return i},cycler:function(){return t(Array.prototype.slice.call(arguments))},joiner:function(e){return n(e)}};e.globals=i}(),function(){var t=e.object,n=e.lib,i=t.extend({on:function(e,t){this.listeners=this.listeners||{},this.listeners[e]=this.listeners[e]||[],this.listeners[e].push(t)},emit:function(e){var t=Array.prototype.slice.call(arguments,1);this.listeners&&this.listeners[e]&&n.each(this.listeners[e],function(e){e.apply(null,t)})}});e.loader=i}(),function(){var t=e.loader,n=t.extend({init:function(e,t){this.precompiled=window.nunjucksPrecompiled||{},this.baseURL=e||"",this.neverUpdate=t},getSource:function(e){if(this.precompiled[e])return{src:{type:"code",obj:this.precompiled[e]},path:e};var t=this.fetch(this.baseURL+"/"+e);return t?{src:t,path:e,noCache:!this.neverUpdate}:null},fetch:function(e){var t,n,i=!0;return window.XMLHttpRequest?t=new XMLHttpRequest:window.ActiveXObject&&(t=new ActiveXObject("Microsoft.XMLHTTP")),t.onreadystatechange=function(){4!==t.readyState||0!==t.status&&200!==t.status||!i||(i=!1,n=t.responseText)},e+=(-1===e.indexOf("?")?"?":"&")+"s="+(new Date).getTime(),t.open("GET",e,!1),t.send(),n}});e["web-loaders"]={WebLoader:n}}(),function(){e.loaders="undefined"==typeof window||window!==this?e["node-loaders"]:e["web-loaders"]}(),function(){var t=e.path,n=e.lib,i=e.object,r=e.lexer,o=e.compiler,s=e.filters,a=e.loaders,l=e.runtime,c=e.globals,h=l.Frame,u=i.extend({init:function(e,t){t=t||{},this.dev=!!t.dev,this.autoesc=!!t.autoescape,this.loaders=e?n.isArray(e)?e:[e]:a.FileSystemLoader?[new a.FileSystemLoader("views")]:[new a.WebLoader("/views")],this.initCache(),this.filters={},this.asyncFilters=[],this.extensions={},this.extensionsList=[],t.tags&&r.setTags(t.tags);for(var i in s)this.addFilter(i,s[i])},initCache:function(){var e={};n.each(this.loaders,function(t){"function"==typeof t.on&&t.on("update",function(t){e[t]=null})}),this.cache=e},addExtension:function(e,t){t._name=e,this.extensions[e]=t,this.extensionsList.push(t)},getExtension:function(e){return this.extensions[e]},addGlobal:function(e,t){c[e]=t},addFilter:function(e,t,n){var i=t;n&&this.asyncFilters.push(e),this.filters[e]=i},getFilter:function(e){if(!this.filters[e])throw new Error("filter not found: "+e);return this.filters[e]},getTemplate:function(e,t,i){if(e&&e.raw&&(e=e.raw),n.isFunction(t)&&(i=t,t=!1),"string"!=typeof e)throw new Error("template names must be a string: "+e);var r=this.cache[e];if(!r){var o;return n.asyncIter(this.loaders,function(t,n,i,r){function o(e){e?r(e):i()}t.async?t.getSource(e,function(e,t){if(e)throw e;o(t)}):o(t.getSource(e))},function(n){if(n){var r=new f(n.src,this,n.path,t);n.noCache||(this.cache[e]=r),i?i(null,r):o=r}else{var s=new Error("template not found: "+e);if(!i)throw s;i(s)}}.bind(this)),o}return t&&r.compile(),i?void i(null,r):r},express:function(e){function n(e,n){if(this.name=e,this.path=e,this.defaultEngine=n.defaultEngine,this.ext=t.extname(e),!this.ext&&!this.defaultEngine)throw new Error("No default engine was specified and no extension was provided.");this.ext||(this.name+=this.ext=("."!==this.defaultEngine[0]?".":"")+this.defaultEngine)}var i=this;n.prototype.render=function(e,t){i.render(this.name,e,t)},e.set("view",n)},render:function(e,t,i){n.isFunction(t)&&(i=t,t=null);var r=null;return this.getTemplate(e,function(e,n){if(e&&i)i(e);else{if(e)throw e;n.render(t,i||function(e,t){if(e)throw e;r=t})}}),r},renderString:function(e,t,n){var i=new f(e,this);return i.render(t,n)}}),p=i.extend({init:function(e,t){this.ctx=e,this.blocks={},this.exported=[];for(var n in t)this.addBlock(n,t[n])},lookup:function(e){return e in c&&!(e in this.ctx)?c[e]:this.ctx[e]},setVariable:function(e,t){this.ctx[e]=t},getVariables:function(){return this.ctx},addBlock:function(e,t){this.blocks[e]=this.blocks[e]||[],this.blocks[e].push(t)},getBlock:function(e){if(!this.blocks[e])throw new Error('unknown block "'+e+'"');return this.blocks[e][0]},getSuper:function(e,t,n,i,r,o){var s=(this.blocks[t]||[]).indexOf(n),a=this.blocks[t][s+1],l=this;if(-1==s||!a)throw new Error('no super block available for "'+t+'"');a(e,l,i,r,o)},addExport:function(e){this.exported.push(e)},getExported:function(){for(var e={},t=0;t<this.exported.length;t++){var n=this.exported[t];e[n]=this.ctx[n]}return e}}),f=i.extend({init:function(e,t,i,r){if(this.env=t||new u,n.isObject(e))switch(e.type){case"code":this.tmplProps=e.obj;break;case"string":this.tmplStr=e.obj}else{if(!n.isString(e))throw new Error("src must be a string or an object describing the source");this.tmplStr=e}this.path=i,r?n.withPrettyErrors(this.path,this.env.dev,this._compile.bind(this)):this.compiled=!1},render:function(e,t,i){return"function"==typeof e?(i=e,e={}):"function"==typeof t&&(i=t,t=null),n.withPrettyErrors(this.path,this.env.dev,function(){this.compile();var n=new p(e||{},this.blocks),r=null;return this.rootRenderFunc(this.env,n,t||new h,l,i||function(e,t){if(e)throw e;r=t}),r}.bind(this))},getExported:function(e){this.compile();var t=new p({},this.blocks);this.rootRenderFunc(this.env,t,new h,l,function(){e(null,t.getExported())})},compile:function(){this.compiled||this._compile()},_compile:function(){var e;if(this.tmplProps)e=this.tmplProps;else{var t=o.compile(this.tmplStr,this.env.asyncFilters,this.env.extensionsList,this.path),n=new Function(t);e=n()}this.blocks=this._getBlocks(e),this.rootRenderFunc=e.root,this.compiled=!0},_getBlocks:function(e){var t={};for(var n in e)"b_"==n.slice(0,2)&&(t[n.slice(2)]=e[n]);return t}});e.environment={Environment:u,Template:f}}();var t,n=e.lib,i=e.environment,r=e.compiler,o=e.parser,s=e.lexer,a=e.runtime,l=e.loader,c=e.loaders,h=e.precompile;t={},t.Environment=i.Environment,t.Template=i.Template,t.Loader=l,t.FileSystemLoader=c.FileSystemLoader,t.WebLoader=c.WebLoader,t.compiler=r,t.parser=o,t.lexer=s,t.runtime=a;var u;t.configure=function(e,t){t=t||{},n.isObject(e)&&(t=e,e=null);var r="watch"in t?!t.watch:!1,o=c.FileSystemLoader||c.WebLoader;return u=new i.Environment(new o(e,r),t),t&&t.express&&u.express(t.express),u},t.compile=function(e,n,i,r){return u||t.configure(),new t.Template(e,n,i,r)},t.render=function(e,n,i){return u||t.configure(),u.render(e,n,i)},t.renderString=function(e,n,i){return u||t.configure(),u.renderString(e,n,i)},h&&(t.precompile=h.precompile,t.precompileString=h.precompileString),t.require=function(t){return e[t]},"function"==typeof define&&define.amd?define(function(){return t}):(window.nunjucks=t,"undefined"!=typeof module&&(module.exports=t))}();
 },{}],3:[function(require,module,exports){
-// Browser bundle of nunjucks 1.0.7 
-
-(function() {
-var modules = {};
-(function() {
-
-// A simple class system, more documentation to come
-
-function extend(cls, name, props) {
-    // This does that same thing as Object.create, but with support for IE8
-    var F = function() {};
-    F.prototype = cls.prototype;
-    var prototype = new F();
-
-    var fnTest = /xyz/.test(function(){ xyz; }) ? /\bparent\b/ : /.*/;
-    props = props || {};
-
-    for(var k in props) {
-        var src = props[k];
-        var parent = prototype[k];
-
-        if(typeof parent == "function" &&
-           typeof src == "function" &&
-           fnTest.test(src)) {
-            prototype[k] = (function (src, parent) {
-                return function() {
-                    // Save the current parent method
-                    var tmp = this.parent;
-
-                    // Set parent to the previous method, call, and restore
-                    this.parent = parent;
-                    var res = src.apply(this, arguments);
-                    this.parent = tmp;
-
-                    return res;
-                };
-            })(src, parent);
-        }
-        else {
-            prototype[k] = src;
-        }
-    }
-
-    prototype.typename = name;
-
-    var new_cls = function() {
-        if(prototype.init) {
-            prototype.init.apply(this, arguments);
-        }
-    };
-
-    new_cls.prototype = prototype;
-    new_cls.prototype.constructor = new_cls;
-
-    new_cls.extend = function(name, props) {
-        if(typeof name == "object") {
-            props = name;
-            name = "anonymous";
-        }
-        return extend(new_cls, name, props);
-    };
-
-    return new_cls;
-}
-
-modules['object'] = extend(Object, "Object", {});
-})();
-(function() {
-var ArrayProto = Array.prototype;
-var ObjProto = Object.prototype;
-
-var escapeMap = {
-    '&': '&amp;',
-    '"': '&quot;',
-    "'": '&#39;',
-    "<": '&lt;',
-    ">": '&gt;'
-};
-
-var escapeRegex = /[&"'<>]/g;
-
-var lookupEscape = function(ch) {
-    return escapeMap[ch];
-};
-
-var exports = modules['lib'] = {};
-
-exports.withPrettyErrors = function(path, withInternals, func) {
-    try {
-        return func();
-    } catch (e) {
-        if (!e.Update) {
-            // not one of ours, cast it
-            e = new exports.TemplateError(e);
-        }
-        e.Update(path);
-
-        // Unless they marked the dev flag, show them a trace from here
-        if (!withInternals) {
-            var old = e;
-            e = new Error(old.message);
-            e.name = old.name;
-        }
-
-        throw e;
-    }
-};
-
-exports.TemplateError = function(message, lineno, colno) {
-    var err = this;
-
-    if (message instanceof Error) { // for casting regular js errors
-        err = message;
-        message = message.name + ": " + message.message;
-    } else {
-        if(Error.captureStackTrace) {
-            Error.captureStackTrace(err);
-        }
-    }
-
-    err.name = 'Template render error';
-    err.message = message;
-    err.lineno = lineno;
-    err.colno = colno;
-    err.firstUpdate = true;
-
-    err.Update = function(path) {
-        var message = "(" + (path || "unknown path") + ")";
-
-        // only show lineno + colno next to path of template
-        // where error occurred
-        if (this.firstUpdate) {
-            if(this.lineno && this.colno) {
-                message += ' [Line ' + this.lineno + ', Column ' + this.colno + ']';
-            }
-            else if(this.lineno) {
-                message += ' [Line ' + this.lineno + ']';
-            }
-        }
-
-        message += '\n ';
-        if (this.firstUpdate) {
-            message += ' ';
-        }
-
-        this.message = message + (this.message || '');
-        this.firstUpdate = false;
-        return this;
-    };
-
-    return err;
-};
-
-exports.TemplateError.prototype = Error.prototype;
-
-exports.escape = function(val) {
-  return val.replace(escapeRegex, lookupEscape);
-};
-
-exports.isFunction = function(obj) {
-    return ObjProto.toString.call(obj) == '[object Function]';
-};
-
-exports.isArray = Array.isArray || function(obj) {
-    return ObjProto.toString.call(obj) == '[object Array]';
-};
-
-exports.isString = function(obj) {
-    return ObjProto.toString.call(obj) == '[object String]';
-};
-
-exports.isObject = function(obj) {
-    return ObjProto.toString.call(obj) == '[object Object]';
-};
-
-exports.groupBy = function(obj, val) {
-    var result = {};
-    var iterator = exports.isFunction(val) ? val : function(obj) { return obj[val]; };
-    for(var i=0; i<obj.length; i++) {
-        var value = obj[i];
-        var key = iterator(value, i);
-        (result[key] || (result[key] = [])).push(value);
-    }
-    return result;
-};
-
-exports.toArray = function(obj) {
-    return Array.prototype.slice.call(obj);
-};
-
-exports.without = function(array) {
-    var result = [];
-    if (!array) {
-        return result;
-    }
-    var index = -1,
-    length = array.length,
-    contains = exports.toArray(arguments).slice(1);
-
-    while(++index < length) {
-        if(contains.indexOf(array[index]) === -1) {
-            result.push(array[index]);
-        }
-    }
-    return result;
-};
-
-exports.extend = function(obj, obj2) {
-    for(var k in obj2) {
-        obj[k] = obj2[k];
-    }
-    return obj;
-};
-
-exports.repeat = function(char_, n) {
-    var str = '';
-    for(var i=0; i<n; i++) {
-        str += char_;
-    }
-    return str;
-};
-
-exports.each = function(obj, func, context) {
-    if(obj == null) {
-        return;
-    }
-
-    if(ArrayProto.each && obj.each == ArrayProto.each) {
-        obj.forEach(func, context);
-    }
-    else if(obj.length === +obj.length) {
-        for(var i=0, l=obj.length; i<l; i++) {
-            func.call(context, obj[i], i, obj);
-        }
-    }
-};
-
-exports.map = function(obj, func) {
-    var results = [];
-    if(obj == null) {
-        return results;
-    }
-
-    if(ArrayProto.map && obj.map === ArrayProto.map) {
-        return obj.map(func);
-    }
-
-    for(var i=0; i<obj.length; i++) {
-        results[results.length] = func(obj[i], i);
-    }
-
-    if(obj.length === +obj.length) {
-        results.length = obj.length;
-    }
-
-    return results;
-};
-
-exports.asyncIter = function(arr, iter, cb) {
-    var i = -1;
-
-    function next() {
-        i++;
-
-        if(i < arr.length) {
-            iter(arr[i], i, next, cb);
-        }
-        else {
-            cb();
-        }
-    }
-
-    next();
-};
-
-exports.asyncFor = function(obj, iter, cb) {
-    var keys = exports.keys(obj);
-    var len = keys.length;
-    var i = -1;
-
-    function next() {
-        i++;
-        var k = keys[i];
-
-        if(i < len) {
-            iter(k, obj[k], i, len, next);
-        }
-        else {
-            cb();
-        }
-    }
-
-    next();
-};
-
-if(!Array.prototype.indexOf) {
-    Array.prototype.indexOf = function(array, searchElement /*, fromIndex */) {
-        if (array == null) {
-            throw new TypeError();
-        }
-        var t = Object(array);
-        var len = t.length >>> 0;
-        if (len === 0) {
-            return -1;
-        }
-        var n = 0;
-        if (arguments.length > 2) {
-            n = Number(arguments[2]);
-            if (n != n) { // shortcut for verifying if it's NaN
-                n = 0;
-            } else if (n != 0 && n != Infinity && n != -Infinity) {
-                n = (n > 0 || -1) * Math.floor(Math.abs(n));
-            }
-        }
-        if (n >= len) {
-            return -1;
-        }
-        var k = n >= 0 ? n : Math.max(len - Math.abs(n), 0);
-        for (; k < len; k++) {
-            if (k in t && t[k] === searchElement) {
-                return k;
-            }
-        }
-        return -1;
-    };
-}
-
-if(!Array.prototype.map) {
-    Array.prototype.map = function() {
-        throw new Error("map is unimplemented for this js engine");
-    };
-}
-
-exports.keys = function(obj) {
-    if(Object.prototype.keys) {
-        return obj.keys();
-    }
-    else {
-        var keys = [];
-        for(var k in obj) {
-            if(obj.hasOwnProperty(k)) {
-                keys.push(k);
-            }
-        }
-        return keys;
-    }
-}
-})();
-(function() {
-var util = modules["util"];
-var lib = modules["lib"];
-var Object = modules["object"];
-
-function traverseAndCheck(obj, type, results) {
-    if(obj instanceof type) {
-        results.push(obj);
-    }
-
-    if(obj instanceof Node) {
-        obj.findAll(type, results);
-    }
-}
-
-var Node = Object.extend("Node", {
-    init: function(lineno, colno) {
-        this.lineno = lineno;
-        this.colno = colno;
-
-        var fields = this.fields;
-        for(var i=0, l=fields.length; i<l; i++) {
-            var field = fields[i];
-
-            // The first two args are line/col numbers, so offset by 2
-            var val = arguments[i + 2];
-
-            // Fields should never be undefined, but null. It makes
-            // testing easier to normalize values.
-            if(val === undefined) {
-                val = null;
-            }
-
-            this[field] = val;
-        }
-    },
-
-    findAll: function(type, results) {
-        results = results || [];
-
-        if(this instanceof NodeList) {
-            var children = this.children;
-
-            for(var i=0, l=children.length; i<l; i++) {
-                traverseAndCheck(children[i], type, results);
-            }
-        }
-        else {
-            var fields = this.fields;
-
-            for(var i=0, l=fields.length; i<l; i++) {
-                traverseAndCheck(this[fields[i]], type, results);
-            }
-        }
-
-        return results;
-    },
-
-    iterFields: function(func) {
-        lib.each(this.fields, function(field) {
-            func(this[field], field);
-        }, this);
-    }
-});
-
-// Abstract nodes
-var Value = Node.extend("Value", { fields: ['value'] });
-
-// Concrete nodes
-var NodeList = Node.extend("NodeList", {
-    fields: ['children'],
-
-    init: function(lineno, colno, nodes) {
-        this.parent(lineno, colno, nodes || []);
-    },
-
-    addChild: function(node) {
-        this.children.push(node);
-    }
-});
-
-var Root = NodeList.extend("Root");
-var Literal = Value.extend("Literal");
-var Symbol = Value.extend("Symbol");
-var Group = NodeList.extend("Group");
-var Array = NodeList.extend("Array");
-var Pair = Node.extend("Pair", { fields: ['key', 'value'] });
-var Dict = NodeList.extend("Dict");
-var LookupVal = Node.extend("LookupVal", { fields: ['target', 'val'] });
-var If = Node.extend("If", { fields: ['cond', 'body', 'else_'] });
-var IfAsync = If.extend("IfAsync");
-var InlineIf = Node.extend("InlineIf", { fields: ['cond', 'body', 'else_'] });
-var For = Node.extend("For", { fields: ['arr', 'name', 'body'] });
-var AsyncEach = For.extend("AsyncEach");
-var AsyncAll = For.extend("AsyncAll");
-var Macro = Node.extend("Macro", { fields: ['name', 'args', 'body'] });
-var Import = Node.extend("Import", { fields: ['template', 'target'] });
-var FromImport = Node.extend("FromImport", {
-    fields: ['template', 'names'],
-
-    init: function(lineno, colno, template, names) {
-        this.parent(lineno, colno,
-                    template,
-                    names || new NodeList());
-    }
-});
-var FunCall = Node.extend("FunCall", { fields: ['name', 'args'] });
-var Filter = FunCall.extend("Filter");
-var FilterAsync = Filter.extend("FilterAsync", {
-    fields: ['name', 'args', 'symbol']
-});
-var KeywordArgs = Dict.extend("KeywordArgs");
-var Block = Node.extend("Block", { fields: ['name', 'body'] });
-var Super = Node.extend("Super", { fields: ['blockName', 'symbol'] });
-var TemplateRef = Node.extend("TemplateRef", { fields: ['template'] });
-var Extends = TemplateRef.extend("Extends");
-var Include = TemplateRef.extend("Include");
-var Set = Node.extend("Set", { fields: ['targets', 'value'] });
-var Output = NodeList.extend("Output");
-var TemplateData = Literal.extend("TemplateData");
-var UnaryOp = Node.extend("UnaryOp", { fields: ['target'] });
-var BinOp = Node.extend("BinOp", { fields: ['left', 'right'] });
-var Or = BinOp.extend("Or");
-var And = BinOp.extend("And");
-var Not = UnaryOp.extend("Not");
-var Add = BinOp.extend("Add");
-var Sub = BinOp.extend("Sub");
-var Mul = BinOp.extend("Mul");
-var Div = BinOp.extend("Div");
-var FloorDiv = BinOp.extend("FloorDiv");
-var Mod = BinOp.extend("Mod");
-var Pow = BinOp.extend("Pow");
-var Neg = UnaryOp.extend("Neg");
-var Pos = UnaryOp.extend("Pos");
-var Compare = Node.extend("Compare", { fields: ['expr', 'ops'] });
-var CompareOperand = Node.extend("CompareOperand", {
-    fields: ['expr', 'type']
-});
-
-var CustomTag = Node.extend("CustomTag", {
-    init: function(lineno, colno, name) {
-        this.lineno = lineno;
-        this.colno = colno;
-        this.name = name;
-    }
-});
-
-var CallExtension = Node.extend("CallExtension", {
-    fields: ['extName', 'prop', 'args', 'contentArgs'],
-
-    init: function(ext, prop, args, contentArgs) {
-        this.extName = ext._name || ext;
-        this.prop = prop;
-        this.args = args || new NodeList();
-        this.contentArgs = contentArgs || [];
-        this.autoescape = ext.autoescape;
-    }
-});
-
-var CallExtensionAsync = CallExtension.extend("CallExtensionAsync");
-
-// Print the AST in a nicely formatted tree format for debuggin
-function printNodes(node, indent) {
-    indent = indent || 0;
-
-    // This is hacky, but this is just a debugging function anyway
-    function print(str, indent, inline) {
-        var lines = str.split("\n");
-
-        for(var i=0; i<lines.length; i++) {
-            if(lines[i]) {
-                if((inline && i > 0) || !inline) {
-                    for(var j=0; j<indent; j++) {
-                        util.print(" ");
-                    }
-                }
-            }
-
-            if(i === lines.length-1) {
-                util.print(lines[i]);
-            }
-            else {
-                util.puts(lines[i]);
-            }
-        }
-    }
-
-    print(node.typename + ": ", indent);
-
-    if(node instanceof NodeList) {
-        print('\n');
-        lib.each(node.children, function(n) {
-            printNodes(n, indent + 2);
-        });
-    }
-    else if(node instanceof CallExtension) {
-        print(node.extName + '.' + node.prop);
-        print('\n');
-
-        if(node.args) {
-            printNodes(node.args, indent + 2);
-        }
-
-        if(node.contentArgs) {
-            lib.each(node.contentArgs, function(n) {
-                printNodes(n, indent + 2);
-            });
-        }
-    }
-    else {
-        var nodes = null;
-        var props = null;
-
-        node.iterFields(function(val, field) {
-            if(val instanceof Node) {
-                nodes = nodes || {};
-                nodes[field] = val;
-            }
-            else {
-                props = props || {};
-                props[field] = val;
-            }
-        });
-
-        if(props) {
-            print(util.inspect(props, true, null) + '\n', null, true);
-        }
-        else {
-            print('\n');
-        }
-
-        if(nodes) {
-            for(var k in nodes) {
-                printNodes(nodes[k], indent + 2);
-            }
-        }
-
-    }
-}
-
-// var t = new NodeList(0, 0,
-//                      [new Value(0, 0, 3),
-//                       new Value(0, 0, 10),
-//                       new Pair(0, 0,
-//                                new Value(0, 0, 'key'),
-//                                new Value(0, 0, 'value'))]);
-// printNodes(t);
-
-modules['nodes'] = {
-    Node: Node,
-    Root: Root,
-    NodeList: NodeList,
-    Value: Value,
-    Literal: Literal,
-    Symbol: Symbol,
-    Group: Group,
-    Array: Array,
-    Pair: Pair,
-    Dict: Dict,
-    Output: Output,
-    TemplateData: TemplateData,
-    If: If,
-    IfAsync: IfAsync,
-    InlineIf: InlineIf,
-    For: For,
-    AsyncEach: AsyncEach,
-    AsyncAll: AsyncAll,
-    Macro: Macro,
-    Import: Import,
-    FromImport: FromImport,
-    FunCall: FunCall,
-    Filter: Filter,
-    FilterAsync: FilterAsync,
-    KeywordArgs: KeywordArgs,
-    Block: Block,
-    Super: Super,
-    Extends: Extends,
-    Include: Include,
-    Set: Set,
-    LookupVal: LookupVal,
-    BinOp: BinOp,
-    Or: Or,
-    And: And,
-    Not: Not,
-    Add: Add,
-    Sub: Sub,
-    Mul: Mul,
-    Div: Div,
-    FloorDiv: FloorDiv,
-    Mod: Mod,
-    Pow: Pow,
-    Neg: Neg,
-    Pos: Pos,
-    Compare: Compare,
-    CompareOperand: CompareOperand,
-
-    CallExtension: CallExtension,
-    CallExtensionAsync: CallExtensionAsync,
-
-    printNodes: printNodes
-};
-})();
-(function() {
-var lib = modules["lib"];
-var Obj = modules["object"];
-
-// Frames keep track of scoping both at compile-time and run-time so
-// we know how to access variables. Block tags can introduce special
-// variables, for example.
-var Frame = Obj.extend({
-    init: function(parent) {
-        this.variables = {};
-        this.parent = parent;
-    },
-
-    set: function(name, val, resolveUp) {
-        // Allow variables with dots by automatically creating the
-        // nested structure
-        var parts = name.split('.');
-        var obj = this.variables;
-        var frame = this;
-        
-        if(resolveUp) {
-            if((frame = this.resolve(parts[0]))) {
-                frame.set(name, val);
-                return;
-            }
-            frame = this;
-        }
-
-        for(var i=0; i<parts.length - 1; i++) {
-            var id = parts[i];
-
-            if(!obj[id]) {
-                obj[id] = {};
-            }
-            obj = obj[id];
-        }
-
-        obj[parts[parts.length - 1]] = val;
-    },
-
-    get: function(name) {
-        var val = this.variables[name];
-        if(val !== undefined && val !== null) {
-            return val;
-        }
-        return null;
-    },
-
-    lookup: function(name) {
-        var p = this.parent;
-        var val = this.variables[name];
-        if(val !== undefined && val !== null) {
-            return val;
-        }
-        return p && p.lookup(name);
-    },
-
-    resolve: function(name) {
-        var p = this.parent;
-        var val = this.variables[name];
-        if(val != null) {
-            return this;
-        }
-        return p && p.resolve(name);
-    },
-
-    push: function() {
-        return new Frame(this);
-    },
-
-    pop: function() {
-        return this.parent;
-    }
-});
-
-function makeMacro(argNames, kwargNames, func) {
-    return function() {
-        var argCount = numArgs(arguments);
-        var args;
-        var kwargs = getKeywordArgs(arguments);
-
-        if(argCount > argNames.length) {
-            args = Array.prototype.slice.call(arguments, 0, argNames.length);
-
-            // Positional arguments that should be passed in as
-            // keyword arguments (essentially default values)
-            var vals = Array.prototype.slice.call(arguments, args.length, argCount);
-            for(var i=0; i<vals.length; i++) {
-                if(i < kwargNames.length) {
-                    kwargs[kwargNames[i]] = vals[i];
-                }
-            }
-
-            args.push(kwargs);
-        }
-        else if(argCount < argNames.length) {
-            args = Array.prototype.slice.call(arguments, 0, argCount);
-
-            for(var i=argCount; i<argNames.length; i++) {
-                var arg = argNames[i];
-
-                // Keyword arguments that should be passed as
-                // positional arguments, i.e. the caller explicitly
-                // used the name of a positional arg
-                args.push(kwargs[arg]);
-                delete kwargs[arg];
-            }
-
-            args.push(kwargs);
-        }
-        else {
-            args = arguments;
-        }
-
-        return func.apply(this, args);
-    };
-}
-
-function makeKeywordArgs(obj) {
-    obj.__keywords = true;
-    return obj;
-}
-
-function getKeywordArgs(args) {
-    var len = args.length;
-    if(len) {
-        var lastArg = args[len - 1];
-        if(lastArg && lastArg.hasOwnProperty('__keywords')) {
-            return lastArg;
-        }
-    }
-    return {};
-}
-
-function numArgs(args) {
-    var len = args.length;
-    if(len === 0) {
-        return 0;
-    }
-
-    var lastArg = args[len - 1];
-    if(lastArg && lastArg.hasOwnProperty('__keywords')) {
-        return len - 1;
-    }
-    else {
-        return len;
-    }
-}
-
-// A SafeString object indicates that the string should not be
-// autoescaped. This happens magically because autoescaping only
-// occurs on primitive string objects.
-function SafeString(val) {
-    if(typeof val != 'string') {
-        return val;
-    }
-
-    this.val = val;
-}
-
-SafeString.prototype = Object.create(String.prototype);
-SafeString.prototype.valueOf = function() {
-    return this.val;
-};
-SafeString.prototype.toString = function() {
-    return this.val;
-};
-
-function copySafeness(dest, target) {
-    if(dest instanceof SafeString) {
-        return new SafeString(target);
-    }
-    return target.toString();
-}
-
-function markSafe(val) {
-    var type = typeof val;
-
-    if(type === 'string') {
-        return new SafeString(val);
-    }
-    else if(type !== 'function') {
-        return val;
-    }
-    else {
-        return function() {
-            var ret = val.apply(this, arguments);
-
-            if(typeof ret === 'string') {
-                return new SafeString(ret);
-            }
-
-            return ret;
-        };
-    }
-}
-
-function suppressValue(val, autoescape) {
-    val = (val !== undefined && val !== null) ? val : "";
-
-    if(autoescape && typeof val === "string") {
-        val = lib.escape(val);
-    }
-
-    return val;
-}
-
-function memberLookup(obj, val) {
-    obj = obj || {};
-
-    if(typeof obj[val] === 'function') {
-        return function() {
-            return obj[val].apply(obj, arguments);
-        };
-    }
-
-    return obj[val];
-}
-
-function callWrap(obj, name, args) {
-    if(!obj) {
-        throw new Error('Unable to call `' + name + '`, which is undefined or falsey');
-    }
-    else if(typeof obj !== 'function') {
-        throw new Error('Unable to call `' + name + '`, which is not a function');
-    }
-
-    return obj.apply(this, args);
-}
-
-function contextOrFrameLookup(context, frame, name) {
-    var val = frame.lookup(name);
-    return (val !== undefined && val !== null) ?
-        val :
-        context.lookup(name);
-}
-
-function handleError(error, lineno, colno) {
-    if(error.lineno) {
-        return error;
-    }
-    else {
-        return new lib.TemplateError(error, lineno, colno);
-    }
-}
-
-function asyncEach(arr, dimen, iter, cb) {
-    if(lib.isArray(arr)) {
-        var len = arr.length;
-
-        lib.asyncIter(arr, function(item, i, next) {
-            switch(dimen) {
-            case 1: iter(item, i, len, next); break;
-            case 2: iter(item[0], item[1], i, len, next); break;
-            case 3: iter(item[0], item[1], item[2], i, len, next); break;
-            default:
-                item.push(i, next);
-                iter.apply(this, item);
-            }
-        }, cb);
-    }
-    else {
-        lib.asyncFor(arr, function(key, val, i, len, next) {
-            iter(key, val, i, len, next);
-        }, cb);
-    }
-}
-
-function asyncAll(arr, dimen, func, cb) {
-    var finished = 0;
-    var len;
-    var outputArr;
-
-    function done(i, output) {
-        finished++;
-        outputArr[i] = output;
-
-        if(finished == len) {
-            cb(null, outputArr.join(''));
-        }
-    }
-
-    if(lib.isArray(arr)) {
-        len = arr.length;
-        outputArr = new Array(len);
-
-        if(len == 0) {
-            cb(null, '');
-        }
-        else {
-            for(var i=0; i<arr.length; i++) {
-                var item = arr[i];
-
-                switch(dimen) {
-                case 1: func(item, i, len, done); break;
-                case 2: func(item[0], item[1], i, len, done); break;
-                case 3: func(item[0], item[1], item[2], i, len, done); break;
-                default:
-                    item.push(i, done);
-                    func.apply(this, item);
-                }
-            }
-        }
-    }
-    else {
-        var keys = lib.keys(arr);
-        len = keys.length;
-        outputArr = new Array(len);
-
-        if(len == 0) {
-            cb(null, '');
-        }
-        else {
-            for(var i=0; i<keys.length; i++) {
-                var k = keys[i];
-                func(k, arr[k], i, len, done);
-            }
-        }
-    }
-}
-
-modules['runtime'] = {
-    Frame: Frame,
-    makeMacro: makeMacro,
-    makeKeywordArgs: makeKeywordArgs,
-    numArgs: numArgs,
-    suppressValue: suppressValue,
-    memberLookup: memberLookup,
-    contextOrFrameLookup: contextOrFrameLookup,
-    callWrap: callWrap,
-    handleError: handleError,
-    isArray: lib.isArray,
-    keys: lib.keys,
-    SafeString: SafeString,
-    copySafeness: copySafeness,
-    markSafe: markSafe,
-    asyncEach: asyncEach,
-    asyncAll: asyncAll
-};
-})();
-(function() {
-var lib = modules["lib"];
-
-var whitespaceChars = " \n\t\r";
-var delimChars = "()[]{}%*-+/#,:|.<>=!";
-var intChars = "0123456789";
-
-var BLOCK_START = "{%";
-var BLOCK_END = "%}";
-var VARIABLE_START = "{{";
-var VARIABLE_END = "}}";
-var COMMENT_START = "{#";
-var COMMENT_END = "#}";
-
-var TOKEN_STRING = "string";
-var TOKEN_WHITESPACE = "whitespace";
-var TOKEN_DATA = "data";
-var TOKEN_BLOCK_START = "block-start";
-var TOKEN_BLOCK_END = "block-end";
-var TOKEN_VARIABLE_START = "variable-start";
-var TOKEN_VARIABLE_END = "variable-end";
-var TOKEN_COMMENT = "comment";
-var TOKEN_LEFT_PAREN = "left-paren";
-var TOKEN_RIGHT_PAREN = "right-paren";
-var TOKEN_LEFT_BRACKET = "left-bracket";
-var TOKEN_RIGHT_BRACKET = "right-bracket";
-var TOKEN_LEFT_CURLY = "left-curly";
-var TOKEN_RIGHT_CURLY = "right-curly";
-var TOKEN_OPERATOR = "operator";
-var TOKEN_COMMA = "comma";
-var TOKEN_COLON = "colon";
-var TOKEN_PIPE = "pipe";
-var TOKEN_INT = "int";
-var TOKEN_FLOAT = "float";
-var TOKEN_BOOLEAN = "boolean";
-var TOKEN_SYMBOL = "symbol";
-var TOKEN_SPECIAL = "special";
-
-function token(type, value, lineno, colno) {
-    return {
-        type: type,
-        value: value,
-        lineno: lineno,
-        colno: colno
-    };
-}
-
-function Tokenizer(str) {
-    this.str = str;
-    this.index = 0;
-    this.len = str.length;
-    this.lineno = 0;
-    this.colno = 0;
-
-    this.in_code = false;
-}
-
-Tokenizer.prototype.nextToken = function() {
-    var lineno = this.lineno;
-    var colno = this.colno;
-
-    if(this.in_code) {
-        // Otherwise, if we are in a block parse it as code
-        var cur = this.current();
-        var tok;
-
-        if(this.is_finished()) {
-            // We have nothing else to parse
-            return null;
-        }
-        else if(cur == "\"" || cur == "'") {
-            // We've hit a string
-            return token(TOKEN_STRING, this.parseString(cur), lineno, colno);
-        }
-        else if((tok = this._extract(whitespaceChars))) {
-            // We hit some whitespace
-            return token(TOKEN_WHITESPACE, tok, lineno, colno);
-        }
-        else if((tok = this._extractString(BLOCK_END)) ||
-                (tok = this._extractString('-' + BLOCK_END))) {
-            // Special check for the block end tag
-            //
-            // It is a requirement that start and end tags are composed of
-            // delimiter characters (%{}[] etc), and our code always
-            // breaks on delimiters so we can assume the token parsing
-            // doesn't consume these elsewhere
-            this.in_code = false;
-            return token(TOKEN_BLOCK_END, tok, lineno, colno);
-        }
-        else if((tok = this._extractString(VARIABLE_END))) {
-            // Special check for variable end tag (see above)
-            this.in_code = false;
-            return token(TOKEN_VARIABLE_END, tok, lineno, colno);
-        }
-        else if(delimChars.indexOf(cur) != -1) {
-            // We've hit a delimiter (a special char like a bracket)
-            this.forward();
-            var complexOps = ['==', '!=', '<=', '>=', '//', '**'];
-            var curComplex = cur + this.current();
-            var type;
-
-            if(complexOps.indexOf(curComplex) !== -1) {
-                this.forward();
-                cur = curComplex;
-            }
-
-            switch(cur) {
-            case "(": type = TOKEN_LEFT_PAREN; break;
-            case ")": type = TOKEN_RIGHT_PAREN; break;
-            case "[": type = TOKEN_LEFT_BRACKET; break;
-            case "]": type = TOKEN_RIGHT_BRACKET; break;
-            case "{": type = TOKEN_LEFT_CURLY; break;
-            case "}": type = TOKEN_RIGHT_CURLY; break;
-            case ",": type = TOKEN_COMMA; break;
-            case ":": type = TOKEN_COLON; break;
-            case "|": type = TOKEN_PIPE; break;
-            default: type = TOKEN_OPERATOR;
-            }
-
-            return token(type, cur, lineno, colno);
-        }
-        else {
-            // We are not at whitespace or a delimiter, so extract the
-            // text and parse it
-            tok = this._extractUntil(whitespaceChars + delimChars);
-
-            if(tok.match(/^[-+]?[0-9]+$/)) {
-                if(this.current() == '.') {
-                    this.forward();
-                    var dec = this._extract(intChars);
-                    return token(TOKEN_FLOAT, tok + '.' + dec, lineno, colno);
-                }
-                else {
-                    return token(TOKEN_INT, tok, lineno, colno);
-                }
-            }
-            else if(tok.match(/^(true|false)$/)) {
-                return token(TOKEN_BOOLEAN, tok, lineno, colno);
-            }
-            else if(tok) {
-                return token(TOKEN_SYMBOL, tok, lineno, colno);
-            }
-            else {
-                throw new Error("Unexpected value while parsing: " + tok);
-            }
-        }
-    }
-    else {
-        // Parse out the template text, breaking on tag
-        // delimiters because we need to look for block/variable start
-        // tags (don't use the full delimChars for optimization)
-        var beginChars = (BLOCK_START.charAt(0) +
-                          VARIABLE_START.charAt(0) +
-                          COMMENT_START.charAt(0) +
-                          COMMENT_END.charAt(0));
-        var tok;
-
-        if(this.is_finished()) {
-            return null;
-        }
-        else if((tok = this._extractString(BLOCK_START + '-')) ||
-                (tok = this._extractString(BLOCK_START))) {
-            this.in_code = true;
-            return token(TOKEN_BLOCK_START, tok, lineno, colno);
-        }
-        else if((tok = this._extractString(VARIABLE_START))) {
-            this.in_code = true;
-            return token(TOKEN_VARIABLE_START, tok, lineno, colno);
-        }
-        else {
-            tok = '';
-            var data;
-            var in_comment = false;
-
-            if(this._matches(COMMENT_START)) {
-                in_comment = true;
-                tok = this._extractString(COMMENT_START);
-            }
-
-            // Continually consume text, breaking on the tag delimiter
-            // characters and checking to see if it's a start tag.
-            //
-            // We could hit the end of the template in the middle of
-            // our looping, so check for the null return value from
-            // _extractUntil
-            while((data = this._extractUntil(beginChars)) !== null) {
-                tok += data;
-
-                if((this._matches(BLOCK_START) ||
-                    this._matches(VARIABLE_START) ||
-                    this._matches(COMMENT_START)) &&
-                  !in_comment) {
-                    // If it is a start tag, stop looping
-                    break;
-                }
-                else if(this._matches(COMMENT_END)) {
-                    if(!in_comment) {
-                        throw new Error("unexpected end of comment");
-                    }
-                    tok += this._extractString(COMMENT_END);
-                    break;
-                }
-                else {
-                    // It does not match any tag, so add the character and
-                    // carry on
-                    tok += this.current();
-                    this.forward();
-                }
-            }
-
-            if(data === null && in_comment) {
-                throw new Error("expected end of comment, got end of file");
-            }
-
-            return token(in_comment ? TOKEN_COMMENT : TOKEN_DATA,
-                         tok,
-                         lineno,
-                         colno);
-        }
-    }
-
-    throw new Error("Could not parse text");
-};
-
-Tokenizer.prototype.parseString = function(delimiter) {
-    this.forward();
-
-    var lineno = this.lineno;
-    var colno = this.colno;
-    var str = "";
-
-    while(!this.is_finished() && this.current() != delimiter) {
-        var cur = this.current();
-
-        if(cur == "\\") {
-            this.forward();
-            switch(this.current()) {
-            case "n": str += "\n"; break;
-            case "t": str += "\t"; break;
-            case "r": str += "\r"; break;
-            default:
-                str += this.current();
-            }
-            this.forward();
-        }
-        else {
-            str += cur;
-            this.forward();
-        }
-    }
-
-    this.forward();
-    return str;
-};
-
-Tokenizer.prototype._matches = function(str) {
-    if(this.index + str.length > this.length) {
-        return null;
-    }
-
-    var m = this.str.slice(this.index, this.index + str.length);
-    return m == str;
-};
-
-Tokenizer.prototype._extractString = function(str) {
-    if(this._matches(str)) {
-        this.index += str.length;
-        return str;
-    }
-    return null;
-};
-
-Tokenizer.prototype._extractUntil = function(charString) {
-    // Extract all non-matching chars, with the default matching set
-    // to everything
-    return this._extractMatching(true, charString || "");
-};
-
-Tokenizer.prototype._extract = function(charString) {
-    // Extract all matching chars (no default, so charString must be
-    // explicit)
-    return this._extractMatching(false, charString);
-};
-
-Tokenizer.prototype._extractMatching = function (breakOnMatch, charString) {
-    // Pull out characters until a breaking char is hit.
-    // If breakOnMatch is false, a non-matching char stops it.
-    // If breakOnMatch is true, a matching char stops it.
-
-    if(this.is_finished()) {
-        return null;
-    }
-
-    var first = charString.indexOf(this.current());
-
-    // Only proceed if the first character doesn't meet our condition
-    if((breakOnMatch && first == -1) ||
-       (!breakOnMatch && first != -1)) {
-        var t = this.current();
-        this.forward();
-
-        // And pull out all the chars one at a time until we hit a
-        // breaking char
-        var idx = charString.indexOf(this.current());
-
-        while(((breakOnMatch && idx == -1) ||
-               (!breakOnMatch && idx != -1)) && !this.is_finished()) {
-            t += this.current();
-            this.forward();
-
-            idx = charString.indexOf(this.current());
-        }
-
-        return t;
-    }
-
-    return "";
-};
-
-Tokenizer.prototype.is_finished = function() {
-    return this.index >= this.len;
-};
-
-Tokenizer.prototype.forwardN = function(n) {
-    for(var i=0; i<n; i++) {
-        this.forward();
-    }
-};
-
-Tokenizer.prototype.forward = function() {
-    this.index++;
-
-    if(this.previous() == "\n") {
-        this.lineno++;
-        this.colno = 0;
-    }
-    else {
-        this.colno++;
-    }
-};
-
-Tokenizer.prototype.back = function() {
-    this.index--;
-
-    if(this.current() == "\n") {
-        this.lineno--;
-
-        var idx = this.src.lastIndexOf("\n", this.index-1);
-        if(idx == -1) {
-            this.colno = this.index;
-        }
-        else {
-            this.colno = this.index - idx;
-        }
-    }
-    else {
-        this.colno--;
-    }
-};
-
-Tokenizer.prototype.current = function() {
-    if(!this.is_finished()) {
-        return this.str.charAt(this.index);
-    }
-    return "";
-};
-
-Tokenizer.prototype.previous = function() {
-    return this.str.charAt(this.index-1);
-};
-
-modules['lexer'] = {
-    lex: function(src) {
-        return new Tokenizer(src);
-    },
-
-    setTags: function(tags) {
-        BLOCK_START = tags.blockStart || BLOCK_START;
-        BLOCK_END = tags.blockEnd || BLOCK_END;
-        VARIABLE_START = tags.variableStart || VARIABLE_START;
-        VARIABLE_END = tags.variableEnd || VARIABLE_END;
-        COMMENT_START = tags.commentStart || COMMENT_START;
-        COMMENT_END = tags.commentEnd || COMMENT_END;
-    },
-
-    TOKEN_STRING: TOKEN_STRING,
-    TOKEN_WHITESPACE: TOKEN_WHITESPACE,
-    TOKEN_DATA: TOKEN_DATA,
-    TOKEN_BLOCK_START: TOKEN_BLOCK_START,
-    TOKEN_BLOCK_END: TOKEN_BLOCK_END,
-    TOKEN_VARIABLE_START: TOKEN_VARIABLE_START,
-    TOKEN_VARIABLE_END: TOKEN_VARIABLE_END,
-    TOKEN_COMMENT: TOKEN_COMMENT,
-    TOKEN_LEFT_PAREN: TOKEN_LEFT_PAREN,
-    TOKEN_RIGHT_PAREN: TOKEN_RIGHT_PAREN,
-    TOKEN_LEFT_BRACKET: TOKEN_LEFT_BRACKET,
-    TOKEN_RIGHT_BRACKET: TOKEN_RIGHT_BRACKET,
-    TOKEN_LEFT_CURLY: TOKEN_LEFT_CURLY,
-    TOKEN_RIGHT_CURLY: TOKEN_RIGHT_CURLY,
-    TOKEN_OPERATOR: TOKEN_OPERATOR,
-    TOKEN_COMMA: TOKEN_COMMA,
-    TOKEN_COLON: TOKEN_COLON,
-    TOKEN_PIPE: TOKEN_PIPE,
-    TOKEN_INT: TOKEN_INT,
-    TOKEN_FLOAT: TOKEN_FLOAT,
-    TOKEN_BOOLEAN: TOKEN_BOOLEAN,
-    TOKEN_SYMBOL: TOKEN_SYMBOL,
-    TOKEN_SPECIAL: TOKEN_SPECIAL
-};
-})();
-(function() {
-var lexer = modules["lexer"];
-var nodes = modules["nodes"];
-var Object = modules["object"];
-var lib = modules["lib"];
-
-var Parser = Object.extend({
-    init: function (tokens) {
-        this.tokens = tokens;
-        this.peeked = null;
-        this.breakOnBlocks = null;
-        this.dropLeadingWhitespace = false;
-
-        this.extensions = [];
-    },
-
-    nextToken: function (withWhitespace) {
-        var tok;
-
-        if(this.peeked) {
-            if(!withWhitespace && this.peeked.type == lexer.TOKEN_WHITESPACE) {
-                this.peeked = null;
-            }
-            else {
-                tok = this.peeked;
-                this.peeked = null;
-                return tok;
-            }
-        }
-
-        tok = this.tokens.nextToken();
-
-        if(!withWhitespace) {
-            while(tok && tok.type == lexer.TOKEN_WHITESPACE) {
-                tok = this.tokens.nextToken();
-            }
-        }
-
-        return tok;
-    },
-
-    peekToken: function () {
-        this.peeked = this.peeked || this.nextToken();
-        return this.peeked;
-    },
-
-    pushToken: function(tok) {
-        if(this.peeked) {
-            throw new Error("pushToken: can only push one token on between reads");
-        }
-        this.peeked = tok;
-    },
-
-    fail: function (msg, lineno, colno) {
-        if((lineno === undefined || colno === undefined) && this.peekToken()) {
-            var tok = this.peekToken();
-            lineno = tok.lineno;
-            colno = tok.colno;
-        }
-        if (lineno !== undefined) lineno += 1;
-        if (colno !== undefined) colno += 1;
-
-        throw new lib.TemplateError(msg, lineno, colno);
-    },
-
-    skip: function(type) {
-        var tok = this.nextToken();
-        if(!tok || tok.type != type) {
-            this.pushToken(tok);
-            return false;
-        }
-        return true;
-    },
-
-    expect: function(type) {
-        var tok = this.nextToken();
-        if(tok.type !== type) {
-            this.fail('expected ' + type + ', got ' + tok.type,
-                      tok.lineno,
-                      tok.colno);
-        }
-        return tok;
-    },
-
-    skipValue: function(type, val) {
-        var tok = this.nextToken();
-        if(!tok || tok.type != type || tok.value != val) {
-            this.pushToken(tok);
-            return false;
-        }
-        return true;
-    },
-
-    skipWhitespace: function () {
-        return this.skip(lexer.TOKEN_WHITESPACE);
-    },
-
-    skipSymbol: function(val) {
-        return this.skipValue(lexer.TOKEN_SYMBOL, val);
-    },
-
-    advanceAfterBlockEnd: function(name) {
-        if(!name) {
-            var tok = this.peekToken();
-
-            if(!tok) {
-                this.fail('unexpected end of file');
-            }
-
-            if(tok.type != lexer.TOKEN_SYMBOL) {
-                this.fail("advanceAfterBlockEnd: expected symbol token or " +
-                          "explicit name to be passed");
-            }
-
-            name = this.nextToken().value;
-        }
-
-        var tok = this.nextToken();
-
-        if(tok && tok.type == lexer.TOKEN_BLOCK_END) {
-            if(tok.value.charAt(0) === '-') {
-                this.dropLeadingWhitespace = true;
-            }
-        }
-        else {
-            this.fail("expected block end in " + name + " statement");
-        }
-    },
-
-    advanceAfterVariableEnd: function() {
-        if(!this.skip(lexer.TOKEN_VARIABLE_END)) {
-            this.fail("expected variable end");
-        }
-    },
-
-    parseFor: function() {
-        var forTok = this.peekToken();
-        var node;
-        var endBlock;
-
-        if(this.skipSymbol('for')) {
-            node = new nodes.For(forTok.lineno, forTok.colno);
-            endBlock = 'endfor';
-        }
-        else if(this.skipSymbol('asyncEach')) {
-            node = new nodes.AsyncEach(forTok.lineno, forTok.colno);
-            endBlock = 'endeach';
-        }
-        else if(this.skipSymbol('asyncAll')) {
-            node = new nodes.AsyncAll(forTok.lineno, forTok.colno);
-            endBlock = 'endall';
-        }
-        else {
-            this.fail("parseFor: expected for{Async}", forTok.lineno, forTok.colno);
-        }
-
-        node.name = this.parsePrimary();
-
-        if(!(node.name instanceof nodes.Symbol)) {
-            this.fail('parseFor: variable name expected for loop');
-        }
-
-        var type = this.peekToken().type;
-        if(type == lexer.TOKEN_COMMA) {
-            // key/value iteration
-            var key = node.name;
-            node.name = new nodes.Array(key.lineno, key.colno);
-            node.name.addChild(key);
-
-            while(this.skip(lexer.TOKEN_COMMA)) {
-                var prim = this.parsePrimary();
-                node.name.addChild(prim);
-            }
-        }
-
-        if(!this.skipSymbol('in')) {
-            this.fail('parseFor: expected "in" keyword for loop',
-                      forTok.lineno,
-                      forTok.colno);
-        }
-
-        node.arr = this.parseExpression();
-        this.advanceAfterBlockEnd(forTok.value);
-
-        node.body = this.parseUntilBlocks(endBlock);
-        this.advanceAfterBlockEnd();
-
-        return node;
-    },
-
-    parseMacro: function() {
-        var macroTok = this.peekToken();
-        if(!this.skipSymbol('macro')) {
-            this.fail("expected macro");
-        }
-
-        var name = this.parsePrimary(true);
-        var args = this.parseSignature();
-        var node = new nodes.Macro(macroTok.lineno,
-                                   macroTok.colno,
-                                   name,
-                                   args);
-
-        this.advanceAfterBlockEnd(macroTok.value);
-        node.body = this.parseUntilBlocks('endmacro');
-        this.advanceAfterBlockEnd();
-
-        return node;
-    },
-
-    parseImport: function() {
-        var importTok = this.peekToken();
-        if(!this.skipSymbol('import')) {
-            this.fail("parseImport: expected import",
-                      importTok.lineno,
-                      importTok.colno);
-        }
-
-        var template = this.parseExpression();
-
-        if(!this.skipSymbol('as')) {
-            this.fail('parseImport: expected "as" keyword',
-                            importTok.lineno,
-                            importTok.colno);
-        }
-
-        var target = this.parsePrimary();
-        var node = new nodes.Import(importTok.lineno,
-                                    importTok.colno,
-                                    template,
-                                    target);
-        this.advanceAfterBlockEnd(importTok.value);
-
-        return node;
-    },
-
-    parseFrom: function() {
-        var fromTok = this.peekToken();
-        if(!this.skipSymbol('from')) {
-            this.fail("parseFrom: expected from");
-        }
-
-        var template = this.parsePrimary();
-        var node = new nodes.FromImport(fromTok.lineno,
-                                        fromTok.colno,
-                                        template,
-                                        new nodes.NodeList());
-
-        if(!this.skipSymbol('import')) {
-            this.fail("parseFrom: expected import",
-                            fromTok.lineno,
-                            fromTok.colno);
-        }
-
-        var names = node.names;
-
-        while(1) {
-            var nextTok = this.peekToken();
-            if(nextTok.type == lexer.TOKEN_BLOCK_END) {
-                if(!names.children.length) {
-                    this.fail('parseFrom: Expected at least one import name',
-                              fromTok.lineno,
-                              fromTok.colno);
-                }
-
-                // Since we are manually advancing past the block end,
-                // need to keep track of whitespace control (normally
-                // this is done in `advanceAfterBlockEnd`
-                if(nextTok.value.charAt(0) == '-') {
-                    this.dropLeadingWhitespace = true;
-                }
-
-                this.nextToken();
-                break;
-            }
-
-            if(names.children.length > 0 && !this.skip(lexer.TOKEN_COMMA)) {
-                this.fail('parseFrom: expected comma',
-                                fromTok.lineno,
-                                fromTok.colno);
-            }
-
-            var name = this.parsePrimary();
-            if(name.value.charAt(0) == '_') {
-                this.fail('parseFrom: names starting with an underscore ' +
-                          'cannot be imported',
-                          name.lineno,
-                          name.colno);
-            }
-
-            if(this.skipSymbol('as')) {
-                var alias = this.parsePrimary();
-                names.addChild(new nodes.Pair(name.lineno,
-                                              name.colno,
-                                              name,
-                                              alias));
-            }
-            else {
-                names.addChild(name);
-            }
-        }
-
-        return node;
-    },
-
-    parseBlock: function() {
-        var tag = this.peekToken();
-        if(!this.skipSymbol('block')) {
-            this.fail('parseBlock: expected block', tag.lineno, tag.colno);
-        }
-
-        var node = new nodes.Block(tag.lineno, tag.colno);
-
-        node.name = this.parsePrimary();
-        if(!(node.name instanceof nodes.Symbol)) {
-            this.fail('parseBlock: variable name expected',
-                      tag.lineno,
-                      tag.colno);
-        }
-
-        this.advanceAfterBlockEnd(tag.value);
-
-        node.body = this.parseUntilBlocks('endblock');
-
-        if(!this.peekToken()) {
-            this.fail('parseBlock: expected endblock, got end of file');
-        }
-
-        this.advanceAfterBlockEnd();
-
-        return node;
-    },
-
-    parseTemplateRef: function(tagName, nodeType) {
-        var tag = this.peekToken();
-        if(!this.skipSymbol(tagName)) {
-            this.fail('parseTemplateRef: expected '+ tagName);
-        }
-
-        var node = new nodeType(tag.lineno, tag.colno);
-        node.template = this.parseExpression();
-
-        this.advanceAfterBlockEnd(tag.value);
-        return node;
-    },
-
-    parseExtends: function() {
-        return this.parseTemplateRef('extends', nodes.Extends);
-    },
-
-    parseInclude: function() {
-        return this.parseTemplateRef('include', nodes.Include);
-    },
-
-    parseIf: function() {
-        var tag = this.peekToken();
-        var node;
-
-        if(this.skipSymbol('if') || this.skipSymbol('elif')) {
-            node = new nodes.If(tag.lineno, tag.colno);
-        }
-        else if(this.skipSymbol('ifAsync')) {
-            node = new nodes.IfAsync(tag.lineno, tag.colno);
-        }
-        else {
-            this.fail("parseIf: expected if or elif",
-                      tag.lineno,
-                      tag.colno);
-        }
-
-        node.cond = this.parseExpression();
-        this.advanceAfterBlockEnd(tag.value);
-
-        node.body = this.parseUntilBlocks('elif', 'else', 'endif');
-        var tok = this.peekToken();
-
-        switch(tok && tok.value) {
-        case "elif":
-            node.else_ = this.parseIf();
-            break;
-        case "else":
-            this.advanceAfterBlockEnd();
-            node.else_ = this.parseUntilBlocks("endif");
-            this.advanceAfterBlockEnd();
-            break;
-        case "endif":
-            node.else_ = null;
-            this.advanceAfterBlockEnd();
-            break;
-        default:
-            this.fail('parseIf: expected endif, else, or endif, ' +
-                      'got end of file');
-        }
-
-        return node;
-    },
-
-    parseSet: function() {
-        var tag = this.peekToken();
-        if(!this.skipSymbol('set')) {
-            this.fail('parseSet: expected set', tag.lineno, tag.colno);
-        }
-
-        var node = new nodes.Set(tag.lineno, tag.colno, []);
-
-        var target;
-        while((target = this.parsePrimary())) {
-            node.targets.push(target);
-
-            if(!this.skip(lexer.TOKEN_COMMA)) {
-                break;
-            }
-        }
-
-        if(!this.skipValue(lexer.TOKEN_OPERATOR, '=')) {
-            this.fail('parseSet: expected = in set tag',
-                      tag.lineno,
-                      tag.colno);
-        }
-
-        node.value = this.parseExpression();
-        this.advanceAfterBlockEnd(tag.value);
-
-        return node;
-    },
-
-    parseStatement: function () {
-        var tok = this.peekToken();
-        var node;
-
-        if(tok.type != lexer.TOKEN_SYMBOL) {
-            this.fail('tag name expected', tok.lineno, tok.colno);
-        }
-
-        if(this.breakOnBlocks &&
-           this.breakOnBlocks.indexOf(tok.value) !== -1) {
-            return null;
-        }
-
-        switch(tok.value) {
-        case 'raw': return this.parseRaw();
-        case 'if':
-        case 'ifAsync':
-            return this.parseIf();
-        case 'for':
-        case 'asyncEach':
-        case 'asyncAll':
-            return this.parseFor();
-        case 'block': return this.parseBlock();
-        case 'extends': return this.parseExtends();
-        case 'include': return this.parseInclude();
-        case 'set': return this.parseSet();
-        case 'macro': return this.parseMacro();
-        case 'import': return this.parseImport();
-        case 'from': return this.parseFrom();
-        default:
-            if (this.extensions.length) {
-                for (var i = 0; i < this.extensions.length; i++) {
-                    var ext = this.extensions[i];
-                    if ((ext.tags || []).indexOf(tok.value) !== -1) {
-                        return ext.parse(this, nodes, lexer);
-                    }
-                }
-            }
-            this.fail('unknown block tag: ' + tok.value, tok.lineno, tok.colno);
-        }
-
-        return node;
-    },
-
-    parseRaw: function() {
-        this.advanceAfterBlockEnd();
-        var str = '';
-        var begun = this.peekToken();
-
-        while(1) {
-            // Passing true gives us all the whitespace tokens as
-            // well, which are usually ignored.
-            var tok = this.nextToken(true);
-
-            if(!tok) {
-                this.fail("expected endraw, got end of file");
-            }
-
-            if(tok.type == lexer.TOKEN_BLOCK_START) {
-                // We need to look for the `endraw` block statement,
-                // which involves a lookahead so carefully keep track
-                // of whitespace
-                var ws = null;
-                var name = this.nextToken(true);
-
-                if(name.type == lexer.TOKEN_WHITESPACE) {
-                    ws = name;
-                    name = this.nextToken();
-                }
-
-                if(name.type == lexer.TOKEN_SYMBOL &&
-                   name.value == 'endraw') {
-                    this.advanceAfterBlockEnd(name.value);
-                    break;
-                }
-                else {
-                    str += tok.value;
-                    if(ws) {
-                        str += ws.value;
-                    }
-                    str += name.value;
-                }
-            }
-            else if(tok.type === lexer.TOKEN_STRING) {
-                str += '"' + tok.value + '"';
-            }
-            else {
-                str += tok.value;
-            }
-        }
-
-
-        var output = new nodes.Output(
-            begun.lineno,
-            begun.colno,
-            [new nodes.TemplateData(begun.lineno, begun.colno, str)]
-        );
-
-        return output;
-    },
-
-    parsePostfix: function(node) {
-        var tok = this.peekToken();
-
-        while(tok) {
-            if(tok.type == lexer.TOKEN_LEFT_PAREN) {
-                // Function call
-                node = new nodes.FunCall(tok.lineno,
-                                         tok.colno,
-                                         node,
-                                         this.parseSignature());
-            }
-            else if(tok.type == lexer.TOKEN_LEFT_BRACKET) {
-                // Reference
-                var lookup = this.parseAggregate();
-                if(lookup.children.length > 1) {
-                    this.fail('invalid index');
-                }
-
-                node =  new nodes.LookupVal(tok.lineno,
-                                            tok.colno,
-                                            node,
-                                            lookup.children[0]);
-            }
-            else if(tok.type == lexer.TOKEN_OPERATOR && tok.value == '.') {
-                // Reference
-                this.nextToken();
-                var val = this.nextToken();
-
-                if(val.type != lexer.TOKEN_SYMBOL) {
-                    this.fail('expected name as lookup value, got ' + val.value,
-                              val.lineno,
-                              val.colno);
-                }
-
-                // Make a literal string because it's not a variable
-                // reference
-                var lookup = new nodes.Literal(val.lineno,
-                                               val.colno,
-                                               val.value);
-
-                node =  new nodes.LookupVal(tok.lineno,
-                                            tok.colno,
-                                            node,
-                                            lookup);
-            }
-            else {
-                break;
-            }
-
-            tok = this.peekToken();
-        }
-
-        return node;
-    },
-
-    parseExpression: function() {
-        var node = this.parseInlineIf();
-        return node;
-    },
-
-    parseInlineIf: function() {
-        var node = this.parseOr();
-        if(this.skipSymbol('if')) {
-            var cond_node = this.parseOr();
-            var body_node = node;
-            node = new nodes.InlineIf(node.lineno, node.colno);
-            node.body = body_node;
-            node.cond = cond_node;
-            if(this.skipSymbol('else')) {
-                node.else_ = this.parseOr();
-            } else {
-                node.else_ = null;
-            }
-        }
-
-        return node;
-    },
-
-    parseOr: function() {
-        var node = this.parseAnd();
-        while(this.skipSymbol('or')) {
-            var node2 = this.parseAnd();
-            node = new nodes.Or(node.lineno,
-                                node.colno,
-                                node,
-                                node2);
-        }
-        return node;
-    },
-
-    parseAnd: function() {
-        var node = this.parseNot();
-        while(this.skipSymbol('and')) {
-            var node2 = this.parseNot();
-            node = new nodes.And(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parseNot: function() {
-        var tok = this.peekToken();
-        if(this.skipSymbol('not')) {
-            return new nodes.Not(tok.lineno,
-                                 tok.colno,
-                                 this.parseNot());
-        }
-        return this.parseCompare();
-    },
-
-    parseCompare: function() {
-        var compareOps = ['==', '!=', '<', '>', '<=', '>='];
-        var expr = this.parseAdd();
-        var ops = [];
-
-        while(1) {
-            var tok = this.nextToken();
-
-            if(!tok) {
-                break;
-            }
-            else if(compareOps.indexOf(tok.value) !== -1) {
-                ops.push(new nodes.CompareOperand(tok.lineno,
-                                                  tok.colno,
-                                                  this.parseAdd(),
-                                                  tok.value));
-            }
-            else if(tok.type == lexer.TOKEN_SYMBOL &&
-                    tok.value == 'in') {
-                ops.push(new nodes.CompareOperand(tok.lineno,
-                                                  tok.colno,
-                                                  this.parseAdd(),
-                                                  'in'));
-            }
-            else if(tok.type == lexer.TOKEN_SYMBOL &&
-                    tok.value == 'not' &&
-                    this.skipSymbol('in')) {
-                ops.push(new nodes.CompareOperand(tok.lineno,
-                                                  tok.colno,
-                                                  this.parseAdd(),
-                                                  'notin'));
-            }
-            else {
-                this.pushToken(tok);
-                break;
-            }
-        }
-
-        if(ops.length) {
-            return new nodes.Compare(ops[0].lineno,
-                                     ops[0].colno,
-                                     expr,
-                                     ops);
-        }
-        else {
-            return expr;
-        }
-    },
-
-    parseAdd: function() {
-        var node = this.parseSub();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '+')) {
-            var node2 = this.parseSub();
-            node = new nodes.Add(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parseSub: function() {
-        var node = this.parseMul();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '-')) {
-            var node2 = this.parseMul();
-            node = new nodes.Sub(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parseMul: function() {
-        var node = this.parseDiv();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '*')) {
-            var node2 = this.parseDiv();
-            node = new nodes.Mul(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parseDiv: function() {
-        var node = this.parseFloorDiv();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '/')) {
-            var node2 = this.parseFloorDiv();
-            node = new nodes.Div(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parseFloorDiv: function() {
-        var node = this.parseMod();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '//')) {
-            var node2 = this.parseMod();
-            node = new nodes.FloorDiv(node.lineno,
-                                      node.colno,
-                                      node,
-                                      node2);
-        }
-        return node;
-    },
-
-    parseMod: function() {
-        var node = this.parsePow();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '%')) {
-            var node2 = this.parsePow();
-            node = new nodes.Mod(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parsePow: function() {
-        var node = this.parseUnary();
-        while(this.skipValue(lexer.TOKEN_OPERATOR, '**')) {
-            var node2 = this.parseUnary();
-            node = new nodes.Pow(node.lineno,
-                                 node.colno,
-                                 node,
-                                 node2);
-        }
-        return node;
-    },
-
-    parseUnary: function(noFilters) {
-        var tok = this.peekToken();
-        var node;
-
-        if(this.skipValue(lexer.TOKEN_OPERATOR, '-')) {
-            node = new nodes.Neg(tok.lineno,
-                                 tok.colno,
-                                 this.parseUnary(true));
-        }
-        else if(this.skipValue(lexer.TOKEN_OPERATOR, '+')) {
-            node = new nodes.Pos(tok.lineno,
-                                 tok.colno,
-                                 this.parseUnary(true));
-        }
-        else {
-            node = this.parsePrimary();
-        }
-
-        if(!noFilters) {
-            node = this.parseFilter(node);
-        }
-
-        return node;
-    },
-
-    parsePrimary: function (noPostfix) {
-        var tok = this.nextToken();
-        var val = null;
-        var node = null;
-
-        if(!tok) {
-            this.fail('expected expression, got end of file');
-        }
-        else if(tok.type == lexer.TOKEN_STRING) {
-            val = tok.value;
-        }
-        else if(tok.type == lexer.TOKEN_INT) {
-            val = parseInt(tok.value, 10);
-        }
-        else if(tok.type == lexer.TOKEN_FLOAT) {
-            val = parseFloat(tok.value);
-        }
-        else if(tok.type == lexer.TOKEN_BOOLEAN) {
-            if(tok.value == "true") {
-                val = true;
-            }
-            else if(tok.value == "false") {
-                val = false;
-            }
-            else {
-                this.fail("invalid boolean: " + tok.val,
-                          tok.lineno,
-                          tok.colno);
-            }
-        }
-
-        if(val !== null) {
-            node = new nodes.Literal(tok.lineno, tok.colno, val);
-        }
-        else if(tok.type == lexer.TOKEN_SYMBOL) {
-            node = new nodes.Symbol(tok.lineno, tok.colno, tok.value);
-
-            if(!noPostfix) {
-                node = this.parsePostfix(node);
-            }
-        }
-        else {
-            // See if it's an aggregate type, we need to push the
-            // current delimiter token back on
-            this.pushToken(tok);
-            node = this.parseAggregate();
-        }
-
-        if(node) {
-            return node;
-        }
-        else {
-            this.fail('unexpected token: ' + tok.value,
-                      tok.lineno,
-                      tok.colno);
-        }
-    },
-
-    parseFilter: function(node) {
-        while(this.skip(lexer.TOKEN_PIPE)) {
-            var tok = this.expect(lexer.TOKEN_SYMBOL);
-            var name = tok.value;
-
-            while(this.skipValue(lexer.TOKEN_OPERATOR, '.')) {
-                name += '.' + this.expect(lexer.TOKEN_SYMBOL).value;
-            }
-
-            node = new nodes.Filter(
-                tok.lineno,
-                tok.colno,
-                new nodes.Symbol(tok.lineno,
-                                 tok.colno,
-                                 name),
-                new nodes.NodeList(
-                    tok.lineno,
-                    tok.colno,
-                    [node])
-            );
-
-            if(this.peekToken().type == lexer.TOKEN_LEFT_PAREN) {
-                // Get a FunCall node and add the parameters to the
-                // filter
-                var call = this.parsePostfix(node);
-                node.args.children = node.args.children.concat(call.args.children);
-            }
-        }
-
-        return node;
-    },
-
-    parseAggregate: function() {
-        var tok = this.nextToken();
-        var node;
-
-        switch(tok.type) {
-        case lexer.TOKEN_LEFT_PAREN:
-            node = new nodes.Group(tok.lineno, tok.colno); break;
-        case lexer.TOKEN_LEFT_BRACKET:
-            node = new nodes.Array(tok.lineno, tok.colno); break;
-        case lexer.TOKEN_LEFT_CURLY:
-            node = new nodes.Dict(tok.lineno, tok.colno); break;
-        default:
-            return null;
-        }
-
-        while(1) {
-            var type = this.peekToken().type;
-            if(type == lexer.TOKEN_RIGHT_PAREN ||
-               type == lexer.TOKEN_RIGHT_BRACKET ||
-               type == lexer.TOKEN_RIGHT_CURLY) {
-                this.nextToken();
-                break;
-            }
-
-            if(node.children.length > 0) {
-                if(!this.skip(lexer.TOKEN_COMMA)) {
-                    this.fail("parseAggregate: expected comma after expression",
-                              tok.lineno,
-                              tok.colno);
-                }
-            }
-
-            if(node instanceof nodes.Dict) {
-                // TODO: check for errors
-                var key = this.parsePrimary();
-
-                // We expect a key/value pair for dicts, separated by a
-                // colon
-                if(!this.skip(lexer.TOKEN_COLON)) {
-                    this.fail("parseAggregate: expected colon after dict key",
-                        tok.lineno,
-                        tok.colno);
-                }
-
-                // TODO: check for errors
-                var value = this.parseExpression();
-                node.addChild(new nodes.Pair(key.lineno,
-                                             key.colno,
-                                             key,
-                                             value));
-            }
-            else {
-                // TODO: check for errors
-                var expr = this.parseExpression();
-                node.addChild(expr);
-            }
-        }
-
-        return node;
-    },
-
-    parseSignature: function(tolerant, noParens) {
-        var tok = this.peekToken();
-        if(!noParens && tok.type != lexer.TOKEN_LEFT_PAREN) {
-            if(tolerant) {
-                return null;
-            }
-            else {
-                this.fail('expected arguments', tok.lineno, tok.colno);
-            }
-        }
-
-        if(tok.type == lexer.TOKEN_LEFT_PAREN) {
-            tok = this.nextToken();
-        }
-
-        var args = new nodes.NodeList(tok.lineno, tok.colno);
-        var kwargs = new nodes.KeywordArgs(tok.lineno, tok.colno);
-        var kwnames = [];
-        var checkComma = false;
-
-        while(1) {
-            tok = this.peekToken();
-            if(!noParens && tok.type == lexer.TOKEN_RIGHT_PAREN) {
-                this.nextToken();
-                break;
-            }
-            else if(noParens && tok.type == lexer.TOKEN_BLOCK_END) {
-                break;
-            }
-
-            if(checkComma && !this.skip(lexer.TOKEN_COMMA)) {
-                this.fail("parseSignature: expected comma after expression",
-                          tok.lineno,
-                          tok.colno);
-            }
-            else {
-                var arg = this.parseExpression();
-
-                if(this.skipValue(lexer.TOKEN_OPERATOR, '=')) {
-                    kwargs.addChild(
-                        new nodes.Pair(arg.lineno,
-                                       arg.colno,
-                                       arg,
-                                       this.parseExpression())
-                    );
-                }
-                else {
-                    args.addChild(arg);
-                }
-            }
-
-            checkComma = true;
-        }
-
-        if(kwargs.children.length) {
-            args.addChild(kwargs);
-        }
-
-        return args;
-    },
-
-    parseUntilBlocks: function(/* blockNames */) {
-        var prev = this.breakOnBlocks;
-        this.breakOnBlocks = lib.toArray(arguments);
-
-        var ret = this.parse();
-
-        this.breakOnBlocks = prev;
-        return ret;
-    },
-
-    parseNodes: function () {
-        var tok;
-        var buf = [];
-
-        while((tok = this.nextToken())) {
-            if(tok.type == lexer.TOKEN_DATA) {
-                var data = tok.value;
-                var nextToken = this.peekToken();
-                var nextVal = nextToken && nextToken.value;
-
-                // If the last token has "-" we need to trim the
-                // leading whitespace of the data. This is marked with
-                // the `dropLeadingWhitespace` variable.
-                if(this.dropLeadingWhitespace) {
-                    // TODO: this could be optimized (don't use regex)
-                    data = data.replace(/^\s*/, '');
-                    this.dropLeadingWhitespace = false;
-                }
-
-                // Same for the succeding block start token
-                if(nextToken &&
-                   nextToken.type == lexer.TOKEN_BLOCK_START &&
-                   nextVal.charAt(nextVal.length - 1) == '-') {
-                    // TODO: this could be optimized (don't use regex)
-                    data = data.replace(/\s*$/, '');
-                }
-
-                buf.push(new nodes.Output(tok.lineno,
-                                          tok.colno,
-                                          [new nodes.TemplateData(tok.lineno,
-                                                                  tok.colno,
-                                                                  data)]));
-            }
-            else if(tok.type == lexer.TOKEN_BLOCK_START) {
-                var n = this.parseStatement();
-                if(!n) {
-                    break;
-                }
-                buf.push(n);
-            }
-            else if(tok.type == lexer.TOKEN_VARIABLE_START) {
-                var e = this.parseExpression();
-                this.advanceAfterVariableEnd();
-                buf.push(new nodes.Output(tok.lineno, tok.colno, [e]));
-            }
-            else if(tok.type != lexer.TOKEN_COMMENT) {
-                // Ignore comments, otherwise this should be an error
-                this.fail("Unexpected token at top-level: " +
-                                tok.type, tok.lineno, tok.colno);
-            }
-        }
-
-        return buf;
-    },
-
-    parse: function() {
-        return new nodes.NodeList(0, 0, this.parseNodes());
-    },
-
-    parseAsRoot: function() {
-        return new nodes.Root(0, 0, this.parseNodes());
-    }
-});
-
-// var util = modules["util"];
-
-// var l = lexer.lex('{%- if x -%}\n hello {% endif %}');
-// var t;
-// while((t = l.nextToken())) {
-//     console.log(util.inspect(t));
-// }
-
-// var p = new Parser(lexer.lex('hello {% foo %} {{ "hi" | bar }} {% endfoo %} end'));
-// p.extensions = [new FooExtension()];
-// var n = p.parseAsRoot();
-// nodes.printNodes(n);
-
-modules['parser'] = {
-    parse: function(src, extensions) {
-        var p = new Parser(lexer.lex(src));
-        if (extensions !== undefined) {
-            p.extensions = extensions;
-        }
-        return p.parseAsRoot();
-    }
-};
-})();
-(function() {
-var nodes = modules["nodes"];
-
-var sym = 0;
-function gensym() {
-    return 'hole_' + sym++;
-}
-
-// copy-on-write version of map
-function mapCOW(arr, func) {
-    var res = null;
-
-    for(var i=0; i<arr.length; i++) {
-        var item = func(arr[i]);
-
-        if(item !== arr[i]) {
-            if(!res) {
-                res = arr.slice();
-            }
-
-            res[i] = item;
-        }
-    }
-
-    return res || arr;
-}
-
-function walk(ast, func, depthFirst) {
-    if(!(ast instanceof nodes.Node)) {
-        return ast;
-    }
-
-    if(!depthFirst) {
-        var astT = func(ast);
-
-        if(astT && astT !== ast) {
-            return astT;
-        }
-    }
-
-    if(ast instanceof nodes.NodeList) {
-        var children = mapCOW(ast.children, function(node) {
-            return walk(node, func, depthFirst);
-        });
-
-        if(children !== ast.children) {
-            ast = new nodes[ast.typename](ast.lineno, ast.colno, children);
-        }
-    }
-    else if(ast instanceof nodes.CallExtension) {
-        var args = walk(ast.args, func, depthFirst);
-
-        var contentArgs = mapCOW(ast.contentArgs, function(node) {
-            return walk(node, func, depthFirst);
-        });
-
-        if(args !== ast.args || contentArgs !== ast.contentArgs) {
-            ast = new nodes[ast.typename](ast.extName,
-                                          ast.prop,
-                                          args,
-                                          contentArgs);
-        }
-    }
-    else {
-        var props = ast.fields.map(function(field) {
-            return ast[field];
-        });
-
-        var propsT = mapCOW(props, function(prop) {
-            return walk(prop, func, depthFirst);
-        });
-
-        if(propsT !== props) {
-            ast = new nodes[ast.typename](ast.lineno, ast.colno);
-
-            propsT.forEach(function(prop, i) {
-                ast[ast.fields[i]] = prop;
-            });
-        }
-    }
-
-    return depthFirst ? (func(ast) || ast) : ast;
-}
-
-function depthWalk(ast, func) {
-    return walk(ast, func, true);
-}
-
-function _liftFilters(node, asyncFilters, prop) {
-    var children = [];
-
-    var walked = depthWalk(prop ? node[prop] : node, function(node) {
-        if(node instanceof nodes.Block) {
-            return node;
-        }
-        else if((node instanceof nodes.Filter &&
-                 asyncFilters.indexOf(node.name.value) !== -1) ||
-                node instanceof nodes.CallExtensionAsync) {
-            var symbol = new nodes.Symbol(node.lineno,
-                                          node.colno,
-                                          gensym());
-
-            children.push(new nodes.FilterAsync(node.lineno,
-                                                node.colno,
-                                                node.name,
-                                                node.args,
-                                                symbol));
-            return symbol;
-        }
-    });
-
-    if(prop) {
-        node[prop] = walked;
-    }
-    else {
-        node = walked;
-    }
-
-    if(children.length) {
-        children.push(node);
-
-        return new nodes.NodeList(
-            node.lineno,
-            node.colno,
-            children
-        );
-    }
-    else {
-        return node;
-    }
-}
-
-function liftFilters(ast, asyncFilters) {
-    return depthWalk(ast, function(node) {
-        if(node instanceof nodes.Output) {
-            return _liftFilters(node, asyncFilters);
-        }
-        else if(node instanceof nodes.For) {
-            return _liftFilters(node, asyncFilters, 'arr');
-        }
-        else if(node instanceof nodes.If) {
-            return _liftFilters(node, asyncFilters, 'cond');
-        }
-        else if(node instanceof nodes.CallExtension) {
-            return _liftFilters(node, asyncFilters, 'args');
-        }
-    });
-}
-
-function liftSuper(ast) {
-    return walk(ast, function(blockNode) {
-        if(!(blockNode instanceof nodes.Block)) {
-            return;
-        }
-
-        var hasSuper = false;
-        var symbol = gensym();
-
-        blockNode.body = walk(blockNode.body, function(node) {
-            if(node instanceof nodes.FunCall &&
-               node.name.value == 'super') {
-                hasSuper = true;
-                return new nodes.Symbol(node.lineno, node.colno, symbol);
-            }
-        });
-
-        if(hasSuper) {
-            blockNode.body.children.unshift(new nodes.Super(
-                0, 0, blockNode.name, new nodes.Symbol(0, 0, symbol)
-            ));
-        }
-    });
-}
-
-function convertStatements(ast) {
-    return depthWalk(ast, function(node) {
-        if(!(node instanceof nodes.If) &&
-           !(node instanceof nodes.For)) {
-            return;
-        }
-
-        var async = false;
-        walk(node, function(node) {
-            if(node instanceof nodes.FilterAsync ||
-               node instanceof nodes.IfAsync ||
-               node instanceof nodes.AsyncEach ||
-               node instanceof nodes.AsyncAll ||
-               node instanceof nodes.CallExtensionAsync) {
-                async = true;
-                // Stop iterating by returning the node
-                return node;
-            }
-        });
-
-        if(async) {
-	        if(node instanceof nodes.If) {
-                return new nodes.IfAsync(
-                    node.lineno,
-                    node.colno,
-                    node.cond,
-                    node.body,
-                    node.else_
-                );
-            }
-            else if(node instanceof nodes.For) {
-                return new nodes.AsyncEach(
-                    node.lineno,
-                    node.colno,
-                    node.arr,
-                    node.name,
-                    node.body
-                );
-            }
-        }
-    });
-}
-
-function cps(ast, asyncFilters) {
-    return convertStatements(liftSuper(liftFilters(ast, asyncFilters)));
-}
-
-function transform(ast, asyncFilters, name) {
-    return cps(ast, asyncFilters || []);
-}
-
-// var parser = modules["parser"];
-// var src = 'hello {% foo %}{% endfoo %} end';
-// var ast = transform(parser.parse(src, [new FooExtension()]), ['bar']);
-// nodes.printNodes(ast);
-
-modules['transformer'] = {
-    transform: transform
-};
-})();
-(function() {
-var lib = modules["lib"];
-var parser = modules["parser"];
-var transformer = modules["transformer"];
-var nodes = modules["nodes"];
-var Object = modules["object"];
-var Frame = modules["runtime"].Frame;
-
-// These are all the same for now, but shouldn't be passed straight
-// through
-var compareOps = {
-    '==': '==',
-    '!=': '!=',
-    '<': '<',
-    '>': '>',
-    '<=': '<=',
-    '>=': '>='
-};
-
-// A common pattern is to emit binary operators
-function binOpEmitter(str) {
-    return function(node, frame) {
-        this.compile(node.left, frame);
-        this.emit(str);
-        this.compile(node.right, frame);
-    };
-}
-
-// Generate an array of strings
-function quotedArray(arr) {
-    return '[' +
-        lib.map(arr, function(x) { return '"' + x + '"'; }) +
-        ']';
-}
-
-var Compiler = Object.extend({
-    init: function() {
-        this.codebuf = [];
-        this.lastId = 0;
-        this.buffer = null;
-        this.bufferStack = [];
-        this.isChild = false;
-        this.scopeClosers = '';
-    },
-
-    fail: function (msg, lineno, colno) {
-        if (lineno !== undefined) lineno += 1;
-        if (colno !== undefined) colno += 1;
-
-        throw new lib.TemplateError(msg, lineno, colno);
-    },
-
-    pushBufferId: function(id) {
-        this.bufferStack.push(this.buffer);
-        this.buffer = id;
-        this.emit('var ' + this.buffer + ' = "";');
-    },
-
-    popBufferId: function() {
-        this.buffer = this.bufferStack.pop();
-    },
-
-    emit: function(code) {
-        this.codebuf.push(code);
-    },
-
-    emitLine: function(code) {
-        this.emit(code + "\n");
-    },
-
-    emitLines: function() {
-        lib.each(lib.toArray(arguments), function(line) {
-            this.emitLine(line);
-        }, this);
-    },
-
-    emitFuncBegin: function(name) {
-        this.buffer = 'output';
-        this.scopeClosers = '';
-        this.emitLine('function ' + name + '(env, context, frame, runtime, cb) {');
-        this.emitLine('var lineno = null;');
-        this.emitLine('var colno = null;');
-        this.emitLine('var ' + this.buffer + ' = "";');
-        this.emitLine('try {');
-    },
-
-    emitFuncEnd: function(noReturn) {
-        if(!noReturn) {
-            this.emitLine('cb(null, ' + this.buffer +');');
-        }
-
-        this.closeScopeLevels();
-        this.emitLine('} catch (e) {');
-        this.emitLine('  cb(runtime.handleError(e, lineno, colno));');
-        this.emitLine('}');
-        this.emitLine('}');
-        this.buffer = null;
-    },
-
-    addScopeLevel: function() {
-        this.scopeClosers += '})';
-    },
-
-    closeScopeLevels: function() {
-        this.emitLine(this.scopeClosers + ';');
-        this.scopeClosers = '';
-    },
-
-    withScopedSyntax: function(func) {
-        var scopeClosers = this.scopeClosers;
-        this.scopeClosers = '';
-
-        func.call(this);
-
-        this.closeScopeLevels();
-        this.scopeClosers = scopeClosers;
-    },
-
-    makeCallback: function(res) {
-        var err = this.tmpid();
-
-        return 'function(' + err + (res ? ',' + res : '') + ') {\n' +
-            'if(' + err + ') { cb(' + err + '); return; }';
-    },
-
-    tmpid: function() {
-        this.lastId++;
-        return 't_' + this.lastId;
-    },
-
-    _bufferAppend: function(func) {
-        this.emit(this.buffer + ' += runtime.suppressValue(');
-        func.call(this);
-        this.emit(', env.autoesc);\n');
-    },
-
-    _compileChildren: function(node, frame) {
-        var children = node.children;
-        for(var i=0, l=children.length; i<l; i++) {
-            this.compile(children[i], frame);
-        }
-    },
-
-    _compileAggregate: function(node, frame, startChar, endChar) {
-        if(startChar) {
-            this.emit(startChar);
-        }
-
-        for(var i=0; i<node.children.length; i++) {
-            if(i > 0) {
-                this.emit(',');
-            }
-
-            this.compile(node.children[i], frame);
-        }
-
-        if(endChar) {
-            this.emit(endChar);
-        }
-    },
-
-    _compileExpression: function(node, frame) {
-        // TODO: I'm not really sure if this type check is worth it or
-        // not.
-        this.assertType(
-            node,
-            nodes.Literal,
-            nodes.Symbol,
-            nodes.Group,
-            nodes.Array,
-            nodes.Dict,
-            nodes.FunCall,
-            nodes.Filter,
-            nodes.LookupVal,
-            nodes.Compare,
-            nodes.InlineIf,
-            nodes.And,
-            nodes.Or,
-            nodes.Not,
-            nodes.Add,
-            nodes.Sub,
-            nodes.Mul,
-            nodes.Div,
-            nodes.FloorDiv,
-            nodes.Mod,
-            nodes.Pow,
-            nodes.Neg,
-            nodes.Pos,
-            nodes.Compare,
-            nodes.NodeList
-        );
-        this.compile(node, frame);
-    },
-
-    assertType: function(node /*, types */) {
-        var types = lib.toArray(arguments).slice(1);
-        var success = false;
-
-        for(var i=0; i<types.length; i++) {
-            if(node instanceof types[i]) {
-                success = true;
-            }
-        }
-
-        if(!success) {
-            this.fail("assertType: invalid type: " + node.typename,
-                      node.lineno,
-                      node.colno);
-        }
-    },
-
-    compileCallExtension: function(node, frame, async) {
-        var name = node.extName;
-        var args = node.args;
-        var contentArgs = node.contentArgs;
-        var autoescape = typeof node.autoescape === 'boolean' ? node.autoescape : true;
-        var transformedArgs = [];
-
-        if(!async) {
-            this.emit(this.buffer + ' += runtime.suppressValue(');
-        }
-
-        this.emit('env.getExtension("' + node.extName + '")["' + node.prop + '"](');
-        this.emit('context');
-
-        if(args || contentArgs) {
-            this.emit(',');
-        }
-
-        if(args) {
-            if(!(args instanceof nodes.NodeList)) {
-                this.fail('compileCallExtension: arguments must be a NodeList, ' +
-                          'use `parser.parseSignature`');
-            }
-
-            lib.each(args.children, function(arg, i) {
-                // Tag arguments are passed normally to the call. Note
-                // that keyword arguments are turned into a single js
-                // object as the last argument, if they exist.
-                this._compileExpression(arg, frame);
-
-                if(i != args.children.length - 1 || contentArgs.length) {
-                    this.emit(',');
-                }
-            }, this);
-        }
-
-        if(contentArgs.length) {
-            lib.each(contentArgs, function(arg, i) {
-                if(i > 0) {
-                    this.emit(',');
-                }
-
-                if(arg) {
-                    var id = this.tmpid();
-
-                    this.emitLine('function(cb) {');
-                    this.emitLine('if(!cb) { cb = function(err) { if(err) { throw err; }}}');
-                    this.pushBufferId(id);
-
-                    this.withScopedSyntax(function() {
-                        this.compile(arg, frame);
-                        this.emitLine('cb(null, ' + id + ');');
-                    });
-
-                    this.popBufferId();
-                    this.emitLine('return ' + id + ';');
-                    this.emitLine('}');
-                }
-                else {
-                    this.emit('null');
-                }
-            }, this);
-        }
-
-        if(async) {
-            var res = this.tmpid();
-            this.emitLine(', ' + this.makeCallback(res));
-            this.emitLine(this.buffer + ' += runtime.suppressValue(' + res + ', ' + autoescape + ' && env.autoesc);');
-            this.addScopeLevel();
-        }
-        else {
-            this.emit(')');
-            this.emit(', ' + autoescape + ' && env.autoesc);\n');
-        }
-    },
-
-    compileCallExtensionAsync: function(node, frame) {
-        this.compileCallExtension(node, frame, true);
-    },
-
-    compileNodeList: function(node, frame) {
-        this._compileChildren(node, frame);
-    },
-
-    compileLiteral: function(node, frame) {
-        if(typeof node.value == "string") {
-            var val = node.value.replace(/\\/g, '\\\\');
-            val = val.replace(/"/g, '\\"');
-            val = val.replace(/\n/g, "\\n");
-            val = val.replace(/\r/g, "\\r");
-            val = val.replace(/\t/g, "\\t");
-            this.emit('"' + val  + '"');
-        }
-        else {
-            this.emit(node.value.toString());
-        }
-    },
-
-    compileSymbol: function(node, frame) {
-        var name = node.value;
-        var v;
-
-        if((v = frame.lookup(name))) {
-            this.emit(v);
-        }
-        else {
-            this.emit('runtime.contextOrFrameLookup(' +
-                      'context, frame, "' + name + '")');
-        }
-    },
-
-    compileGroup: function(node, frame) {
-        this._compileAggregate(node, frame, '(', ')');
-    },
-
-    compileArray: function(node, frame) {
-        this._compileAggregate(node, frame, '[', ']');
-    },
-
-    compileDict: function(node, frame) {
-        this._compileAggregate(node, frame, '{', '}');
-    },
-
-    compilePair: function(node, frame) {
-        var key = node.key;
-        var val = node.value;
-
-        if(key instanceof nodes.Symbol) {
-            key = new nodes.Literal(key.lineno, key.colno, key.value);
-        }
-        else if(!(key instanceof nodes.Literal &&
-                  typeof key.value == "string")) {
-            this.fail("compilePair: Dict keys must be strings or names",
-                      key.lineno,
-                      key.colno);
-        }
-
-        this.compile(key, frame);
-        this.emit(': ');
-        this._compileExpression(val, frame);
-    },
-
-    compileInlineIf: function(node, frame) {
-        this.emit('(');
-        this.compile(node.cond, frame);
-        this.emit('?');
-        this.compile(node.body, frame);
-        this.emit(':');
-        if(node.else_ !== null)
-            this.compile(node.else_, frame);
-        else
-            this.emit('""');
-        this.emit(')');
-    },
-
-    compileOr: binOpEmitter(' || '),
-    compileAnd: binOpEmitter(' && '),
-    compileAdd: binOpEmitter(' + '),
-    compileSub: binOpEmitter(' - '),
-    compileMul: binOpEmitter(' * '),
-    compileDiv: binOpEmitter(' / '),
-    compileMod: binOpEmitter(' % '),
-
-    compileNot: function(node, frame) {
-        this.emit('!');
-        this.compile(node.target, frame);
-    },
-
-    compileFloorDiv: function(node, frame) {
-        this.emit('Math.floor(');
-        this.compile(node.left, frame);
-        this.emit(' / ');
-        this.compile(node.right, frame);
-        this.emit(')');
-    },
-
-    compilePow: function(node, frame) {
-        this.emit('Math.pow(');
-        this.compile(node.left, frame);
-        this.emit(', ');
-        this.compile(node.right, frame);
-        this.emit(')');
-    },
-
-    compileNeg: function(node, frame) {
-        this.emit('-');
-        this.compile(node.target, frame);
-    },
-
-    compilePos: function(node, frame) {
-        this.emit('+');
-        this.compile(node.target, frame);
-    },
-
-    compileCompare: function(node, frame) {
-        this.compile(node.expr, frame);
-
-        for(var i=0; i<node.ops.length; i++) {
-            var n = node.ops[i];
-            this.emit(' ' + compareOps[n.type] + ' ');
-            this.compile(n.expr, frame);
-        }
-    },
-
-    compileLookupVal: function(node, frame) {
-        this.emit('runtime.memberLookup((');
-        this._compileExpression(node.target, frame);
-        this.emit('),');
-        this._compileExpression(node.val, frame);
-        this.emit(', env.autoesc)');
-    },
-
-    _getNodeName: function(node) {
-        switch (node.typename) {
-            case 'Symbol':
-                return node.value;
-            case 'FunCall':
-                return 'the return value of (' + this._getNodeName(node.name) + ')';
-            case 'LookupVal':
-                return this._getNodeName(node.target) + '["' +
-                       this._getNodeName(node.val) + '"]';
-            case 'Literal':
-                return node.value.toString().substr(0, 10);
-            default:
-                return '--expression--';
-        }
-    },
-
-    compileFunCall: function(node, frame) {
-        // Keep track of line/col info at runtime by settings
-        // variables within an expression. An expression in javascript
-        // like (x, y, z) returns the last value, and x and y can be
-        // anything
-        this.emit('(lineno = ' + node.lineno +
-                  ', colno = ' + node.colno + ', ');
-
-        this.emit('runtime.callWrap(');
-        // Compile it as normal.
-        this._compileExpression(node.name, frame);
-
-        // Output the name of what we're calling so we can get friendly errors
-        // if the lookup fails.
-        this.emit(', "' + this._getNodeName(node.name).replace(/"/g, '\\"') + '", ');
-
-        this._compileAggregate(node.args, frame, '[', '])');
-
-        this.emit(')');
-    },
-
-    compileFilter: function(node, frame) {
-        var name = node.name;
-        this.assertType(name, nodes.Symbol);
-
-        this.emit('env.getFilter("' + name.value + '").call(context, ');
-        this._compileAggregate(node.args, frame);
-        this.emit(')');
-    },
-
-    compileFilterAsync: function(node, frame) {
-        var name = node.name;
-        this.assertType(name, nodes.Symbol);
-
-        var symbol = node.symbol.value;
-        frame.set(symbol, symbol);
-
-        this.emit('env.getFilter("' + name.value + '").call(context, ');
-        this._compileAggregate(node.args, frame);
-        this.emitLine(', ' + this.makeCallback(symbol));
-
-        this.addScopeLevel();
-    },
-
-    compileKeywordArgs: function(node, frame) {
-        var names = [];
-
-        lib.each(node.children, function(pair) {
-            names.push(pair.key.value);
-        });
-
-        this.emit('runtime.makeKeywordArgs(');
-        this.compileDict(node, frame);
-        this.emit(')');
-    },
-
-    compileSet: function(node, frame) {
-        var ids = [];
-
-        // Lookup the variable names for each identifier and create
-        // new ones if necessary
-        lib.each(node.targets, function(target) {
-            var name = target.value;
-            var id = frame.lookup(name);
-
-            if (id == null) {
-                id = this.tmpid();
-
-                // Note: This relies on js allowing scope across
-                // blocks, in case this is created inside an `if`
-                this.emitLine('var ' + id + ';');
-            }
-
-            ids.push(id);
-        }, this);
-
-        this.emit(ids.join(' = ') + ' = ');
-        this._compileExpression(node.value, frame);
-        this.emitLine(';');
-
-        lib.each(node.targets, function(target, i) {
-            var id = ids[i];
-            var name = target.value;
-
-            this.emitLine('frame.set("' + name + '", ' + id + ', true);'); 
-
-            // We are running this for every var, but it's very
-            // uncommon to assign to multiple vars anyway
-            this.emitLine('if(!frame.parent) {');
-            this.emitLine('context.setVariable("' + name + '", ' + id + ');');
-            if(name.charAt(0) != '_') {
-                this.emitLine('context.addExport("' + name + '");');
-            }
-            this.emitLine('}');
-        }, this);
-    },
-
-    compileIf: function(node, frame, async) {
-        this.emit('if(');
-        this._compileExpression(node.cond, frame);
-        this.emitLine(') {');
-
-        this.withScopedSyntax(function() {
-            this.compile(node.body, frame);
-
-            if(async) {
-                this.emit('cb()');
-            }
-        });
-
-        if(node.else_) {
-            this.emitLine('}\nelse {');
-
-            this.withScopedSyntax(function() {
-                this.compile(node.else_, frame);
-
-                if(async) {
-                    this.emit('cb()');
-                }
-            });
-        } else if(async) {
-            this.emitLine('}\nelse {');
-            this.emit('cb()');
-        }
-
-        this.emitLine('}');
-    },
-
-    compileIfAsync: function(node, frame) {
-        this.emit('(function(cb) {');
-        this.compileIf(node, frame, true);
-        this.emit('})(function() {');
-        this.addScopeLevel();
-    },
-
-    scanLoop: function(node) {
-        var loopUses = {};
-
-        node.iterFields(function(field) {
-            var lookups = field.findAll(nodes.LookupVal);
-
-            lib.each(lookups, function(lookup) {
-                if (lookup.target instanceof nodes.Symbol &&
-                    lookup.target.value == 'loop' &&
-                    lookup.val instanceof nodes.Literal) {
-                    loopUses[lookup.val.value] = true;
-                }
-            });
-        });
-
-        return loopUses;
-    },
-
-    emitLoopBindings: function(node, loopUses, arr, i, len) {
-        len = len || arr + '.length';
-
-        var bindings = {
-            index: i + ' + 1',
-            index0: i,
-            revindex: len + ' - ' + i,
-            revindex0: len + ' - ' + i + ' - 1',
-            first: i + ' === 0',
-            last: i + ' === ' + len + ' - 1',
-            length: len
-        };
-
-        for(var name in bindings) {
-            if(name in loopUses) {
-                this.emitLine('frame.set("loop.' + name + '", ' + bindings[name] + ');');
-            }
-        }
-    },
-
-    compileFor: function(node, frame) {
-        // Some of this code is ugly, but it keeps the generated code
-        // as fast as possible. ForAsync also shares some of this, but
-        // not much.
-
-        var i = this.tmpid();
-        var len = this.tmpid();
-        var arr = this.tmpid();
-        var loopUses = this.scanLoop(node);
-        frame = frame.push();
-
-        this.emitLine('frame = frame.push();');
-
-        this.emit('var ' + arr + ' = ');
-        this._compileExpression(node.arr, frame);
-        this.emitLine(';');
-
-        this.emit('if(' + arr + ') {');
-
-        // If multiple names are passed, we need to bind them
-        // appropriately
-        if(node.name instanceof nodes.Array) {
-            this.emitLine('var ' + i + ';');
-
-            // The object could be an arroy or object. Note that the
-            // body of the loop is duplicated for each condition, but
-            // we are optimizing for speed over size.
-            this.emitLine('if(runtime.isArray(' + arr + ')) {'); {
-                this.emitLine('for(' + i + '=0; ' + i + ' < ' + arr + '.length; '
-                              + i + '++) {');
-
-                // Bind each declared var
-                for (var u=0; u < node.name.children.length; u++) {
-                    var tid = this.tmpid();
-                    this.emitLine('var ' + tid + ' = ' + arr + '[' + i + '][' + u + ']');
-                    this.emitLine('frame.set("' + node.name.children[u].value
-                                  + '", ' + arr + '[' + i + '][' + u + ']' + ');');
-                    frame.set(node.name.children[u].value, tid);
-                }
-
-                this.emitLoopBindings(node, loopUses, arr, i);
-                this.withScopedSyntax(function() {
-                    this.compile(node.body, frame);
-                });
-                this.emitLine('}');
-            }
-
-            this.emitLine('} else {'); {
-                // Iterate over the key/values of an object
-                var key = node.name.children[0];
-                var val = node.name.children[1];
-                var k = this.tmpid();
-                var v = this.tmpid();
-                frame.set(key.value, k);
-                frame.set(val.value, v);
-
-                this.emitLine(i + ' = -1;');
-
-                if(loopUses['revindex'] || loopUses['revindex0'] ||
-                   loopUses['last'] || loopUses['length']) {
-                    this.emitLine('var ' + len + ' = runtime.keys(' + arr + ').length;');
-                }
-
-                this.emitLine('for(var ' + k + ' in ' + arr + ') {');
-                this.emitLine(i + '++;');
-                this.emitLine('var ' + v + ' = ' + arr + '[' + k + '];');
-                this.emitLine('frame.set("' + key.value + '", ' + k + ');');
-                this.emitLine('frame.set("' + val.value + '", ' + v + ');');
-
-                this.emitLoopBindings(node, loopUses, arr, i, len);
-                this.withScopedSyntax(function() {
-                    this.compile(node.body, frame);
-                });
-                this.emitLine('}');
-            }
-
-            this.emitLine('}');
-        }
-        else {
-            // Generate a typical array iteration
-            var v = this.tmpid();
-            frame.set(node.name.value, v);
-
-            this.emitLine('for(var ' + i + '=0; ' + i + ' < ' + arr + '.length; ' +
-                          i + '++) {');
-            this.emitLine('var ' + v + ' = ' + arr + '[' + i + '];');
-            this.emitLine('frame.set("' + node.name.value + '", ' + v + ');');
-
-            this.emitLoopBindings(node, loopUses, arr, i);
-
-            this.withScopedSyntax(function() {
-                this.compile(node.body, frame);
-            });
-
-            this.emitLine('}');
-        }
-
-        this.emitLine('}');
-        this.emitLine('frame = frame.pop();');
-    },
-
-    _compileAsyncLoop: function(node, frame, parallel) {
-        // This shares some code with the For tag, but not enough to
-        // worry about. This iterates across an object asynchronously,
-        // but not in parallel.
-
-        var i = this.tmpid();
-        var len = this.tmpid();
-        var arr = this.tmpid();
-        var loopUses = this.scanLoop(node);
-        var asyncMethod = parallel ? 'asyncAll' : 'asyncEach';
-        frame = frame.push();
-
-        this.emitLine('frame = frame.push();');
-
-        this.emit('var ' + arr + ' = ');
-        this._compileExpression(node.arr, frame);
-        this.emitLine(';');
-
-        if(node.name instanceof nodes.Array) {
-            this.emit('runtime.' + asyncMethod + '(' + arr + ', ' +
-                      node.name.children.length + ', function(');
-
-            lib.each(node.name.children, function(name) {
-                this.emit(name.value + ',');
-            }, this);
-
-            this.emit(i + ',' + len + ',next) {');
-
-            lib.each(node.name.children, function(name) {
-                var id = name.value;
-                frame.set(id, id);
-                this.emitLine('frame.set("' + id + '", ' + id + ');');
-            }, this);
-        }
-        else {
-            var id = node.name.value;
-            this.emitLine('runtime.' + asyncMethod + '(' + arr + ', 1, function(' + id + ', ' + i + ', ' + len + ',next) {');
-            this.emitLine('frame.set("' + id + '", ' + id + ');');
-            frame.set(id, id);
-        }
-
-        this.emitLoopBindings(node, loopUses, arr, i, len);
-
-        this.withScopedSyntax(function() {
-            var buf;
-            if(parallel) {
-                buf = this.tmpid();
-                this.pushBufferId(buf);
-            }
-
-            this.compile(node.body, frame);
-            this.emitLine('next(' + i + (buf ? ',' + buf : '') + ');');
-
-            if(parallel) {
-                this.popBufferId();
-            }
-        });
-
-        var output = this.tmpid();
-        this.emitLine('}, ' + this.makeCallback(output));
-        this.addScopeLevel();
-
-        if(parallel) {
-            this.emitLine(this.buffer + ' += ' + output + ';');
-        }
-
-        this.emitLine('frame = frame.pop();');
-    },
-
-    compileAsyncEach: function(node, frame) {
-        this._compileAsyncLoop(node, frame);
-    },
-
-    compileAsyncAll: function(node, frame) {
-        this._compileAsyncLoop(node, frame, true);
-    },
-
-    _emitMacroBegin: function(node, frame) {
-        var args = [];
-        var kwargs = null;
-        var funcId = 'macro_' + this.tmpid();
-
-        // Type check the definition of the args
-        lib.each(node.args.children, function(arg, i) {
-            if(i === node.args.children.length - 1 &&
-               arg instanceof nodes.Dict) {
-                kwargs = arg;
-            }
-            else {
-                this.assertType(arg, nodes.Symbol);
-                args.push(arg);
-            }
-        }, this);
-
-        var realNames = lib.map(args, function(n) { return 'l_' + n.value; });
-        realNames.push('kwargs');
-
-        // Quoted argument names
-        var argNames = lib.map(args, function(n) { return '"' + n.value + '"'; });
-        var kwargNames = lib.map((kwargs && kwargs.children) || [],
-                                 function(n) { return '"' + n.key.value + '"'; });
-
-        // We pass a function to makeMacro which destructures the
-        // arguments so support setting positional args with keywords
-        // args and passing keyword args as positional args
-        // (essentially default values). See runtime.js.
-        this.emitLines(
-            'var ' + funcId + ' = runtime.makeMacro(',
-            '[' + argNames.join(', ') + '], ',
-            '[' + kwargNames.join(', ') + '], ',
-            'function (' + realNames.join(', ') + ') {',
-            'frame = frame.push();',
-            'kwargs = kwargs || {};'
-        );
-
-        // Expose the arguments to the template. Don't need to use
-        // random names because the function
-        // will create a new run-time scope for us
-        lib.each(args, function(arg) {
-            this.emitLine('frame.set("' + arg.value + '", ' +
-                          'l_' + arg.value + ');');
-            frame.set(arg.value, 'l_' + arg.value);
-        }, this);
-
-        // Expose the keyword arguments
-        if(kwargs) {
-            lib.each(kwargs.children, function(pair) {
-                var name = pair.key.value;
-                this.emit('frame.set("' + name + '", ' +
-                          'kwargs.hasOwnProperty("' + name + '") ? ' +
-                          'kwargs["' + name + '"] : ');
-                this._compileExpression(pair.value, frame);
-                this.emitLine(');');
-            }, this);
-        }
-
-        return funcId;
-    },
-
-    _emitMacroEnd: function(bufferId) {
-        this.emitLine('frame = frame.pop();');
-        this.emitLine('return new runtime.SafeString(' + bufferId + ');');
-        this.emitLine('});');
-    },
-
-    compileMacro: function(node, frame) {
-        frame = frame.push();
-        var funcId = this._emitMacroBegin(node, frame);
-        var id = this.tmpid();
-        this.pushBufferId(id);
-
-        this.withScopedSyntax(function() {
-            this.compile(node.body, frame);
-        });
-
-        this._emitMacroEnd(id);
-        this.popBufferId();
-
-        // Expose the macro to the templates
-        var name = node.name.value;
-        frame = frame.pop();
-        frame.set(name, funcId);
-
-        if(frame.parent) {
-            this.emitLine('frame.set("' + name + '", ' + funcId + ');');
-        }
-        else {
-            if(node.name.value.charAt(0) != '_') {
-                this.emitLine('context.addExport("' + name + '");');
-            }
-            this.emitLine('context.setVariable("' + name + '", ' + funcId + ');');
-        }
-    },
-
-    compileImport: function(node, frame) {
-        var id = this.tmpid();
-        var target = node.target.value;
-
-        this.emit('env.getTemplate(');
-        this._compileExpression(node.template, frame);
-        this.emitLine(', ' + this.makeCallback(id));
-        this.addScopeLevel();
-
-        this.emitLine(id + '.getExported(' + this.makeCallback(id));
-        this.addScopeLevel();
-
-        frame.set(target, id);
-
-        if(frame.parent) {
-            this.emitLine('frame.set("' + target + '", ' + id + ');');
-        }
-        else {
-            this.emitLine('context.setVariable("' + target + '", ' + id + ');');
-        }
-    },
-
-    compileFromImport: function(node, frame) {
-        var importedId = this.tmpid();
-
-        this.emit('env.getTemplate(');
-        this._compileExpression(node.template, frame);
-        this.emitLine(', ' + this.makeCallback(importedId));
-        this.addScopeLevel();
-
-        this.emitLine(importedId + '.getExported(' + this.makeCallback(importedId));
-        this.addScopeLevel();
-
-        lib.each(node.names.children, function(nameNode) {
-            var name;
-            var alias;
-            var id = this.tmpid();
-
-            if(nameNode instanceof nodes.Pair) {
-                name = nameNode.key.value;
-                alias = nameNode.value.value;
-            }
-            else {
-                name = nameNode.value;
-                alias = name;
-            }
-
-            this.emitLine('if(' + importedId + '.hasOwnProperty("' + name + '")) {');
-            this.emitLine('var ' + id + ' = ' + importedId + '.' + name + ';');
-            this.emitLine('} else {');
-            this.emitLine('cb(new Error("cannot import \'' + name + '\'")); return;');
-            this.emitLine('}');
-
-            frame.set(alias, id);
-
-            if(frame.parent) {
-                this.emitLine('frame.set("' + alias + '", ' + id + ');');
-            }
-            else {
-                this.emitLine('context.setVariable("' + alias + '", ' + id + ');');
-            }
-        }, this);
-    },
-
-    compileBlock: function(node, frame) {
-        if(!this.isChild) {
-            var id = this.tmpid();
-
-            this.emitLine('context.getBlock("' + node.name.value + '")' +
-                          '(env, context, frame, runtime, ' + this.makeCallback(id));
-            this.emitLine(this.buffer + ' += ' + id + ';');
-            this.addScopeLevel();
-        }
-    },
-
-    compileSuper: function(node, frame) {
-        var name = node.blockName.value;
-        var id = node.symbol.value;
-
-        this.emitLine('context.getSuper(env, ' +
-                      '"' + name + '", ' +
-                      'b_' + name + ', ' +
-                      'frame, runtime, '+
-                      this.makeCallback(id));
-        this.emitLine(id + ' = runtime.markSafe(' + id + ');');
-        this.addScopeLevel();
-        frame.set(id, id);
-    },
-
-    compileExtends: function(node, frame) {
-        if(this.isChild) {
-            this.fail('compileExtends: cannot extend multiple times',
-                      node.template.lineno,
-                      node.template.colno);
-        }
-
-        var k = this.tmpid();
-
-        this.emit('env.getTemplate(');
-        this._compileExpression(node.template, frame);
-        this.emitLine(', true, ' + this.makeCallback('parentTemplate'));
-
-        this.emitLine('for(var ' + k + ' in parentTemplate.blocks) {');
-        this.emitLine('context.addBlock(' + k +
-                      ', parentTemplate.blocks[' + k + ']);');
-        this.emitLine('}');
-
-        this.addScopeLevel();
-        this.isChild = true;
-    },
-
-    compileInclude: function(node, frame) {
-        var id = this.tmpid();
-        var id2 = this.tmpid();
-
-        this.emit('env.getTemplate(');
-        this._compileExpression(node.template, frame);
-        this.emitLine(', ' + this.makeCallback(id));
-        this.addScopeLevel();
-
-        this.emitLine(id + '.render(' +
-                      'context.getVariables(), frame.push(), ' + this.makeCallback(id2));
-        this.emitLine(this.buffer + ' += ' + id2);
-        this.addScopeLevel();
-    },
-
-    compileTemplateData: function(node, frame) {
-        this.compileLiteral(node, frame);
-    },
-
-    compileOutput: function(node, frame) {
-        var children = node.children;
-        for(var i=0, l=children.length; i<l; i++) {
-            // TemplateData is a special case because it is never
-            // autoescaped, so simply output it for optimization
-            if(children[i] instanceof nodes.TemplateData) {
-                if(children[i].value) {
-                    this.emit(this.buffer + ' += ');
-                    this.compileLiteral(children[i], frame);
-                    this.emitLine(';');
-                }
-            }
-            else {
-                this.emit(this.buffer + ' += runtime.suppressValue(');
-                this.compile(children[i], frame);
-                this.emit(', env.autoesc);\n');
-            }
-        }
-    },
-
-    compileRoot: function(node, frame) {
-        if(frame) {
-            this.fail("compileRoot: root node can't have frame");
-        }
-
-        frame = new Frame();
-
-        this.emitFuncBegin('root');
-        this._compileChildren(node, frame);
-        if(this.isChild) {
-            this.emitLine('parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);');
-        }
-        this.emitFuncEnd(this.isChild);
-
-        // When compiling the blocks, they should all act as top-level code
-        this.isChild = false;
-
-        var blocks = node.findAll(nodes.Block);
-        for(var i=0; i<blocks.length; i++) {
-            var block = blocks[i];
-            var name = block.name.value;
-
-            this.emitFuncBegin('b_' + name);
-
-            var tmpFrame = new Frame();
-            this.compile(block.body, tmpFrame);
-            this.emitFuncEnd();
-        }
-
-        this.emitLine('return {');
-        for(var i=0; i<blocks.length; i++) {
-            var block = blocks[i];
-            var name = 'b_' + block.name.value;
-            this.emitLine(name + ': ' + name + ',');
-        }
-        this.emitLine('root: root\n};');
-    },
-
-    compile: function (node, frame) {
-        var _compile = this["compile" + node.typename];
-        if(_compile) {
-            _compile.call(this, node, frame);
-        }
-        else {
-            this.fail("compile: Cannot compile node: " + node.typename,
-                      node.lineno,
-                      node.colno);
-        }
-    },
-
-    getCode: function() {
-        return this.codebuf.join('');
-    }
-});
-
-// var c = new Compiler();
-// var src = '{% macro foo() %}{% include "include.html" %}{% endmacro %} This is my template {{ foo() }}';
-// var ast = transformer.transform(parser.parse(src));
-//nodes.printNodes(ast);
-// c.compile(ast);
-// var tmpl = c.getCode();
-// console.log(tmpl);
-
-modules['compiler'] = {
-    compile: function(src, asyncFilters, extensions, name) {
-        var c = new Compiler();
-
-        // Run the extension preprocessors against the source.
-        if(extensions && extensions.length) {
-            for(var i=0; i<extensions.length; i++) {
-                if('preprocess' in extensions[i]) {
-                    src = extensions[i].preprocess(src, name);
-                }
-            }
-        }
-
-        c.compile(transformer.transform(parser.parse(src, extensions),
-                                        asyncFilters,
-                                        name));
-        return c.getCode();
-    },
-
-    Compiler: Compiler
-};
-})();
-(function() {
-var lib = modules["lib"];
-var r = modules["runtime"];
-
-var filters = {
-    abs: function(n) {
-        return Math.abs(n);
-    },
-
-    batch: function(arr, linecount, fill_with) {
-        var res = [];
-        var tmp = [];
-
-        for(var i=0; i<arr.length; i++) {
-            if(i % linecount === 0 && tmp.length) {
-                res.push(tmp);
-                tmp = [];
-            }
-
-            tmp.push(arr[i]);
-        }
-
-        if(tmp.length) {
-            if(fill_with) {
-                for(var i=tmp.length; i<linecount; i++) {
-                    tmp.push(fill_with);
-                }
-            }
-
-            res.push(tmp);
-        }
-
-        return res;
-    },
-
-    capitalize: function(str) {
-        var ret = str.toLowerCase();
-        return r.copySafeness(str, ret.charAt(0).toUpperCase() + ret.slice(1));
-    },
-
-    center: function(str, width) {
-        width = width || 80;
-
-        if(str.length >= width) {
-            return str;
-        }
-
-        var spaces = width - str.length;
-        var pre = lib.repeat(" ", spaces/2 - spaces % 2);
-        var post = lib.repeat(" ", spaces/2);
-        return r.copySafeness(str, pre + str + post);
-    },
-
-    'default': function(val, def) {
-        return val ? val : def;
-    },
-
-    dictsort: function(val, case_sensitive, by) {
-        if (!lib.isObject(val)) {
-            throw new lib.TemplateError("dictsort filter: val must be an object");
-        }
-
-        var array = [];
-        for (var k in val) {
-            // deliberately include properties from the object's prototype
-            array.push([k,val[k]]);
-        }
-
-        var si;
-        if (by === undefined || by === "key") {
-            si = 0;
-        } else if (by === "value") {
-            si = 1;
-        } else {
-            throw new lib.TemplateError(
-                "dictsort filter: You can only sort by either key or value");
-        }
-
-        array.sort(function(t1, t2) {
-            var a = t1[si];
-            var b = t2[si];
-
-            if (!case_sensitive) {
-                if (lib.isString(a)) {
-                    a = a.toUpperCase();
-                }
-                if (lib.isString(b)) {
-                    b = b.toUpperCase();
-                }
-            }
-
-            return a > b ? 1 : (a == b ? 0 : -1);
-        });
-
-        return array;
-    },
-
-    escape: function(str) {
-        if(typeof str == 'string' ||
-           str instanceof r.SafeString) {
-            return lib.escape(str);
-        }
-        return str;
-    },
-
-    safe: function(str) {
-        return r.markSafe(str);
-    },
-
-    first: function(arr) {
-        return arr[0];
-    },
-
-    groupby: function(arr, attr) {
-        return lib.groupBy(arr, attr);
-    },
-
-    indent: function(str, width, indentfirst) {
-        width = width || 4;
-        var res = '';
-        var lines = str.split('\n');
-        var sp = lib.repeat(' ', width);
-
-        for(var i=0; i<lines.length; i++) {
-            if(i == 0 && !indentfirst) {
-                res += lines[i] + '\n';
-            }
-            else {
-                res += sp + lines[i] + '\n';
-            }
-        }
-
-        return r.copySafeness(str, res);
-    },
-
-    join: function(arr, del, attr) {
-        del = del || '';
-
-        if(attr) {
-            arr = lib.map(arr, function(v) {
-                return v[attr];
-            });
-        }
-
-        return arr.join(del);
-    },
-
-    last: function(arr) {
-        return arr[arr.length-1];
-    },
-
-    length: function(arr) {
-        return arr !== undefined ? arr.length : 0;
-    },
-
-    list: function(val) {
-        if(lib.isString(val)) {
-            return val.split('');
-        }
-        else if(lib.isObject(val)) {
-            var keys = [];
-
-            if(Object.keys) {
-                keys = Object.keys(val);
-            }
-            else {
-                for(var k in val) {
-                    keys.push(k);
-                }
-            }
-
-            return lib.map(keys, function(k) {
-                return { key: k,
-                         value: val[k] };
-            });
-        }
-        else {
-            throw new lib.TemplateError("list filter: type not iterable");
-        }
-    },
-
-    lower: function(str) {
-        return str.toLowerCase();
-    },
-
-    random: function(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    },
-
-    replace: function(str, old, new_, maxCount) {
-        var res = str;
-        var last = res;
-        var count = 1;
-        res = res.replace(old, new_);
-
-        while(last != res) {
-            if(count >= maxCount) {
-                break;
-            }
-
-            last = res;
-            res = res.replace(old, new_);
-            count++;
-        }
-
-        return r.copySafeness(str, res);
-    },
-
-    reverse: function(val) {
-        var arr;
-        if(lib.isString(val)) {
-            arr = filters.list(val);
-        }
-        else {
-            // Copy it
-            arr = lib.map(val, function(v) { return v; });
-        }
-
-        arr.reverse();
-
-        if(lib.isString(val)) {
-            return r.copySafeness(val, arr.join(''));
-        }
-        return arr;
-    },
-
-    round: function(val, precision, method) {
-        precision = precision || 0;
-        var factor = Math.pow(10, precision);
-        var rounder;
-
-        if(method == 'ceil') {
-            rounder = Math.ceil;
-        }
-        else if(method == 'floor') {
-            rounder = Math.floor;
-        }
-        else {
-            rounder = Math.round;
-        }
-
-        return rounder(val * factor) / factor;
-    },
-
-    slice: function(arr, slices, fillWith) {
-        var sliceLength = Math.floor(arr.length / slices);
-        var extra = arr.length % slices;
-        var offset = 0;
-        var res = [];
-
-        for(var i=0; i<slices; i++) {
-            var start = offset + i * sliceLength;
-            if(i < extra) {
-                offset++;
-            }
-            var end = offset + (i + 1) * sliceLength;
-
-            var slice = arr.slice(start, end);
-            if(fillWith && i >= extra) {
-                slice.push(fillWith);
-            }
-            res.push(slice);
-        }
-
-        return res;
-    },
-
-    sort: function(arr, reverse, caseSens, attr) {
-        // Copy it
-        arr = lib.map(arr, function(v) { return v; });
-
-        arr.sort(function(a, b) {
-            var x, y;
-
-            if(attr) {
-                x = a[attr];
-                y = b[attr];
-            }
-            else {
-                x = a;
-                y = b;
-            }
-
-            if(!caseSens && lib.isString(x) && lib.isString(y)) {
-                x = x.toLowerCase();
-                y = y.toLowerCase();
-            }
-
-            if(x < y) {
-                return reverse ? 1 : -1;
-            }
-            else if(x > y) {
-                return reverse ? -1: 1;
-            }
-            else {
-                return 0;
-            }
-        });
-
-        return arr;
-    },
-
-    string: function(obj) {
-        return r.copySafeness(obj, obj);
-    },
-
-    title: function(str) {
-        var words = str.split(' ');
-        for(var i = 0; i < words.length; i++) {
-            words[i] = filters.capitalize(words[i]);
-        }
-        return r.copySafeness(str, words.join(' '));
-    },
-
-    trim: function(str) {
-        return r.copySafeness(str, str.replace(/^\s*|\s*$/g, ''));
-    },
-
-    truncate: function(input, length, killwords, end) {
-        var orig = input;
-        length = length || 255;
-
-        if (input.length <= length)
-            return input;
-
-        if (killwords) {
-            input = input.substring(0, length);
-        } else {
-            var idx = input.lastIndexOf(' ', length);
-            if(idx === -1) {
-                idx = length;
-            }
-
-            input = input.substring(0, idx);
-        }
-
-        input += (end !== undefined && end !== null) ? end : '...';
-        return r.copySafeness(orig, input);
-    },
-
-    upper: function(str) {
-        return str.toUpperCase();
-    },
-
-    urlencode: function(obj) {
-        var enc = encodeURIComponent;
-        if (lib.isString(obj)) {
-            return enc(obj);
-        } else {
-            var parts;
-            if (lib.isArray(obj)) {
-                parts = obj.map(function(item) {
-                    return enc(item[0]) + '=' + enc(item[1]);
-                })
-            } else {
-                parts = [];
-                for (var k in obj) {
-                    if (obj.hasOwnProperty(k)) {
-                        parts.push(enc(k) + '=' + enc(obj[k]));
-                    }
-                }
-            }
-            return parts.join('&');
-        }
-    },
-
-    urlize: function(str, length, nofollow) {
-        if (isNaN(length)) length = Infinity;
-
-        var noFollowAttr = (nofollow === true ? ' rel="nofollow"' : '');
-
-        // For the jinja regexp, see
-        // https://github.com/mitsuhiko/jinja2/blob/f15b814dcba6aa12bc74d1f7d0c881d55f7126be/jinja2/utils.py#L20-L23
-        var puncRE = /^(?:\(|<|&lt;)?(.*?)(?:\.|,|\)|\n|&gt;)?$/;
-        // from http://blog.gerv.net/2011/05/html5_email_address_regexp/
-        var emailRE = /^[\w.!#$%&'*+\-\/=?\^`{|}~]+@[a-z\d\-]+(\.[a-z\d\-]+)+$/i;
-        var httpHttpsRE = /^https?:\/\/.*$/;
-        var wwwRE = /^www\./;
-        var tldRE = /\.(?:org|net|com)(?:\:|\/|$)/;
-
-        var words = str.split(/\s+/).filter(function(word) {
-          // If the word has no length, bail. This can happen for str with
-          // trailing whitespace.
-          return word && word.length;
-        }).map(function(word) {
-          var matches = word.match(puncRE);
-
-          var possibleUrl = matches && matches[1] || word;
-
-          // url that starts with http or https
-          if (httpHttpsRE.test(possibleUrl))
-            return '<a href="' + possibleUrl + '"' + noFollowAttr + '>' + possibleUrl.substr(0, length) + '</a>';
-
-          // url that starts with www.
-          if (wwwRE.test(possibleUrl))
-            return '<a href="http://' + possibleUrl + '"' + noFollowAttr + '>' + possibleUrl.substr(0, length) + '</a>';
-
-          // an email address of the form username@domain.tld
-          if (emailRE.test(possibleUrl))
-            return '<a href="mailto:' + possibleUrl + '">' + possibleUrl + '</a>';
-
-          // url that ends in .com, .org or .net that is not an email address
-          if (tldRE.test(possibleUrl))
-            return '<a href="http://' + possibleUrl + '"' + noFollowAttr + '>' + possibleUrl.substr(0, length) + '</a>';
-
-          return possibleUrl;
-
-        });
-
-        return words.join(' ');
-    },
-
-    wordcount: function(str) {
-        var words = (str) ? str.match(/\w+/g) : null;
-        return (words) ? words.length : null;
-    },
-
-    'float': function(val, def) {
-        var res = parseFloat(val);
-        return isNaN(res) ? def : res;
-    },
-
-    'int': function(val, def) {
-        var res = parseInt(val, 10);
-        return isNaN(res) ? def : res;
-    }
-};
-
-// Aliases
-filters.d = filters['default'];
-filters.e = filters.escape;
-
-modules['filters'] = filters;
-})();
-(function() {
-
-function cycler(items) {
-    var index = -1;
-    var current = null;
-
-    return {
-        reset: function() {
-            index = -1;
-            current = null;
-        },
-
-        next: function() {
-            index++;
-            if(index >= items.length) {
-                index = 0;
-            }
-
-            current = items[index];
-            return current;
-        }
-    };
-
-}
-
-function joiner(sep) {
-    sep = sep || ',';
-    var first = true;
-
-    return function() {
-        var val = first ? '' : sep;
-        first = false;
-        return val;
-    };
-}
-
-var globals = {
-    range: function(start, stop, step) {
-        if(!stop) {
-            stop = start;
-            start = 0;
-            step = 1;
-        }
-        else if(!step) {
-            step = 1;
-        }
-
-        var arr = [];
-        for(var i=start; i<stop; i+=step) {
-            arr.push(i);
-        }
-        return arr;
-    },
-
-    // lipsum: function(n, html, min, max) {
-    // },
-
-    cycler: function() {
-        return cycler(Array.prototype.slice.call(arguments));
-    },
-
-    joiner: function(sep) {
-        return joiner(sep);
-    }
-}
-
-modules['globals'] = globals;
-})();
-(function() {
-var Obj = modules["object"];
-var lib = modules["lib"];
-
-var Loader = Obj.extend({
-    on: function(name, func) {
-        this.listeners = this.listeners || {};
-        this.listeners[name] = this.listeners[name] || [];
-        this.listeners[name].push(func);
-    },
-
-    emit: function(name /*, arg1, arg2, ...*/) {
-        var args = Array.prototype.slice.call(arguments, 1);
-
-        if(this.listeners && this.listeners[name]) {
-            lib.each(this.listeners[name], function(listener) {
-                listener.apply(null, args);
-            });
-        }
-    }
-});
-
-modules['loader'] = Loader;
-})();
-(function() {
-var Loader = modules["loader"];
-
-var WebLoader = Loader.extend({
-    init: function(baseURL, neverUpdate) {
-        // It's easy to use precompiled templates: just include them
-        // before you configure nunjucks and this will automatically
-        // pick it up and use it
-        this.precompiled = window.nunjucksPrecompiled || {};
-
-        this.baseURL = baseURL || '';
-        this.neverUpdate = neverUpdate;
-    },
-
-    getSource: function(name) {
-        if(this.precompiled[name]) {
-            return {
-                src: { type: "code",
-                       obj: this.precompiled[name] },
-                path: name
-            };
-        }
-        else {
-            var src = this.fetch(this.baseURL + '/' + name);
-            if(!src) {
-                return null;
-            }
-
-            return { src: src,
-                     path: name,
-                     noCache: !this.neverUpdate };
-        }
-    },
-
-    fetch: function(url, callback) {
-        // Only in the browser please
-        var ajax;
-        var loading = true;
-        var src;
-
-        if(window.XMLHttpRequest) { // Mozilla, Safari, ...
-            ajax = new XMLHttpRequest();
-        }
-        else if(window.ActiveXObject) { // IE 8 and older
-            ajax = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        ajax.onreadystatechange = function() {
-            if(ajax.readyState === 4 && (ajax.status === 0 || ajax.status === 200) && loading) {
-                loading = false;
-                src = ajax.responseText;
-            }
-        };
-
-        url += (url.indexOf('?') === -1 ? '?' : '&') + 's=' +
-               (new Date().getTime());
-
-        // Synchronous because this API shouldn't be used in
-        // production (pre-load compiled templates instead)
-        ajax.open('GET', url, false);
-        ajax.send();
-
-        return src;
-    }
-});
-
-modules['web-loaders'] = {
-    WebLoader: WebLoader
-};
-})();
-(function() {
-if(typeof window === 'undefined' || window !== this) {
-    modules['loaders'] = modules["node-loaders"];
-}
-else {
-    modules['loaders'] = modules["web-loaders"];
-}
-})();
-(function() {
-var path = modules["path"];
-var lib = modules["lib"];
-var Obj = modules["object"];
-var lexer = modules["lexer"];
-var compiler = modules["compiler"];
-var builtin_filters = modules["filters"];
-var builtin_loaders = modules["loaders"];
-var runtime = modules["runtime"];
-var globals = modules["globals"];
-var Frame = runtime.Frame;
-
-var Environment = Obj.extend({
-    init: function(loaders, opts) {
-        // The dev flag determines the trace that'll be shown on errors.
-        // If set to true, returns the full trace from the error point,
-        // otherwise will return trace starting from Template.render
-        // (the full trace from within nunjucks may confuse developers using
-        //  the library)
-        // defaults to false
-        opts = opts || {};
-        this.dev = !!opts.dev;
-
-        // The autoescape flag sets global autoescaping. If true,
-        // every string variable will be escaped by default.
-        // If false, strings can be manually escaped using the `escape` filter.
-        // defaults to false
-        this.autoesc = !!opts.autoescape;
-
-        if(!loaders) {
-            // The filesystem loader is only available client-side
-            if(builtin_loaders.FileSystemLoader) {
-                this.loaders = [new builtin_loaders.FileSystemLoader('views')];
-            }
-            else {
-                this.loaders = [new builtin_loaders.WebLoader('/views')];
-            }
-        }
-        else {
-            this.loaders = lib.isArray(loaders) ? loaders : [loaders];
-        }
-
-        this.initCache();
-        this.filters = {};
-        this.asyncFilters = [];
-        this.extensions = {};
-        this.extensionsList = [];
-
-        if(opts.tags) {
-            lexer.setTags(opts.tags);
-        }
-
-        for(var name in builtin_filters) {
-            this.addFilter(name, builtin_filters[name]);
-        }
-    },
-
-    initCache: function() {
-        // Caching and cache busting
-        var cache = {};
-
-        lib.each(this.loaders, function(loader) {
-            if(typeof loader.on === 'function'){
-                loader.on('update', function(template) {
-                    cache[template] = null;
-                });
-            }
-        });
-
-        this.cache = cache;
-    },
-
-    addExtension: function(name, extension) {
-        extension._name = name;
-        this.extensions[name] = extension;
-        this.extensionsList.push(extension);
-    },
-
-    getExtension: function(name) {
-        return this.extensions[name];
-    },
-
-    addGlobal: function(name, value) {
-        globals[name] = value;
-    },
-
-    addFilter: function(name, func, async) {
-        var wrapped = func;
-
-        if(async) {
-            this.asyncFilters.push(name);
-        }
-        this.filters[name] = wrapped;
-    },
-
-    getFilter: function(name) {
-        if(!this.filters[name]) {
-            throw new Error('filter not found: ' + name);
-        }
-        return this.filters[name];
-    },
-
-    getTemplate: function(name, eagerCompile, cb) {
-        if(name && name.raw) {
-            // this fixes autoescape for templates referenced in symbols
-            name = name.raw;
-        }
-
-        if(lib.isFunction(eagerCompile)) {
-            cb = eagerCompile;
-            eagerCompile = false;
-        }
-
-        if(typeof name !== 'string') {
-            throw new Error('template names must be a string: ' + name);
-        }
-
-        var tmpl = this.cache[name];
-
-        if(tmpl) {
-            if(eagerCompile) {
-                tmpl.compile();
-            }
-
-            if(cb) {
-                cb(null, tmpl);
-            }
-            else {
-                return tmpl;
-            }
-        } else {
-            var syncResult;
-
-            lib.asyncIter(this.loaders, function(loader, i, next, done) {
-                function handle(src) {
-                    if(src) {
-                        done(src);
-                    }
-                    else {
-                        next();
-                    }
-                }
-
-                if(loader.async) {
-                    loader.getSource(name, function(err, src) {
-                        if(err) { throw err; }
-                        handle(src);
-                    });
-                }
-                else {
-                    handle(loader.getSource(name));
-                }
-            }, function(info) {
-                if(!info) {
-                    var err = new Error('template not found: ' + name);
-                    if(cb) {
-                        cb(err);
-                    }
-                    else {
-                        throw err;
-                    }
-                }
-                else {
-                    var tmpl = new Template(info.src, this,
-                                            info.path, eagerCompile);
-
-                    if(!info.noCache) {
-                        this.cache[name] = tmpl;
-                    }
-
-                    if(cb) {
-                        cb(null, tmpl);
-                    }
-                    else {
-                        syncResult = tmpl;
-                    }
-                }
-            }.bind(this));
-
-            return syncResult;
-        }
-    },
-
-    express: function(app) {
-        var env = this;
-
-        function NunjucksView(name, opts) {
-            this.name          = name;
-            this.path          = name;
-            this.defaultEngine = opts.defaultEngine;
-            this.ext           = path.extname(name);
-            if (!this.ext && !this.defaultEngine) throw new Error('No default engine was specified and no extension was provided.');
-            if (!this.ext) this.name += (this.ext = ('.' !== this.defaultEngine[0] ? '.' : '') + this.defaultEngine);
-        }
-
-        NunjucksView.prototype.render = function(opts, cb) {
-          env.render(this.name, opts, cb);
-        };
-
-        app.set('view', NunjucksView);
-    },
-
-    render: function(name, ctx, cb) {
-        if(lib.isFunction(ctx)) {
-            cb = ctx;
-            ctx = null;
-        }
-
-        // We support a synchronous API to make it easier to migrate
-        // existing code to async. This works because if you don't do
-        // anything async work, the whole thing is actually run
-        // synchronously.
-        var syncResult = null;
-
-        this.getTemplate(name, function(err, tmpl) {
-            if(err && cb) {
-                cb(err);
-            }
-            else if(err) {
-                throw err;
-            }
-            else {
-                tmpl.render(ctx, cb || function(err, res) {
-                    if(err) { throw err; }
-                    syncResult = res;
-                });
-            }
-        });
-
-        return syncResult;
-    },
-
-    renderString: function(src, ctx, cb) {
-        var tmpl = new Template(src, this);
-        return tmpl.render(ctx, cb);
-    }
-});
-
-var Context = Obj.extend({
-    init: function(ctx, blocks) {
-        this.ctx = ctx;
-        this.blocks = {};
-        this.exported = [];
-
-        for(var name in blocks) {
-            this.addBlock(name, blocks[name]);
-        }
-    },
-
-    lookup: function(name) {
-        // This is one of the most called functions, so optimize for
-        // the typical case where the name isn't in the globals
-        if(name in globals && !(name in this.ctx)) {
-            return globals[name];
-        }
-        else {
-            return this.ctx[name];
-        }
-    },
-
-    setVariable: function(name, val) {
-        this.ctx[name] = val;
-    },
-
-    getVariables: function() {
-        return this.ctx;
-    },
-
-    addBlock: function(name, block) {
-        this.blocks[name] = this.blocks[name] || [];
-        this.blocks[name].push(block);
-    },
-
-    getBlock: function(name) {
-        if(!this.blocks[name]) {
-            throw new Error('unknown block "' + name + '"');
-        }
-
-        return this.blocks[name][0];
-    },
-
-    getSuper: function(env, name, block, frame, runtime, cb) {
-        var idx = (this.blocks[name] || []).indexOf(block);
-        var blk = this.blocks[name][idx + 1];
-        var context = this;
-
-        if(idx == -1 || !blk) {
-            throw new Error('no super block available for "' + name + '"');
-        }
-
-        blk(env, context, frame, runtime, cb);
-    },
-
-    addExport: function(name) {
-        this.exported.push(name);
-    },
-
-    getExported: function() {
-        var exported = {};
-        for(var i=0; i<this.exported.length; i++) {
-            var name = this.exported[i];
-            exported[name] = this.ctx[name];
-        }
-        return exported;
-    }
-});
-
-var Template = Obj.extend({
-    init: function (src, env, path, eagerCompile) {
-        this.env = env || new Environment();
-
-        if(lib.isObject(src)) {
-            switch(src.type) {
-            case 'code': this.tmplProps = src.obj; break;
-            case 'string': this.tmplStr = src.obj; break;
-            }
-        }
-        else if(lib.isString(src)) {
-            this.tmplStr = src;
-        }
-        else {
-            throw new Error("src must be a string or an object describing " +
-                            "the source");
-        }
-
-        this.path = path;
-
-        if(eagerCompile) {
-            lib.withPrettyErrors(this.path,
-                                 this.env.dev,
-                                 this._compile.bind(this));
-        }
-        else {
-            this.compiled = false;
-        }
-    },
-
-    render: function(ctx, frame, cb) {
-        if (typeof ctx === 'function') {
-            cb = ctx;
-            ctx = {};
-        }
-        else if (typeof frame === 'function') {
-            cb = frame;
-            frame = null;
-        }
-
-        return lib.withPrettyErrors(this.path, this.env.dev, function() {
-            this.compile();
-
-            var context = new Context(ctx || {}, this.blocks);
-            var syncResult = null;
-
-            this.rootRenderFunc(this.env,
-                                context,
-                                frame || new Frame(),
-                                runtime,
-                                cb || function(err, res) {
-                                    if(err) { throw err; }
-                                    syncResult = res;
-                                });
-
-            return syncResult;
-        }.bind(this));
-    },
-
-    getExported: function(cb) {
-        this.compile();
-
-        // Run the rootRenderFunc to populate the context with exported vars
-        var context = new Context({}, this.blocks);
-        this.rootRenderFunc(this.env,
-                            context,
-                            new Frame(),
-                            runtime,
-                            function() {
-                                cb(null, context.getExported());
-                            });
-    },
-
-    compile: function() {
-        if(!this.compiled) {
-            this._compile();
-        }
-    },
-
-    _compile: function() {
-        var props;
-
-        if(this.tmplProps) {
-            props = this.tmplProps;
-        }
-        else {
-            var source = compiler.compile(this.tmplStr,
-                                          this.env.asyncFilters,
-                                          this.env.extensionsList,
-                                          this.path);
-            var func = new Function(source);
-            props = func();
-        }
-
-        this.blocks = this._getBlocks(props);
-        this.rootRenderFunc = props.root;
-        this.compiled = true;
-    },
-
-    _getBlocks: function(props) {
-        var blocks = {};
-
-        for(var k in props) {
-            if(k.slice(0, 2) == 'b_') {
-                blocks[k.slice(2)] = props[k];
-            }
-        }
-
-        return blocks;
-    }
-});
-
-// test code
-// var src = '{% macro foo() %}{% include "include.html" %}{% endmacro %}{{ foo() }}';
-// var env = new Environment(new builtin_loaders.FileSystemLoader('../tests/templates', true), { dev: true });
-// console.log(env.renderString(src, { name: 'poop' }));
-
-modules['environment'] = {
-    Environment: Environment,
-    Template: Template
-};
-})();
-var nunjucks;
-
-var lib = modules["lib"];
-var env = modules["environment"];
-var compiler = modules["compiler"];
-var parser = modules["parser"];
-var lexer = modules["lexer"];
-var runtime = modules["runtime"];
-var Loader = modules["loader"];
-var loaders = modules["loaders"];
-var precompile = modules["precompile"];
-
-nunjucks = {};
-nunjucks.Environment = env.Environment;
-nunjucks.Template = env.Template;
-
-nunjucks.Loader = Loader;
-nunjucks.FileSystemLoader = loaders.FileSystemLoader;
-nunjucks.WebLoader = loaders.WebLoader;
-
-nunjucks.compiler = compiler;
-nunjucks.parser = parser;
-nunjucks.lexer = lexer;
-nunjucks.runtime = runtime;
-
-// A single instance of an environment, since this is so commonly used
-
-var e;
-nunjucks.configure = function(templatesPath, opts) {
-    opts = opts || {};
-    if(lib.isObject(templatesPath)) {
-        opts = templatesPath;
-        templatesPath = null;
-    }
-
-    var noWatch = 'watch' in opts ? !opts.watch : false;
-    var loader = loaders.FileSystemLoader || loaders.WebLoader;
-    e = new env.Environment(new loader(templatesPath, noWatch), opts);
-
-    if(opts && opts.express) {
-        e.express(opts.express);
-    }
-
-    return e;
-};
-
-nunjucks.compile = function(src, env, path, eagerCompile) {
-    if(!e) {
-        nunjucks.configure();
-    }
-    return new nunjucks.Template(src, env, path, eagerCompile);
-};
-
-nunjucks.render = function(name, ctx, cb) {
-    if(!e) {
-        nunjucks.configure();
-    }
-
-    return e.render(name, ctx, cb);
-};
-
-nunjucks.renderString = function(src, ctx, cb) {
-    if(!e) {
-        nunjucks.configure();
-    }
-
-    return e.renderString(src, ctx, cb);
-};
-
-if(precompile) {
-    nunjucks.precompile = precompile.precompile;
-    nunjucks.precompileString = precompile.precompileString;
-}
-
-nunjucks.require = function(name) { return modules[name]; };
-
-if(typeof define === 'function' && define.amd) {
-    define(function() { return nunjucks; });
-}
-else {
-    window.nunjucks = nunjucks;
-    if(typeof module !== 'undefined') module.exports = nunjucks;
-}
-
-})();
-
+!function(){function t(e,n){if("function"==typeof e)return t("*",e);if("function"==typeof n)for(var i=new a(e),o=1;o<arguments.length;++o)t.callbacks.push(i.middleware(arguments[o]));else"string"==typeof e?t.show(e,n):t.start(e)}function e(e){var n=window.location.pathname+window.location.search;n!=e.canonicalPath&&(t.stop(),e.unhandled=!0,window.location=e.canonicalPath)}function n(t,e){"/"==t[0]&&0!=t.indexOf(l)&&(t=l+t);var n=t.indexOf("?");if(this.canonicalPath=t,this.path=t.replace(l,"")||"/",this.title=document.title,this.state=e||{},this.state.path=t,this.querystring=~n?t.slice(n+1):"",this.pathname=~n?t.slice(0,n):t,this.params=[],this.hash="",~this.path.indexOf("#")){var a=this.path.split("#");this.path=a[0],this.hash=a[1]||"",this.querystring=this.querystring.split("#")[0]}}function a(t,e){e=e||{},this.path=t,this.method="GET",this.regexp=i(t,this.keys=[],e.sensitive,e.strict)}function i(t,e,n,a){return t instanceof RegExp?t:(t instanceof Array&&(t="("+t.join("|")+")"),t=t.concat(a?"":"/?").replace(/\/\(/g,"(?:/").replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g,function(t,n,a,i,o,r){return e.push({name:i,optional:!!r}),n=n||"",""+(r?"":n)+"(?:"+(r?n:"")+(a||"")+(o||a&&"([^/.]+?)"||"([^/]+?)")+")"+(r||"")}).replace(/([\/.])/g,"\\$1").replace(/\*/g,"(.*)"),new RegExp("^"+t+"$",n?"":"i"))}function o(e){if(e.state){var n=e.state.path;t.replace(n,e.state)}}function r(e){if(1==s(e)&&!(e.metaKey||e.ctrlKey||e.shiftKey||e.defaultPrevented)){for(var n=e.target;n&&"A"!=n.nodeName;)n=n.parentNode;if(n&&"A"==n.nodeName){var a=n.getAttribute("href");if((n.pathname!=location.pathname||!n.hash&&"#"!=a)&&!n.target&&h(n.href)){var i=n.pathname+n.search+(n.hash||""),o=i+n.hash;i=i.replace(l,""),l&&o==i||(e.preventDefault(),t.show(o))}}}}function s(t){return t=t||window.event,null==t.which?t.button:t.which}function h(t){var e=location.protocol+"//"+location.hostname;return location.port&&(e+=":"+location.port),0==t.indexOf(e)}var c,p=!0,l="";t.callbacks=[],t.base=function(t){return 0==arguments.length?l:void(l=t)},t.start=function(e){if(e=e||{},!c&&(c=!0,!1===e.dispatch&&(p=!1),!1!==e.popstate&&window.addEventListener("popstate",o,!1),!1!==e.click&&window.addEventListener("click",r,!1),p)){var n=location.pathname+location.search+location.hash;t.replace(n,null,!0,p)}},t.stop=function(){c=!1,removeEventListener("click",r,!1),removeEventListener("popstate",o,!1)},t.show=function(e,a,i){var o=new n(e,a);return!1!==i&&t.dispatch(o),o.unhandled||o.pushState(),o},t.replace=function(e,a,i,o){var r=new n(e,a);return r.init=i,null==o&&(o=!0),o&&t.dispatch(r),r.save(),r},t.dispatch=function(n){function a(){var o=t.callbacks[i++];return o?void o(n,a):e(n)}var i=0;a()},t.Context=n,n.prototype.pushState=function(){history.pushState(this.state,this.title,this.canonicalPath)},n.prototype.save=function(){history.replaceState(this.state,this.title,this.canonicalPath)},t.Route=a,a.prototype.middleware=function(t){var e=this;return function(n,a){return e.match(n.path,n.params)?t(n,a):void a()}},a.prototype.match=function(t,e){var n=this.keys,a=t.indexOf("?"),i=~a?t.slice(0,a):t,o=this.regexp.exec(i);if(!o)return!1;for(var r=1,s=o.length;s>r;++r){var h=n[r-1],c="string"==typeof o[r]?decodeURIComponent(o[r]):o[r];h?e[h.name]=void 0!==e[h.name]?e[h.name]:c:e.push(c)}return!0},"undefined"==typeof module?window.page=t:module.exports=t}();
 },{}],4:[function(require,module,exports){
-/**
- * Module dependencies.
- */
+/* Zepto v1.1.4 - zepto event ajax form ie - zeptojs.com/license */
 
-var Emitter = require('emitter');
-var reduce = require('reduce');
+var Zepto = module.exports = (function() {
+  var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
+    document = window.document,
+    elementDisplay = {}, classCache = {},
+    cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1,'opacity': 1, 'z-index': 1, 'zoom': 1 },
+    fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+    tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
+    rootNodeRE = /^(?:body|html)$/i,
+    capitalRE = /([A-Z])/g,
 
-/**
- * Root reference for iframes.
- */
+    // special attributes that should be get/set via method calls
+    methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
 
-var root = 'undefined' == typeof window
-  ? this
-  : window;
+    adjacencyOperators = [ 'after', 'prepend', 'before', 'append' ],
+    table = document.createElement('table'),
+    tableRow = document.createElement('tr'),
+    containers = {
+      'tr': document.createElement('tbody'),
+      'tbody': table, 'thead': table, 'tfoot': table,
+      'td': tableRow, 'th': tableRow,
+      '*': document.createElement('div')
+    },
+    readyRE = /complete|loaded|interactive/,
+    simpleSelectorRE = /^[\w-]*$/,
+    class2type = {},
+    toString = class2type.toString,
+    zepto = {},
+    camelize, uniq,
+    tempParent = document.createElement('div'),
+    propMap = {
+      'tabindex': 'tabIndex',
+      'readonly': 'readOnly',
+      'for': 'htmlFor',
+      'class': 'className',
+      'maxlength': 'maxLength',
+      'cellspacing': 'cellSpacing',
+      'cellpadding': 'cellPadding',
+      'rowspan': 'rowSpan',
+      'colspan': 'colSpan',
+      'usemap': 'useMap',
+      'frameborder': 'frameBorder',
+      'contenteditable': 'contentEditable'
+    },
+    isArray = Array.isArray ||
+      function(object){ return object instanceof Array }
 
-/**
- * Noop.
- */
-
-function noop(){};
-
-/**
- * Check if `obj` is a host object,
- * we don't want to serialize these :)
- *
- * TODO: future proof, move to compoent land
- *
- * @param {Object} obj
- * @return {Boolean}
- * @api private
- */
-
-function isHost(obj) {
-  var str = {}.toString.call(obj);
-
-  switch (str) {
-    case '[object File]':
-    case '[object Blob]':
-    case '[object FormData]':
-      return true;
-    default:
-      return false;
+  zepto.matches = function(element, selector) {
+    if (!selector || !element || element.nodeType !== 1) return false
+    var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
+                          element.oMatchesSelector || element.matchesSelector
+    if (matchesSelector) return matchesSelector.call(element, selector)
+    // fall back to performing a selector:
+    var match, parent = element.parentNode, temp = !parent
+    if (temp) (parent = tempParent).appendChild(element)
+    match = ~zepto.qsa(parent, selector).indexOf(element)
+    temp && tempParent.removeChild(element)
+    return match
   }
-}
 
-/**
- * Determine XHR.
- */
-
-function getXHR() {
-  if (root.XMLHttpRequest
-    && ('file:' != root.location.protocol || !root.ActiveXObject)) {
-    return new XMLHttpRequest;
-  } else {
-    try { return new ActiveXObject('Microsoft.XMLHTTP'); } catch(e) {}
-    try { return new ActiveXObject('Msxml2.XMLHTTP.6.0'); } catch(e) {}
-    try { return new ActiveXObject('Msxml2.XMLHTTP.3.0'); } catch(e) {}
-    try { return new ActiveXObject('Msxml2.XMLHTTP'); } catch(e) {}
+  function type(obj) {
+    return obj == null ? String(obj) :
+      class2type[toString.call(obj)] || "object"
   }
-  return false;
-}
 
-/**
- * Removes leading and trailing whitespace, added to support IE.
- *
- * @param {String} s
- * @return {String}
- * @api private
- */
+  function isFunction(value) { return type(value) == "function" }
+  function isWindow(obj)     { return obj != null && obj == obj.window }
+  function isDocument(obj)   { return obj != null && obj.nodeType == obj.DOCUMENT_NODE }
+  function isObject(obj)     { return type(obj) == "object" }
+  function isPlainObject(obj) {
+    return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
+  }
+  function likeArray(obj) { return typeof obj.length == 'number' }
 
-var trim = ''.trim
-  ? function(s) { return s.trim(); }
-  : function(s) { return s.replace(/(^\s*|\s*$)/g, ''); };
+  function compact(array) { return filter.call(array, function(item){ return item != null }) }
+  function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
+  camelize = function(str){ return str.replace(/-+(.)?/g, function(match, chr){ return chr ? chr.toUpperCase() : '' }) }
+  function dasherize(str) {
+    return str.replace(/::/g, '/')
+           .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+           .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+           .replace(/_/g, '-')
+           .toLowerCase()
+  }
+  uniq = function(array){ return filter.call(array, function(item, idx){ return array.indexOf(item) == idx }) }
 
-/**
- * Check if `obj` is an object.
- *
- * @param {Object} obj
- * @return {Boolean}
- * @api private
- */
+  function classRE(name) {
+    return name in classCache ?
+      classCache[name] : (classCache[name] = new RegExp('(^|\\s)' + name + '(\\s|$)'))
+  }
 
-function isObject(obj) {
-  return obj === Object(obj);
-}
+  function maybeAddPx(name, value) {
+    return (typeof value == "number" && !cssNumber[dasherize(name)]) ? value + "px" : value
+  }
 
-/**
- * Serialize the given `obj`.
- *
- * @param {Object} obj
- * @return {String}
- * @api private
- */
-
-function serialize(obj) {
-  if (!isObject(obj)) return obj;
-  var pairs = [];
-  for (var key in obj) {
-    if (null != obj[key]) {
-      pairs.push(encodeURIComponent(key)
-        + '=' + encodeURIComponent(obj[key]));
+  function defaultDisplay(nodeName) {
+    var element, display
+    if (!elementDisplay[nodeName]) {
+      element = document.createElement(nodeName)
+      document.body.appendChild(element)
+      display = getComputedStyle(element, '').getPropertyValue("display")
+      element.parentNode.removeChild(element)
+      display == "none" && (display = "block")
+      elementDisplay[nodeName] = display
     }
-  }
-  return pairs.join('&');
-}
-
-/**
- * Expose serialization method.
- */
-
- request.serializeObject = serialize;
-
- /**
-  * Parse the given x-www-form-urlencoded `str`.
-  *
-  * @param {String} str
-  * @return {Object}
-  * @api private
-  */
-
-function parseString(str) {
-  var obj = {};
-  var pairs = str.split('&');
-  var parts;
-  var pair;
-
-  for (var i = 0, len = pairs.length; i < len; ++i) {
-    pair = pairs[i];
-    parts = pair.split('=');
-    obj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+    return elementDisplay[nodeName]
   }
 
-  return obj;
-}
-
-/**
- * Expose parser.
- */
-
-request.parseString = parseString;
-
-/**
- * Default MIME type map.
- *
- *     superagent.types.xml = 'application/xml';
- *
- */
-
-request.types = {
-  html: 'text/html',
-  json: 'application/json',
-  xml: 'application/xml',
-  urlencoded: 'application/x-www-form-urlencoded',
-  'form': 'application/x-www-form-urlencoded',
-  'form-data': 'application/x-www-form-urlencoded'
-};
-
-/**
- * Default serialization map.
- *
- *     superagent.serialize['application/xml'] = function(obj){
- *       return 'generated xml here';
- *     };
- *
- */
-
- request.serialize = {
-   'application/x-www-form-urlencoded': serialize,
-   'application/json': JSON.stringify
- };
-
- /**
-  * Default parsers.
-  *
-  *     superagent.parse['application/xml'] = function(str){
-  *       return { object parsed from str };
-  *     };
-  *
-  */
-
-request.parse = {
-  'application/x-www-form-urlencoded': parseString,
-  'application/json': JSON.parse
-};
-
-/**
- * Parse the given header `str` into
- * an object containing the mapped fields.
- *
- * @param {String} str
- * @return {Object}
- * @api private
- */
-
-function parseHeader(str) {
-  var lines = str.split(/\r?\n/);
-  var fields = {};
-  var index;
-  var line;
-  var field;
-  var val;
-
-  lines.pop(); // trailing CRLF
-
-  for (var i = 0, len = lines.length; i < len; ++i) {
-    line = lines[i];
-    index = line.indexOf(':');
-    field = line.slice(0, index).toLowerCase();
-    val = trim(line.slice(index + 1));
-    fields[field] = val;
+  function children(element) {
+    return 'children' in element ?
+      slice.call(element.children) :
+      $.map(element.childNodes, function(node){ if (node.nodeType == 1) return node })
   }
 
-  return fields;
-}
+  // `$.zepto.fragment` takes a html string and an optional tag name
+  // to generate DOM nodes nodes from the given html string.
+  // The generated DOM nodes are returned as an array.
+  // This function can be overriden in plugins for example to make
+  // it compatible with browsers that don't support the DOM fully.
+  zepto.fragment = function(html, name, properties) {
+    var dom, nodes, container
 
-/**
- * Return the mime type for the given `str`.
- *
- * @param {String} str
- * @return {String}
- * @api private
- */
+    // A special case optimization for a single tag
+    if (singleTagRE.test(html)) dom = $(document.createElement(RegExp.$1))
 
-function type(str){
-  return str.split(/ *; */).shift();
-};
+    if (!dom) {
+      if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
+      if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
+      if (!(name in containers)) name = '*'
 
-/**
- * Return header field parameters.
- *
- * @param {String} str
- * @return {Object}
- * @api private
- */
+      container = containers[name]
+      container.innerHTML = '' + html
+      dom = $.each(slice.call(container.childNodes), function(){
+        container.removeChild(this)
+      })
+    }
 
-function params(str){
-  return reduce(str.split(/ *; */), function(obj, str){
-    var parts = str.split(/ *= */)
-      , key = parts.shift()
-      , val = parts.shift();
+    if (isPlainObject(properties)) {
+      nodes = $(dom)
+      $.each(properties, function(key, value) {
+        if (methodAttributes.indexOf(key) > -1) nodes[key](value)
+        else nodes.attr(key, value)
+      })
+    }
 
-    if (key && val) obj[key] = val;
-    return obj;
-  }, {});
-};
+    return dom
+  }
 
-/**
- * Initialize a new `Response` with the given `xhr`.
- *
- *  - set flags (.ok, .error, etc)
- *  - parse header
- *
- * Examples:
- *
- *  Aliasing `superagent` as `request` is nice:
- *
- *      request = superagent;
- *
- *  We can use the promise-like API, or pass callbacks:
- *
- *      request.get('/').end(function(res){});
- *      request.get('/', function(res){});
- *
- *  Sending data can be chained:
- *
- *      request
- *        .post('/user')
- *        .send({ name: 'tj' })
- *        .end(function(res){});
- *
- *  Or passed to `.send()`:
- *
- *      request
- *        .post('/user')
- *        .send({ name: 'tj' }, function(res){});
- *
- *  Or passed to `.post()`:
- *
- *      request
- *        .post('/user', { name: 'tj' })
- *        .end(function(res){});
- *
- * Or further reduced to a single call for simple cases:
- *
- *      request
- *        .post('/user', { name: 'tj' }, function(res){});
- *
- * @param {XMLHTTPRequest} xhr
- * @param {Object} options
- * @api private
- */
+  // `$.zepto.Z` swaps out the prototype of the given `dom` array
+  // of nodes with `$.fn` and thus supplying all the Zepto functions
+  // to the array. Note that `__proto__` is not supported on Internet
+  // Explorer. This method can be overriden in plugins.
+  zepto.Z = function(dom, selector) {
+    dom = dom || []
+    dom.__proto__ = $.fn
+    dom.selector = selector || ''
+    return dom
+  }
 
-function Response(req, options) {
-  options = options || {};
-  this.req = req;
-  this.xhr = this.req.xhr;
-  this.text = this.xhr.responseText;
-  this.setStatusProperties(this.xhr.status);
-  this.header = this.headers = parseHeader(this.xhr.getAllResponseHeaders());
-  // getAllResponseHeaders sometimes falsely returns "" for CORS requests, but
-  // getResponseHeader still works. so we get content-type even if getting
-  // other headers fails.
-  this.header['content-type'] = this.xhr.getResponseHeader('content-type');
-  this.setHeaderProperties(this.header);
-  this.body = this.req.method != 'HEAD'
-    ? this.parseBody(this.text)
-    : null;
-}
+  // `$.zepto.isZ` should return `true` if the given object is a Zepto
+  // collection. This method can be overriden in plugins.
+  zepto.isZ = function(object) {
+    return object instanceof zepto.Z
+  }
 
-/**
- * Get case-insensitive `field` value.
- *
- * @param {String} field
- * @return {String}
- * @api public
- */
+  // `$.zepto.init` is Zepto's counterpart to jQuery's `$.fn.init` and
+  // takes a CSS selector and an optional context (and handles various
+  // special cases).
+  // This method can be overriden in plugins.
+  zepto.init = function(selector, context) {
+    var dom
+    // If nothing given, return an empty Zepto collection
+    if (!selector) return zepto.Z()
+    // Optimize for string selectors
+    else if (typeof selector == 'string') {
+      selector = selector.trim()
+      // If it's a html fragment, create nodes from it
+      // Note: In both Chrome 21 and Firefox 15, DOM error 12
+      // is thrown if the fragment doesn't begin with <
+      if (selector[0] == '<' && fragmentRE.test(selector))
+        dom = zepto.fragment(selector, RegExp.$1, context), selector = null
+      // If there's a context, create a collection on that context first, and select
+      // nodes from there
+      else if (context !== undefined) return $(context).find(selector)
+      // If it's a CSS selector, use it to select nodes.
+      else dom = zepto.qsa(document, selector)
+    }
+    // If a function is given, call it when the DOM is ready
+    else if (isFunction(selector)) return $(document).ready(selector)
+    // If a Zepto collection is given, just return it
+    else if (zepto.isZ(selector)) return selector
+    else {
+      // normalize array if an array of nodes is given
+      if (isArray(selector)) dom = compact(selector)
+      // Wrap DOM nodes.
+      else if (isObject(selector))
+        dom = [selector], selector = null
+      // If it's a html fragment, create nodes from it
+      else if (fragmentRE.test(selector))
+        dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
+      // If there's a context, create a collection on that context first, and select
+      // nodes from there
+      else if (context !== undefined) return $(context).find(selector)
+      // And last but no least, if it's a CSS selector, use it to select nodes.
+      else dom = zepto.qsa(document, selector)
+    }
+    // create a new Zepto collection from the nodes found
+    return zepto.Z(dom, selector)
+  }
 
-Response.prototype.get = function(field){
-  return this.header[field.toLowerCase()];
-};
+  // `$` will be the base `Zepto` object. When calling this
+  // function just call `$.zepto.init, which makes the implementation
+  // details of selecting nodes and creating Zepto collections
+  // patchable in plugins.
+  $ = function(selector, context){
+    return zepto.init(selector, context)
+  }
 
-/**
- * Set header related properties:
- *
- *   - `.type` the content type without params
- *
- * A response of "Content-Type: text/plain; charset=utf-8"
- * will provide you with a `.type` of "text/plain".
- *
- * @param {Object} header
- * @api private
- */
+  function extend(target, source, deep) {
+    for (key in source)
+      if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
+        if (isPlainObject(source[key]) && !isPlainObject(target[key]))
+          target[key] = {}
+        if (isArray(source[key]) && !isArray(target[key]))
+          target[key] = []
+        extend(target[key], source[key], deep)
+      }
+      else if (source[key] !== undefined) target[key] = source[key]
+  }
 
-Response.prototype.setHeaderProperties = function(header){
-  // content-type
-  var ct = this.header['content-type'] || '';
-  this.type = type(ct);
+  // Copy all but undefined properties from one or more
+  // objects to the `target` object.
+  $.extend = function(target){
+    var deep, args = slice.call(arguments, 1)
+    if (typeof target == 'boolean') {
+      deep = target
+      target = args.shift()
+    }
+    args.forEach(function(arg){ extend(target, arg, deep) })
+    return target
+  }
 
-  // params
-  var obj = params(ct);
-  for (var key in obj) this[key] = obj[key];
-};
+  // `$.zepto.qsa` is Zepto's CSS selector implementation which
+  // uses `document.querySelectorAll` and optimizes for some special cases, like `#id`.
+  // This method can be overriden in plugins.
+  zepto.qsa = function(element, selector){
+    var found,
+        maybeID = selector[0] == '#',
+        maybeClass = !maybeID && selector[0] == '.',
+        nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
+        isSimple = simpleSelectorRE.test(nameOnly)
+    return (isDocument(element) && isSimple && maybeID) ?
+      ( (found = element.getElementById(nameOnly)) ? [found] : [] ) :
+      (element.nodeType !== 1 && element.nodeType !== 9) ? [] :
+      slice.call(
+        isSimple && !maybeID ?
+          maybeClass ? element.getElementsByClassName(nameOnly) : // If it's simple, it could be a class
+          element.getElementsByTagName(selector) : // Or a tag
+          element.querySelectorAll(selector) // Or it's not simple, and we need to query all
+      )
+  }
 
-/**
- * Parse the given body `str`.
- *
- * Used for auto-parsing of bodies. Parsers
- * are defined on the `superagent.parse` object.
- *
- * @param {String} str
- * @return {Mixed}
- * @api private
- */
+  function filtered(nodes, selector) {
+    return selector == null ? $(nodes) : $(nodes).filter(selector)
+  }
 
-Response.prototype.parseBody = function(str){
-  var parse = request.parse[this.type];
-  return parse && str && str.length
-    ? parse(str)
-    : null;
-};
+  $.contains = document.documentElement.contains ?
+    function(parent, node) {
+      return parent !== node && parent.contains(node)
+    } :
+    function(parent, node) {
+      while (node && (node = node.parentNode))
+        if (node === parent) return true
+      return false
+    }
 
-/**
- * Set flags such as `.ok` based on `status`.
- *
- * For example a 2xx response will give you a `.ok` of __true__
- * whereas 5xx will be __false__ and `.error` will be __true__. The
- * `.clientError` and `.serverError` are also available to be more
- * specific, and `.statusType` is the class of error ranging from 1..5
- * sometimes useful for mapping respond colors etc.
- *
- * "sugar" properties are also defined for common cases. Currently providing:
- *
- *   - .noContent
- *   - .badRequest
- *   - .unauthorized
- *   - .notAcceptable
- *   - .notFound
- *
- * @param {Number} status
- * @api private
- */
+  function funcArg(context, arg, idx, payload) {
+    return isFunction(arg) ? arg.call(context, idx, payload) : arg
+  }
 
-Response.prototype.setStatusProperties = function(status){
-  var type = status / 100 | 0;
+  function setAttribute(node, name, value) {
+    value == null ? node.removeAttribute(name) : node.setAttribute(name, value)
+  }
 
-  // status / class
-  this.status = status;
-  this.statusType = type;
+  // access className property while respecting SVGAnimatedString
+  function className(node, value){
+    var klass = node.className,
+        svg   = klass && klass.baseVal !== undefined
 
-  // basics
-  this.info = 1 == type;
-  this.ok = 2 == type;
-  this.clientError = 4 == type;
-  this.serverError = 5 == type;
-  this.error = (4 == type || 5 == type)
-    ? this.toError()
-    : false;
+    if (value === undefined) return svg ? klass.baseVal : klass
+    svg ? (klass.baseVal = value) : (node.className = value)
+  }
 
-  // sugar
-  this.accepted = 202 == status;
-  this.noContent = 204 == status || 1223 == status;
-  this.badRequest = 400 == status;
-  this.unauthorized = 401 == status;
-  this.notAcceptable = 406 == status;
-  this.notFound = 404 == status;
-  this.forbidden = 403 == status;
-};
-
-/**
- * Return an `Error` representative of this response.
- *
- * @return {Error}
- * @api public
- */
-
-Response.prototype.toError = function(){
-  var req = this.req;
-  var method = req.method;
-  var url = req.url;
-
-  var msg = 'cannot ' + method + ' ' + url + ' (' + this.status + ')';
-  var err = new Error(msg);
-  err.status = this.status;
-  err.method = method;
-  err.url = url;
-
-  return err;
-};
-
-/**
- * Expose `Response`.
- */
-
-request.Response = Response;
-
-/**
- * Initialize a new `Request` with the given `method` and `url`.
- *
- * @param {String} method
- * @param {String} url
- * @api public
- */
-
-function Request(method, url) {
-  var self = this;
-  Emitter.call(this);
-  this._query = this._query || [];
-  this.method = method;
-  this.url = url;
-  this.header = {};
-  this._header = {};
-  this.on('end', function(){
+  // "true"  => true
+  // "false" => false
+  // "null"  => null
+  // "42"    => 42
+  // "42.5"  => 42.5
+  // "08"    => "08"
+  // JSON    => parse if valid
+  // String  => self
+  function deserializeValue(value) {
+    var num
     try {
-      var res = new Response(self);
-      if ('HEAD' == method) res.text = null;
-      self.callback(null, res);
+      return value ?
+        value == "true" ||
+        ( value == "false" ? false :
+          value == "null" ? null :
+          !/^0/.test(value) && !isNaN(num = Number(value)) ? num :
+          /^[\[\{]/.test(value) ? $.parseJSON(value) :
+          value )
+        : value
     } catch(e) {
-      var err = new Error('Parser is unable to parse the response');
-      err.parse = true;
-      err.original = e;
-      self.callback(err);
+      return value
     }
-  });
-}
-
-/**
- * Mixin `Emitter`.
- */
-
-Emitter(Request.prototype);
-
-/**
- * Allow for extension
- */
-
-Request.prototype.use = function(fn) {
-  fn(this);
-  return this;
-}
-
-/**
- * Set timeout to `ms`.
- *
- * @param {Number} ms
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.timeout = function(ms){
-  this._timeout = ms;
-  return this;
-};
-
-/**
- * Clear previous timeout.
- *
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.clearTimeout = function(){
-  this._timeout = 0;
-  clearTimeout(this._timer);
-  return this;
-};
-
-/**
- * Abort the request, and clear potential timeout.
- *
- * @return {Request}
- * @api public
- */
-
-Request.prototype.abort = function(){
-  if (this.aborted) return;
-  this.aborted = true;
-  this.xhr.abort();
-  this.clearTimeout();
-  this.emit('abort');
-  return this;
-};
-
-/**
- * Set header `field` to `val`, or multiple fields with one object.
- *
- * Examples:
- *
- *      req.get('/')
- *        .set('Accept', 'application/json')
- *        .set('X-API-Key', 'foobar')
- *        .end(callback);
- *
- *      req.get('/')
- *        .set({ Accept: 'application/json', 'X-API-Key': 'foobar' })
- *        .end(callback);
- *
- * @param {String|Object} field
- * @param {String} val
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.set = function(field, val){
-  if (isObject(field)) {
-    for (var key in field) {
-      this.set(key, field[key]);
-    }
-    return this;
   }
-  this._header[field.toLowerCase()] = val;
-  this.header[field] = val;
-  return this;
-};
 
-/**
- * Remove header `field`.
- *
- * Example:
- *
- *      req.get('/')
- *        .unset('User-Agent')
- *        .end(callback);
- *
- * @param {String} field
- * @return {Request} for chaining
- * @api public
- */
+  $.type = type
+  $.isFunction = isFunction
+  $.isWindow = isWindow
+  $.isArray = isArray
+  $.isPlainObject = isPlainObject
 
-Request.prototype.unset = function(field){
-  delete this._header[field.toLowerCase()];
-  delete this.header[field];
-  return this;
-};
+  $.isEmptyObject = function(obj) {
+    var name
+    for (name in obj) return false
+    return true
+  }
 
-/**
- * Get case-insensitive header `field` value.
- *
- * @param {String} field
- * @return {String}
- * @api private
- */
+  $.inArray = function(elem, array, i){
+    return emptyArray.indexOf.call(array, elem, i)
+  }
 
-Request.prototype.getHeader = function(field){
-  return this._header[field.toLowerCase()];
-};
+  $.camelCase = camelize
+  $.trim = function(str) {
+    return str == null ? "" : String.prototype.trim.call(str)
+  }
 
-/**
- * Set Content-Type to `type`, mapping values from `request.types`.
- *
- * Examples:
- *
- *      superagent.types.xml = 'application/xml';
- *
- *      request.post('/')
- *        .type('xml')
- *        .send(xmlstring)
- *        .end(callback);
- *
- *      request.post('/')
- *        .type('application/xml')
- *        .send(xmlstring)
- *        .end(callback);
- *
- * @param {String} type
- * @return {Request} for chaining
- * @api public
- */
+  // plugin compatibility
+  $.uuid = 0
+  $.support = { }
+  $.expr = { }
 
-Request.prototype.type = function(type){
-  this.set('Content-Type', request.types[type] || type);
-  return this;
-};
+  $.map = function(elements, callback){
+    var value, values = [], i, key
+    if (likeArray(elements))
+      for (i = 0; i < elements.length; i++) {
+        value = callback(elements[i], i)
+        if (value != null) values.push(value)
+      }
+    else
+      for (key in elements) {
+        value = callback(elements[key], key)
+        if (value != null) values.push(value)
+      }
+    return flatten(values)
+  }
 
-/**
- * Set Accept to `type`, mapping values from `request.types`.
- *
- * Examples:
- *
- *      superagent.types.json = 'application/json';
- *
- *      request.get('/agent')
- *        .accept('json')
- *        .end(callback);
- *
- *      request.get('/agent')
- *        .accept('application/json')
- *        .end(callback);
- *
- * @param {String} accept
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.accept = function(type){
-  this.set('Accept', request.types[type] || type);
-  return this;
-};
-
-/**
- * Set Authorization field value with `user` and `pass`.
- *
- * @param {String} user
- * @param {String} pass
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.auth = function(user, pass){
-  var str = btoa(user + ':' + pass);
-  this.set('Authorization', 'Basic ' + str);
-  return this;
-};
-
-/**
-* Add query-string `val`.
-*
-* Examples:
-*
-*   request.get('/shoes')
-*     .query('size=10')
-*     .query({ color: 'blue' })
-*
-* @param {Object|String} val
-* @return {Request} for chaining
-* @api public
-*/
-
-Request.prototype.query = function(val){
-  if ('string' != typeof val) val = serialize(val);
-  if (val) this._query.push(val);
-  return this;
-};
-
-/**
- * Write the field `name` and `val` for "multipart/form-data"
- * request bodies.
- *
- * ``` js
- * request.post('/upload')
- *   .field('foo', 'bar')
- *   .end(callback);
- * ```
- *
- * @param {String} name
- * @param {String|Blob|File} val
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.field = function(name, val){
-  if (!this._formData) this._formData = new FormData();
-  this._formData.append(name, val);
-  return this;
-};
-
-/**
- * Queue the given `file` as an attachment to the specified `field`,
- * with optional `filename`.
- *
- * ``` js
- * request.post('/upload')
- *   .attach(new Blob(['<a id="a"><b id="b">hey!</b></a>'], { type: "text/html"}))
- *   .end(callback);
- * ```
- *
- * @param {String} field
- * @param {Blob|File} file
- * @param {String} filename
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.attach = function(field, file, filename){
-  if (!this._formData) this._formData = new FormData();
-  this._formData.append(field, file, filename);
-  return this;
-};
-
-/**
- * Send `data`, defaulting the `.type()` to "json" when
- * an object is given.
- *
- * Examples:
- *
- *       // querystring
- *       request.get('/search')
- *         .end(callback)
- *
- *       // multiple data "writes"
- *       request.get('/search')
- *         .send({ search: 'query' })
- *         .send({ range: '1..5' })
- *         .send({ order: 'desc' })
- *         .end(callback)
- *
- *       // manual json
- *       request.post('/user')
- *         .type('json')
- *         .send('{"name":"tj"})
- *         .end(callback)
- *
- *       // auto json
- *       request.post('/user')
- *         .send({ name: 'tj' })
- *         .end(callback)
- *
- *       // manual x-www-form-urlencoded
- *       request.post('/user')
- *         .type('form')
- *         .send('name=tj')
- *         .end(callback)
- *
- *       // auto x-www-form-urlencoded
- *       request.post('/user')
- *         .type('form')
- *         .send({ name: 'tj' })
- *         .end(callback)
- *
- *       // defaults to x-www-form-urlencoded
-  *      request.post('/user')
-  *        .send('name=tobi')
-  *        .send('species=ferret')
-  *        .end(callback)
- *
- * @param {String|Object} data
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.send = function(data){
-  var obj = isObject(data);
-  var type = this.getHeader('Content-Type');
-
-  // merge
-  if (obj && isObject(this._data)) {
-    for (var key in data) {
-      this._data[key] = data[key];
-    }
-  } else if ('string' == typeof data) {
-    if (!type) this.type('form');
-    type = this.getHeader('Content-Type');
-    if ('application/x-www-form-urlencoded' == type) {
-      this._data = this._data
-        ? this._data + '&' + data
-        : data;
+  $.each = function(elements, callback){
+    var i, key
+    if (likeArray(elements)) {
+      for (i = 0; i < elements.length; i++)
+        if (callback.call(elements[i], i, elements[i]) === false) return elements
     } else {
-      this._data = (this._data || '') + data;
+      for (key in elements)
+        if (callback.call(elements[key], key, elements[key]) === false) return elements
     }
-  } else {
-    this._data = data;
+
+    return elements
   }
 
-  if (!obj) return this;
-  if (!type) this.type('json');
-  return this;
-};
-
-/**
- * Invoke the callback with `err` and `res`
- * and handle arity check.
- *
- * @param {Error} err
- * @param {Response} res
- * @api private
- */
-
-Request.prototype.callback = function(err, res){
-  var fn = this._callback;
-  if (2 == fn.length) return fn(err, res);
-  if (err) return this.emit('error', err);
-  fn(res);
-};
-
-/**
- * Invoke callback with x-domain error.
- *
- * @api private
- */
-
-Request.prototype.crossDomainError = function(){
-  var err = new Error('Origin is not allowed by Access-Control-Allow-Origin');
-  err.crossDomain = true;
-  this.callback(err);
-};
-
-/**
- * Invoke callback with timeout error.
- *
- * @api private
- */
-
-Request.prototype.timeoutError = function(){
-  var timeout = this._timeout;
-  var err = new Error('timeout of ' + timeout + 'ms exceeded');
-  err.timeout = timeout;
-  this.callback(err);
-};
-
-/**
- * Enable transmission of cookies with x-domain requests.
- *
- * Note that for this to work the origin must not be
- * using "Access-Control-Allow-Origin" with a wildcard,
- * and also must set "Access-Control-Allow-Credentials"
- * to "true".
- *
- * @api public
- */
-
-Request.prototype.withCredentials = function(){
-  this._withCredentials = true;
-  return this;
-};
-
-/**
- * Initiate request, invoking callback `fn(res)`
- * with an instanceof `Response`.
- *
- * @param {Function} fn
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.end = function(fn){
-  var self = this;
-  var xhr = this.xhr = getXHR();
-  var query = this._query.join('&');
-  var timeout = this._timeout;
-  var data = this._formData || this._data;
-
-  // store callback
-  this._callback = fn || noop;
-
-  // state change
-  xhr.onreadystatechange = function(){
-    if (4 != xhr.readyState) return;
-    if (0 == xhr.status) {
-      if (self.aborted) return self.timeoutError();
-      return self.crossDomainError();
-    }
-    self.emit('end');
-  };
-
-  // progress
-  if (xhr.upload) {
-    xhr.upload.onprogress = function(e){
-      e.percent = e.loaded / e.total * 100;
-      self.emit('progress', e);
-    };
+  $.grep = function(elements, callback){
+    return filter.call(elements, callback)
   }
 
-  // timeout
-  if (timeout && !this._timer) {
-    this._timer = setTimeout(function(){
-      self.abort();
-    }, timeout);
-  }
+  if (window.JSON) $.parseJSON = JSON.parse
 
-  // querystring
-  if (query) {
-    query = request.serializeObject(query);
-    this.url += ~this.url.indexOf('?')
-      ? '&' + query
-      : '?' + query;
-  }
+  // Populate the class2type map
+  $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+    class2type[ "[object " + name + "]" ] = name.toLowerCase()
+  })
 
-  // initiate request
-  xhr.open(this.method, this.url, true);
+  // Define methods that will be available on all
+  // Zepto collections
+  $.fn = {
+    // Because a collection acts like an array
+    // copy over these useful array functions.
+    forEach: emptyArray.forEach,
+    reduce: emptyArray.reduce,
+    push: emptyArray.push,
+    sort: emptyArray.sort,
+    indexOf: emptyArray.indexOf,
+    concat: emptyArray.concat,
 
-  // CORS
-  if (this._withCredentials) xhr.withCredentials = true;
+    // `map` and `slice` in the jQuery API work differently
+    // from their array counterparts
+    map: function(fn){
+      return $($.map(this, function(el, i){ return fn.call(el, i, el) }))
+    },
+    slice: function(){
+      return $(slice.apply(this, arguments))
+    },
 
-  // body
-  if ('GET' != this.method && 'HEAD' != this.method && 'string' != typeof data && !isHost(data)) {
-    // serialize stuff
-    var serialize = request.serialize[this.getHeader('Content-Type')];
-    if (serialize) data = serialize(data);
-  }
+    ready: function(callback){
+      // need to check if document.body exists for IE as that browser reports
+      // document ready when it hasn't yet created the body element
+      if (readyRE.test(document.readyState) && document.body) callback($)
+      else document.addEventListener('DOMContentLoaded', function(){ callback($) }, false)
+      return this
+    },
+    get: function(idx){
+      return idx === undefined ? slice.call(this) : this[idx >= 0 ? idx : idx + this.length]
+    },
+    toArray: function(){ return this.get() },
+    size: function(){
+      return this.length
+    },
+    remove: function(){
+      return this.each(function(){
+        if (this.parentNode != null)
+          this.parentNode.removeChild(this)
+      })
+    },
+    each: function(callback){
+      emptyArray.every.call(this, function(el, idx){
+        return callback.call(el, idx, el) !== false
+      })
+      return this
+    },
+    filter: function(selector){
+      if (isFunction(selector)) return this.not(this.not(selector))
+      return $(filter.call(this, function(element){
+        return zepto.matches(element, selector)
+      }))
+    },
+    add: function(selector,context){
+      return $(uniq(this.concat($(selector,context))))
+    },
+    is: function(selector){
+      return this.length > 0 && zepto.matches(this[0], selector)
+    },
+    not: function(selector){
+      var nodes=[]
+      if (isFunction(selector) && selector.call !== undefined)
+        this.each(function(idx){
+          if (!selector.call(this,idx)) nodes.push(this)
+        })
+      else {
+        var excludes = typeof selector == 'string' ? this.filter(selector) :
+          (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector)
+        this.forEach(function(el){
+          if (excludes.indexOf(el) < 0) nodes.push(el)
+        })
+      }
+      return $(nodes)
+    },
+    has: function(selector){
+      return this.filter(function(){
+        return isObject(selector) ?
+          $.contains(this, selector) :
+          $(this).find(selector).size()
+      })
+    },
+    eq: function(idx){
+      return idx === -1 ? this.slice(idx) : this.slice(idx, + idx + 1)
+    },
+    first: function(){
+      var el = this[0]
+      return el && !isObject(el) ? el : $(el)
+    },
+    last: function(){
+      var el = this[this.length - 1]
+      return el && !isObject(el) ? el : $(el)
+    },
+    find: function(selector){
+      var result, $this = this
+      if (!selector) result = []
+      else if (typeof selector == 'object')
+        result = $(selector).filter(function(){
+          var node = this
+          return emptyArray.some.call($this, function(parent){
+            return $.contains(parent, node)
+          })
+        })
+      else if (this.length == 1) result = $(zepto.qsa(this[0], selector))
+      else result = this.map(function(){ return zepto.qsa(this, selector) })
+      return result
+    },
+    closest: function(selector, context){
+      var node = this[0], collection = false
+      if (typeof selector == 'object') collection = $(selector)
+      while (node && !(collection ? collection.indexOf(node) >= 0 : zepto.matches(node, selector)))
+        node = node !== context && !isDocument(node) && node.parentNode
+      return $(node)
+    },
+    parents: function(selector){
+      var ancestors = [], nodes = this
+      while (nodes.length > 0)
+        nodes = $.map(nodes, function(node){
+          if ((node = node.parentNode) && !isDocument(node) && ancestors.indexOf(node) < 0) {
+            ancestors.push(node)
+            return node
+          }
+        })
+      return filtered(ancestors, selector)
+    },
+    parent: function(selector){
+      return filtered(uniq(this.pluck('parentNode')), selector)
+    },
+    children: function(selector){
+      return filtered(this.map(function(){ return children(this) }), selector)
+    },
+    contents: function() {
+      return this.map(function() { return slice.call(this.childNodes) })
+    },
+    siblings: function(selector){
+      return filtered(this.map(function(i, el){
+        return filter.call(children(el.parentNode), function(child){ return child!==el })
+      }), selector)
+    },
+    empty: function(){
+      return this.each(function(){ this.innerHTML = '' })
+    },
+    // `pluck` is borrowed from Prototype.js
+    pluck: function(property){
+      return $.map(this, function(el){ return el[property] })
+    },
+    show: function(){
+      return this.each(function(){
+        this.style.display == "none" && (this.style.display = '')
+        if (getComputedStyle(this, '').getPropertyValue("display") == "none")
+          this.style.display = defaultDisplay(this.nodeName)
+      })
+    },
+    replaceWith: function(newContent){
+      return this.before(newContent).remove()
+    },
+    wrap: function(structure){
+      var func = isFunction(structure)
+      if (this[0] && !func)
+        var dom   = $(structure).get(0),
+            clone = dom.parentNode || this.length > 1
 
-  // set header fields
-  for (var field in this.header) {
-    if (null == this.header[field]) continue;
-    xhr.setRequestHeader(field, this.header[field]);
-  }
+      return this.each(function(index){
+        $(this).wrapAll(
+          func ? structure.call(this, index) :
+            clone ? dom.cloneNode(true) : dom
+        )
+      })
+    },
+    wrapAll: function(structure){
+      if (this[0]) {
+        $(this[0]).before(structure = $(structure))
+        var children
+        // drill down to the inmost element
+        while ((children = structure.children()).length) structure = children.first()
+        $(structure).append(this)
+      }
+      return this
+    },
+    wrapInner: function(structure){
+      var func = isFunction(structure)
+      return this.each(function(index){
+        var self = $(this), contents = self.contents(),
+            dom  = func ? structure.call(this, index) : structure
+        contents.length ? contents.wrapAll(dom) : self.append(dom)
+      })
+    },
+    unwrap: function(){
+      this.parent().each(function(){
+        $(this).replaceWith($(this).children())
+      })
+      return this
+    },
+    clone: function(){
+      return this.map(function(){ return this.cloneNode(true) })
+    },
+    hide: function(){
+      return this.css("display", "none")
+    },
+    toggle: function(setting){
+      return this.each(function(){
+        var el = $(this)
+        ;(setting === undefined ? el.css("display") == "none" : setting) ? el.show() : el.hide()
+      })
+    },
+    prev: function(selector){ return $(this.pluck('previousElementSibling')).filter(selector || '*') },
+    next: function(selector){ return $(this.pluck('nextElementSibling')).filter(selector || '*') },
+    html: function(html){
+      return 0 in arguments ?
+        this.each(function(idx){
+          var originHtml = this.innerHTML
+          $(this).empty().append( funcArg(this, html, idx, originHtml) )
+        }) :
+        (0 in this ? this[0].innerHTML : null)
+    },
+    text: function(text){
+      return 0 in arguments ?
+        this.each(function(idx){
+          var newText = funcArg(this, text, idx, this.textContent)
+          this.textContent = newText == null ? '' : ''+newText
+        }) :
+        (0 in this ? this[0].textContent : null)
+    },
+    attr: function(name, value){
+      var result
+      return (typeof name == 'string' && !(1 in arguments)) ?
+        (!this.length || this[0].nodeType !== 1 ? undefined :
+          (!(result = this[0].getAttribute(name)) && name in this[0]) ? this[0][name] : result
+        ) :
+        this.each(function(idx){
+          if (this.nodeType !== 1) return
+          if (isObject(name)) for (key in name) setAttribute(this, key, name[key])
+          else setAttribute(this, name, funcArg(this, value, idx, this.getAttribute(name)))
+        })
+    },
+    removeAttr: function(name){
+      return this.each(function(){ this.nodeType === 1 && setAttribute(this, name) })
+    },
+    prop: function(name, value){
+      name = propMap[name] || name
+      return (1 in arguments) ?
+        this.each(function(idx){
+          this[name] = funcArg(this, value, idx, this[name])
+        }) :
+        (this[0] && this[0][name])
+    },
+    data: function(name, value){
+      var attrName = 'data-' + name.replace(capitalRE, '-$1').toLowerCase()
 
-  // send stuff
-  this.emit('request', this);
-  xhr.send(data);
-  return this;
-};
+      var data = (1 in arguments) ?
+        this.attr(attrName, value) :
+        this.attr(attrName)
 
-/**
- * Expose `Request`.
- */
+      return data !== null ? deserializeValue(data) : undefined
+    },
+    val: function(value){
+      return 0 in arguments ?
+        this.each(function(idx){
+          this.value = funcArg(this, value, idx, this.value)
+        }) :
+        (this[0] && (this[0].multiple ?
+           $(this[0]).find('option').filter(function(){ return this.selected }).pluck('value') :
+           this[0].value)
+        )
+    },
+    offset: function(coordinates){
+      if (coordinates) return this.each(function(index){
+        var $this = $(this),
+            coords = funcArg(this, coordinates, index, $this.offset()),
+            parentOffset = $this.offsetParent().offset(),
+            props = {
+              top:  coords.top  - parentOffset.top,
+              left: coords.left - parentOffset.left
+            }
 
-request.Request = Request;
+        if ($this.css('position') == 'static') props['position'] = 'relative'
+        $this.css(props)
+      })
+      if (!this.length) return null
+      var obj = this[0].getBoundingClientRect()
+      return {
+        left: obj.left + window.pageXOffset,
+        top: obj.top + window.pageYOffset,
+        width: Math.round(obj.width),
+        height: Math.round(obj.height)
+      }
+    },
+    css: function(property, value){
+      if (arguments.length < 2) {
+        var element = this[0], computedStyle = getComputedStyle(element, '')
+        if(!element) return
+        if (typeof property == 'string')
+          return element.style[camelize(property)] || computedStyle.getPropertyValue(property)
+        else if (isArray(property)) {
+          var props = {}
+          $.each(isArray(property) ? property: [property], function(_, prop){
+            props[prop] = (element.style[camelize(prop)] || computedStyle.getPropertyValue(prop))
+          })
+          return props
+        }
+      }
 
-/**
- * Issue a request:
- *
- * Examples:
- *
- *    request('GET', '/users').end(callback)
- *    request('/users').end(callback)
- *    request('/users', callback)
- *
- * @param {String} method
- * @param {String|Function} url or callback
- * @return {Request}
- * @api public
- */
+      var css = ''
+      if (type(property) == 'string') {
+        if (!value && value !== 0)
+          this.each(function(){ this.style.removeProperty(dasherize(property)) })
+        else
+          css = dasherize(property) + ":" + maybeAddPx(property, value)
+      } else {
+        for (key in property)
+          if (!property[key] && property[key] !== 0)
+            this.each(function(){ this.style.removeProperty(dasherize(key)) })
+          else
+            css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';'
+      }
 
-function request(method, url) {
-  // callback
-  if ('function' == typeof url) {
-    return new Request('GET', method).end(url);
-  }
+      return this.each(function(){ this.style.cssText += ';' + css })
+    },
+    index: function(element){
+      return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
+    },
+    hasClass: function(name){
+      if (!name) return false
+      return emptyArray.some.call(this, function(el){
+        return this.test(className(el))
+      }, classRE(name))
+    },
+    addClass: function(name){
+      if (!name) return this
+      return this.each(function(idx){
+        classList = []
+        var cls = className(this), newName = funcArg(this, name, idx, cls)
+        newName.split(/\s+/g).forEach(function(klass){
+          if (!$(this).hasClass(klass)) classList.push(klass)
+        }, this)
+        classList.length && className(this, cls + (cls ? " " : "") + classList.join(" "))
+      })
+    },
+    removeClass: function(name){
+      return this.each(function(idx){
+        if (name === undefined) return className(this, '')
+        classList = className(this)
+        funcArg(this, name, idx, classList).split(/\s+/g).forEach(function(klass){
+          classList = classList.replace(classRE(klass), " ")
+        })
+        className(this, classList.trim())
+      })
+    },
+    toggleClass: function(name, when){
+      if (!name) return this
+      return this.each(function(idx){
+        var $this = $(this), names = funcArg(this, name, idx, className(this))
+        names.split(/\s+/g).forEach(function(klass){
+          (when === undefined ? !$this.hasClass(klass) : when) ?
+            $this.addClass(klass) : $this.removeClass(klass)
+        })
+      })
+    },
+    scrollTop: function(value){
+      if (!this.length) return
+      var hasScrollTop = 'scrollTop' in this[0]
+      if (value === undefined) return hasScrollTop ? this[0].scrollTop : this[0].pageYOffset
+      return this.each(hasScrollTop ?
+        function(){ this.scrollTop = value } :
+        function(){ this.scrollTo(this.scrollX, value) })
+    },
+    scrollLeft: function(value){
+      if (!this.length) return
+      var hasScrollLeft = 'scrollLeft' in this[0]
+      if (value === undefined) return hasScrollLeft ? this[0].scrollLeft : this[0].pageXOffset
+      return this.each(hasScrollLeft ?
+        function(){ this.scrollLeft = value } :
+        function(){ this.scrollTo(value, this.scrollY) })
+    },
+    position: function() {
+      if (!this.length) return
 
-  // url first
-  if (1 == arguments.length) {
-    return new Request('GET', method);
-  }
+      var elem = this[0],
+        // Get *real* offsetParent
+        offsetParent = this.offsetParent(),
+        // Get correct offsets
+        offset       = this.offset(),
+        parentOffset = rootNodeRE.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset()
 
-  return new Request(method, url);
-}
+      // Subtract element margins
+      // note: when an element has margin: auto the offsetLeft and marginLeft
+      // are the same in Safari causing offset.left to incorrectly be 0
+      offset.top  -= parseFloat( $(elem).css('margin-top') ) || 0
+      offset.left -= parseFloat( $(elem).css('margin-left') ) || 0
 
-/**
- * GET `url` with optional callback `fn(res)`.
- *
- * @param {String} url
- * @param {Mixed|Function} data or fn
- * @param {Function} fn
- * @return {Request}
- * @api public
- */
+      // Add offsetParent borders
+      parentOffset.top  += parseFloat( $(offsetParent[0]).css('border-top-width') ) || 0
+      parentOffset.left += parseFloat( $(offsetParent[0]).css('border-left-width') ) || 0
 
-request.get = function(url, data, fn){
-  var req = request('GET', url);
-  if ('function' == typeof data) fn = data, data = null;
-  if (data) req.query(data);
-  if (fn) req.end(fn);
-  return req;
-};
-
-/**
- * HEAD `url` with optional callback `fn(res)`.
- *
- * @param {String} url
- * @param {Mixed|Function} data or fn
- * @param {Function} fn
- * @return {Request}
- * @api public
- */
-
-request.head = function(url, data, fn){
-  var req = request('HEAD', url);
-  if ('function' == typeof data) fn = data, data = null;
-  if (data) req.send(data);
-  if (fn) req.end(fn);
-  return req;
-};
-
-/**
- * DELETE `url` with optional callback `fn(res)`.
- *
- * @param {String} url
- * @param {Function} fn
- * @return {Request}
- * @api public
- */
-
-request.del = function(url, fn){
-  var req = request('DELETE', url);
-  if (fn) req.end(fn);
-  return req;
-};
-
-/**
- * PATCH `url` with optional `data` and callback `fn(res)`.
- *
- * @param {String} url
- * @param {Mixed} data
- * @param {Function} fn
- * @return {Request}
- * @api public
- */
-
-request.patch = function(url, data, fn){
-  var req = request('PATCH', url);
-  if ('function' == typeof data) fn = data, data = null;
-  if (data) req.send(data);
-  if (fn) req.end(fn);
-  return req;
-};
-
-/**
- * POST `url` with optional `data` and callback `fn(res)`.
- *
- * @param {String} url
- * @param {Mixed} data
- * @param {Function} fn
- * @return {Request}
- * @api public
- */
-
-request.post = function(url, data, fn){
-  var req = request('POST', url);
-  if ('function' == typeof data) fn = data, data = null;
-  if (data) req.send(data);
-  if (fn) req.end(fn);
-  return req;
-};
-
-/**
- * PUT `url` with optional `data` and callback `fn(res)`.
- *
- * @param {String} url
- * @param {Mixed|Function} data or fn
- * @param {Function} fn
- * @return {Request}
- * @api public
- */
-
-request.put = function(url, data, fn){
-  var req = request('PUT', url);
-  if ('function' == typeof data) fn = data, data = null;
-  if (data) req.send(data);
-  if (fn) req.end(fn);
-  return req;
-};
-
-/**
- * Expose `request`.
- */
-
-module.exports = request;
-
-},{"emitter":5,"reduce":6}],5:[function(require,module,exports){
-
-/**
- * Expose `Emitter`.
- */
-
-module.exports = Emitter;
-
-/**
- * Initialize a new `Emitter`.
- *
- * @api public
- */
-
-function Emitter(obj) {
-  if (obj) return mixin(obj);
-};
-
-/**
- * Mixin the emitter properties.
- *
- * @param {Object} obj
- * @return {Object}
- * @api private
- */
-
-function mixin(obj) {
-  for (var key in Emitter.prototype) {
-    obj[key] = Emitter.prototype[key];
-  }
-  return obj;
-}
-
-/**
- * Listen on the given `event` with `fn`.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-  (this._callbacks[event] = this._callbacks[event] || [])
-    .push(fn);
-  return this;
-};
-
-/**
- * Adds an `event` listener that will be invoked a single
- * time then automatically removed.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.once = function(event, fn){
-  var self = this;
-  this._callbacks = this._callbacks || {};
-
-  function on() {
-    self.off(event, on);
-    fn.apply(this, arguments);
-  }
-
-  on.fn = fn;
-  this.on(event, on);
-  return this;
-};
-
-/**
- * Remove the given callback for `event` or all
- * registered callbacks.
- *
- * @param {String} event
- * @param {Function} fn
- * @return {Emitter}
- * @api public
- */
-
-Emitter.prototype.off =
-Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
-  this._callbacks = this._callbacks || {};
-
-  // all
-  if (0 == arguments.length) {
-    this._callbacks = {};
-    return this;
-  }
-
-  // specific event
-  var callbacks = this._callbacks[event];
-  if (!callbacks) return this;
-
-  // remove all handlers
-  if (1 == arguments.length) {
-    delete this._callbacks[event];
-    return this;
-  }
-
-  // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
-  return this;
-};
-
-/**
- * Emit `event` with the given args.
- *
- * @param {String} event
- * @param {Mixed} ...
- * @return {Emitter}
- */
-
-Emitter.prototype.emit = function(event){
-  this._callbacks = this._callbacks || {};
-  var args = [].slice.call(arguments, 1)
-    , callbacks = this._callbacks[event];
-
-  if (callbacks) {
-    callbacks = callbacks.slice(0);
-    for (var i = 0, len = callbacks.length; i < len; ++i) {
-      callbacks[i].apply(this, args);
+      // Subtract the two offsets
+      return {
+        top:  offset.top  - parentOffset.top,
+        left: offset.left - parentOffset.left
+      }
+    },
+    offsetParent: function() {
+      return this.map(function(){
+        var parent = this.offsetParent || document.body
+        while (parent && !rootNodeRE.test(parent.nodeName) && $(parent).css("position") == "static")
+          parent = parent.offsetParent
+        return parent
+      })
     }
   }
 
-  return this;
-};
+  // for now
+  $.fn.detach = $.fn.remove
 
-/**
- * Return array of callbacks for `event`.
- *
- * @param {String} event
- * @return {Array}
- * @api public
- */
+  // Generate the `width` and `height` functions
+  ;['width', 'height'].forEach(function(dimension){
+    var dimensionProperty =
+      dimension.replace(/./, function(m){ return m[0].toUpperCase() })
 
-Emitter.prototype.listeners = function(event){
-  this._callbacks = this._callbacks || {};
-  return this._callbacks[event] || [];
-};
+    $.fn[dimension] = function(value){
+      var offset, el = this[0]
+      if (value === undefined) return isWindow(el) ? el['inner' + dimensionProperty] :
+        isDocument(el) ? el.documentElement['scroll' + dimensionProperty] :
+        (offset = this.offset()) && offset[dimension]
+      else return this.each(function(idx){
+        el = $(this)
+        el.css(dimension, funcArg(this, value, idx, el[dimension]()))
+      })
+    }
+  })
 
-/**
- * Check if this emitter has `event` handlers.
- *
- * @param {String} event
- * @return {Boolean}
- * @api public
- */
-
-Emitter.prototype.hasListeners = function(event){
-  return !! this.listeners(event).length;
-};
-
-},{}],6:[function(require,module,exports){
-
-/**
- * Reduce `arr` with `fn`.
- *
- * @param {Array} arr
- * @param {Function} fn
- * @param {Mixed} initial
- *
- * TODO: combatible error handling?
- */
-
-module.exports = function(arr, fn, initial){  
-  var idx = 0;
-  var len = arr.length;
-  var curr = arguments.length == 3
-    ? initial
-    : arr[idx++];
-
-  while (idx < len) {
-    curr = fn.call(null, curr, arr[idx], ++idx, arr);
+  function traverseNode(node, fun) {
+    fun(node)
+    for (var i = 0, len = node.childNodes.length; i < len; i++)
+      traverseNode(node.childNodes[i], fun)
   }
-  
-  return curr;
-};
-},{}],7:[function(require,module,exports){
+
+  // Generate the `after`, `prepend`, `before`, `append`,
+  // `insertAfter`, `insertBefore`, `appendTo`, and `prependTo` methods.
+  adjacencyOperators.forEach(function(operator, operatorIndex) {
+    var inside = operatorIndex % 2 //=> prepend, append
+
+    $.fn[operator] = function(){
+      // arguments can be nodes, arrays of nodes, Zepto objects and HTML strings
+      var argType, nodes = $.map(arguments, function(arg) {
+            argType = type(arg)
+            return argType == "object" || argType == "array" || arg == null ?
+              arg : zepto.fragment(arg)
+          }),
+          parent, copyByClone = this.length > 1
+      if (nodes.length < 1) return this
+
+      return this.each(function(_, target){
+        parent = inside ? target : target.parentNode
+
+        // convert all methods to a "before" operation
+        target = operatorIndex == 0 ? target.nextSibling :
+                 operatorIndex == 1 ? target.firstChild :
+                 operatorIndex == 2 ? target :
+                 null
+
+        var parentInDocument = $.contains(document.documentElement, parent)
+
+        nodes.forEach(function(node){
+          if (copyByClone) node = node.cloneNode(true)
+          else if (!parent) return $(node).remove()
+
+          parent.insertBefore(node, target)
+          if (parentInDocument) traverseNode(node, function(el){
+            if (el.nodeName != null && el.nodeName.toUpperCase() === 'SCRIPT' &&
+               (!el.type || el.type === 'text/javascript') && !el.src)
+              window['eval'].call(window, el.innerHTML)
+          })
+        })
+      })
+    }
+
+    // after    => insertAfter
+    // prepend  => prependTo
+    // before   => insertBefore
+    // append   => appendTo
+    $.fn[inside ? operator+'To' : 'insert'+(operatorIndex ? 'Before' : 'After')] = function(html){
+      $(html)[operator](this)
+      return this
+    }
+  })
+
+  zepto.Z.prototype = $.fn
+
+  // Export internal API functions in the `$.zepto` namespace
+  zepto.uniq = uniq
+  zepto.deserializeValue = deserializeValue
+  $.zepto = zepto
+
+  return $
+})()
+
+
+
+
+;(function($){
+  var _zid = 1, undefined,
+      slice = Array.prototype.slice,
+      isFunction = $.isFunction,
+      isString = function(obj){ return typeof obj == 'string' },
+      handlers = {},
+      specialEvents={},
+      focusinSupported = 'onfocusin' in window,
+      focus = { focus: 'focusin', blur: 'focusout' },
+      hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
+
+  specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
+
+  function zid(element) {
+    return element._zid || (element._zid = _zid++)
+  }
+  function findHandlers(element, event, fn, selector) {
+    event = parse(event)
+    if (event.ns) var matcher = matcherFor(event.ns)
+    return (handlers[zid(element)] || []).filter(function(handler) {
+      return handler
+        && (!event.e  || handler.e == event.e)
+        && (!event.ns || matcher.test(handler.ns))
+        && (!fn       || zid(handler.fn) === zid(fn))
+        && (!selector || handler.sel == selector)
+    })
+  }
+  function parse(event) {
+    var parts = ('' + event).split('.')
+    return {e: parts[0], ns: parts.slice(1).sort().join(' ')}
+  }
+  function matcherFor(ns) {
+    return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
+  }
+
+  function eventCapture(handler, captureSetting) {
+    return handler.del &&
+      (!focusinSupported && (handler.e in focus)) ||
+      !!captureSetting
+  }
+
+  function realEvent(type) {
+    return hover[type] || (focusinSupported && focus[type]) || type
+  }
+
+  function add(element, events, fn, data, selector, delegator, capture){
+    var id = zid(element), set = (handlers[id] || (handlers[id] = []))
+    events.split(/\s/).forEach(function(event){
+      if (event == 'ready') return $(document).ready(fn)
+      var handler   = parse(event)
+      handler.fn    = fn
+      handler.sel   = selector
+      // emulate mouseenter, mouseleave
+      if (handler.e in hover) fn = function(e){
+        var related = e.relatedTarget
+        if (!related || (related !== this && !$.contains(this, related)))
+          return handler.fn.apply(this, arguments)
+      }
+      handler.del   = delegator
+      var callback  = delegator || fn
+      handler.proxy = function(e){
+        e = compatible(e)
+        if (e.isImmediatePropagationStopped()) return
+        e.data = data
+        var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
+        if (result === false) e.preventDefault(), e.stopPropagation()
+        return result
+      }
+      handler.i = set.length
+      set.push(handler)
+      if ('addEventListener' in element)
+        element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+    })
+  }
+  function remove(element, events, fn, selector, capture){
+    var id = zid(element)
+    ;(events || '').split(/\s/).forEach(function(event){
+      findHandlers(element, event, fn, selector).forEach(function(handler){
+        delete handlers[id][handler.i]
+      if ('removeEventListener' in element)
+        element.removeEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+      })
+    })
+  }
+
+  $.event = { add: add, remove: remove }
+
+  $.proxy = function(fn, context) {
+    var args = (2 in arguments) && slice.call(arguments, 2)
+    if (isFunction(fn)) {
+      var proxyFn = function(){ return fn.apply(context, args ? args.concat(slice.call(arguments)) : arguments) }
+      proxyFn._zid = zid(fn)
+      return proxyFn
+    } else if (isString(context)) {
+      if (args) {
+        args.unshift(fn[context], fn)
+        return $.proxy.apply(null, args)
+      } else {
+        return $.proxy(fn[context], fn)
+      }
+    } else {
+      throw new TypeError("expected function")
+    }
+  }
+
+  $.fn.bind = function(event, data, callback){
+    return this.on(event, data, callback)
+  }
+  $.fn.unbind = function(event, callback){
+    return this.off(event, callback)
+  }
+  $.fn.one = function(event, selector, data, callback){
+    return this.on(event, selector, data, callback, 1)
+  }
+
+  var returnTrue = function(){return true},
+      returnFalse = function(){return false},
+      ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$)/,
+      eventMethods = {
+        preventDefault: 'isDefaultPrevented',
+        stopImmediatePropagation: 'isImmediatePropagationStopped',
+        stopPropagation: 'isPropagationStopped'
+      }
+
+  function compatible(event, source) {
+    if (source || !event.isDefaultPrevented) {
+      source || (source = event)
+
+      $.each(eventMethods, function(name, predicate) {
+        var sourceMethod = source[name]
+        event[name] = function(){
+          this[predicate] = returnTrue
+          return sourceMethod && sourceMethod.apply(source, arguments)
+        }
+        event[predicate] = returnFalse
+      })
+
+      if (source.defaultPrevented !== undefined ? source.defaultPrevented :
+          'returnValue' in source ? source.returnValue === false :
+          source.getPreventDefault && source.getPreventDefault())
+        event.isDefaultPrevented = returnTrue
+    }
+    return event
+  }
+
+  function createProxy(event) {
+    var key, proxy = { originalEvent: event }
+    for (key in event)
+      if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key]
+
+    return compatible(proxy, event)
+  }
+
+  $.fn.delegate = function(selector, event, callback){
+    return this.on(event, selector, callback)
+  }
+  $.fn.undelegate = function(selector, event, callback){
+    return this.off(event, selector, callback)
+  }
+
+  $.fn.live = function(event, callback){
+    $(document.body).delegate(this.selector, event, callback)
+    return this
+  }
+  $.fn.die = function(event, callback){
+    $(document.body).undelegate(this.selector, event, callback)
+    return this
+  }
+
+  $.fn.on = function(event, selector, data, callback, one){
+    var autoRemove, delegator, $this = this
+    if (event && !isString(event)) {
+      $.each(event, function(type, fn){
+        $this.on(type, selector, data, fn, one)
+      })
+      return $this
+    }
+
+    if (!isString(selector) && !isFunction(callback) && callback !== false)
+      callback = data, data = selector, selector = undefined
+    if (isFunction(data) || data === false)
+      callback = data, data = undefined
+
+    if (callback === false) callback = returnFalse
+
+    return $this.each(function(_, element){
+      if (one) autoRemove = function(e){
+        remove(element, e.type, callback)
+        return callback.apply(this, arguments)
+      }
+
+      if (selector) delegator = function(e){
+        var evt, match = $(e.target).closest(selector, element).get(0)
+        if (match && match !== element) {
+          evt = $.extend(createProxy(e), {currentTarget: match, liveFired: element})
+          return (autoRemove || callback).apply(match, [evt].concat(slice.call(arguments, 1)))
+        }
+      }
+
+      add(element, event, callback, data, selector, delegator || autoRemove)
+    })
+  }
+  $.fn.off = function(event, selector, callback){
+    var $this = this
+    if (event && !isString(event)) {
+      $.each(event, function(type, fn){
+        $this.off(type, selector, fn)
+      })
+      return $this
+    }
+
+    if (!isString(selector) && !isFunction(callback) && callback !== false)
+      callback = selector, selector = undefined
+
+    if (callback === false) callback = returnFalse
+
+    return $this.each(function(){
+      remove(this, event, callback, selector)
+    })
+  }
+
+  $.fn.trigger = function(event, args){
+    event = (isString(event) || $.isPlainObject(event)) ? $.Event(event) : compatible(event)
+    event._args = args
+    return this.each(function(){
+      // items in the collection might not be DOM elements
+      if('dispatchEvent' in this) this.dispatchEvent(event)
+      else $(this).triggerHandler(event, args)
+    })
+  }
+
+  // triggers event handlers on current element just as if an event occurred,
+  // doesn't trigger an actual event, doesn't bubble
+  $.fn.triggerHandler = function(event, args){
+    var e, result
+    this.each(function(i, element){
+      e = createProxy(isString(event) ? $.Event(event) : event)
+      e._args = args
+      e.target = element
+      $.each(findHandlers(element, event.type || event), function(i, handler){
+        result = handler.proxy(e)
+        if (e.isImmediatePropagationStopped()) return false
+      })
+    })
+    return result
+  }
+
+  // shortcut methods for `.bind(event, fn)` for each event type
+  ;('focusin focusout load resize scroll unload click dblclick '+
+  'mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave '+
+  'change select keydown keypress keyup error').split(' ').forEach(function(event) {
+    $.fn[event] = function(callback) {
+      return callback ?
+        this.bind(event, callback) :
+        this.trigger(event)
+    }
+  })
+
+  ;['focus', 'blur'].forEach(function(name) {
+    $.fn[name] = function(callback) {
+      if (callback) this.bind(name, callback)
+      else this.each(function(){
+        try { this[name]() }
+        catch(e) {}
+      })
+      return this
+    }
+  })
+
+  $.Event = function(type, props) {
+    if (!isString(type)) props = type, type = props.type
+    var event = document.createEvent(specialEvents[type] || 'Events'), bubbles = true
+    if (props) for (var name in props) (name == 'bubbles') ? (bubbles = !!props[name]) : (event[name] = props[name])
+    event.initEvent(type, bubbles, true)
+    return compatible(event)
+  }
+
+})(Zepto)
+
+;(function($){
+  var jsonpID = 0,
+      document = window.document,
+      key,
+      name,
+      rscript = /<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi,
+      scriptTypeRE = /^(?:text|application)\/javascript/i,
+      xmlTypeRE = /^(?:text|application)\/xml/i,
+      jsonType = 'application/json',
+      htmlType = 'text/html',
+      blankRE = /^\s*$/
+
+  // trigger a custom event and return false if it was cancelled
+  function triggerAndReturn(context, eventName, data) {
+    var event = $.Event(eventName)
+    $(context).trigger(event, data)
+    return !event.isDefaultPrevented()
+  }
+
+  // trigger an Ajax "global" event
+  function triggerGlobal(settings, context, eventName, data) {
+    if (settings.global) return triggerAndReturn(context || document, eventName, data)
+  }
+
+  // Number of active Ajax requests
+  $.active = 0
+
+  function ajaxStart(settings) {
+    if (settings.global && $.active++ === 0) triggerGlobal(settings, null, 'ajaxStart')
+  }
+  function ajaxStop(settings) {
+    if (settings.global && !(--$.active)) triggerGlobal(settings, null, 'ajaxStop')
+  }
+
+  // triggers an extra global event "ajaxBeforeSend" that's like "ajaxSend" but cancelable
+  function ajaxBeforeSend(xhr, settings) {
+    var context = settings.context
+    if (settings.beforeSend.call(context, xhr, settings) === false ||
+        triggerGlobal(settings, context, 'ajaxBeforeSend', [xhr, settings]) === false)
+      return false
+
+    triggerGlobal(settings, context, 'ajaxSend', [xhr, settings])
+  }
+  function ajaxSuccess(data, xhr, settings, deferred) {
+    var context = settings.context, status = 'success'
+    settings.success.call(context, data, status, xhr)
+    if (deferred) deferred.resolveWith(context, [data, status, xhr])
+    triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data])
+    ajaxComplete(status, xhr, settings)
+  }
+  // type: "timeout", "error", "abort", "parsererror"
+  function ajaxError(error, type, xhr, settings, deferred) {
+    var context = settings.context
+    settings.error.call(context, xhr, type, error)
+    if (deferred) deferred.rejectWith(context, [xhr, type, error])
+    triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error || type])
+    ajaxComplete(type, xhr, settings)
+  }
+  // status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
+  function ajaxComplete(status, xhr, settings) {
+    var context = settings.context
+    settings.complete.call(context, xhr, status)
+    triggerGlobal(settings, context, 'ajaxComplete', [xhr, settings])
+    ajaxStop(settings)
+  }
+
+  // Empty function, used as default callback
+  function empty() {}
+
+  $.ajaxJSONP = function(options, deferred){
+    if (!('type' in options)) return $.ajax(options)
+
+    var _callbackName = options.jsonpCallback,
+      callbackName = ($.isFunction(_callbackName) ?
+        _callbackName() : _callbackName) || ('jsonp' + (++jsonpID)),
+      script = document.createElement('script'),
+      originalCallback = window[callbackName],
+      responseData,
+      abort = function(errorType) {
+        $(script).triggerHandler('error', errorType || 'abort')
+      },
+      xhr = { abort: abort }, abortTimeout
+
+    if (deferred) deferred.promise(xhr)
+
+    $(script).on('load error', function(e, errorType){
+      clearTimeout(abortTimeout)
+      $(script).off().remove()
+
+      if (e.type == 'error' || !responseData) {
+        ajaxError(null, errorType || 'error', xhr, options, deferred)
+      } else {
+        ajaxSuccess(responseData[0], xhr, options, deferred)
+      }
+
+      window[callbackName] = originalCallback
+      if (responseData && $.isFunction(originalCallback))
+        originalCallback(responseData[0])
+
+      originalCallback = responseData = undefined
+    })
+
+    if (ajaxBeforeSend(xhr, options) === false) {
+      abort('abort')
+      return xhr
+    }
+
+    window[callbackName] = function(){
+      responseData = arguments
+    }
+
+    script.src = options.url.replace(/\?(.+)=\?/, '?$1=' + callbackName)
+    document.head.appendChild(script)
+
+    if (options.timeout > 0) abortTimeout = setTimeout(function(){
+      abort('timeout')
+    }, options.timeout)
+
+    return xhr
+  }
+
+  $.ajaxSettings = {
+    // Default type of request
+    type: 'GET',
+    // Callback that is executed before request
+    beforeSend: empty,
+    // Callback that is executed if the request succeeds
+    success: empty,
+    // Callback that is executed the the server drops error
+    error: empty,
+    // Callback that is executed on request complete (both: error and success)
+    complete: empty,
+    // The context for the callbacks
+    context: null,
+    // Whether to trigger "global" Ajax events
+    global: true,
+    // Transport
+    xhr: function () {
+      return new window.XMLHttpRequest()
+    },
+    // MIME types mapping
+    // IIS returns Javascript as "application/x-javascript"
+    accepts: {
+      script: 'text/javascript, application/javascript, application/x-javascript',
+      json:   jsonType,
+      xml:    'application/xml, text/xml',
+      html:   htmlType,
+      text:   'text/plain'
+    },
+    // Whether the request is to another domain
+    crossDomain: false,
+    // Default timeout
+    timeout: 0,
+    // Whether data should be serialized to string
+    processData: true,
+    // Whether the browser should be allowed to cache GET responses
+    cache: true
+  }
+
+  function mimeToDataType(mime) {
+    if (mime) mime = mime.split(';', 2)[0]
+    return mime && ( mime == htmlType ? 'html' :
+      mime == jsonType ? 'json' :
+      scriptTypeRE.test(mime) ? 'script' :
+      xmlTypeRE.test(mime) && 'xml' ) || 'text'
+  }
+
+  function appendQuery(url, query) {
+    if (query == '') return url
+    return (url + '&' + query).replace(/[&?]{1,2}/, '?')
+  }
+
+  // serialize payload and append it to the URL for GET requests
+  function serializeData(options) {
+    if (options.processData && options.data && $.type(options.data) != "string")
+      options.data = $.param(options.data, options.traditional)
+    if (options.data && (!options.type || options.type.toUpperCase() == 'GET'))
+      options.url = appendQuery(options.url, options.data), options.data = undefined
+  }
+
+  $.ajax = function(options){
+    var settings = $.extend({}, options || {}),
+        deferred = $.Deferred && $.Deferred()
+    for (key in $.ajaxSettings) if (settings[key] === undefined) settings[key] = $.ajaxSettings[key]
+
+    ajaxStart(settings)
+
+    if (!settings.crossDomain) settings.crossDomain = /^([\w-]+:)?\/\/([^\/]+)/.test(settings.url) &&
+      RegExp.$2 != window.location.host
+
+    if (!settings.url) settings.url = window.location.toString()
+    serializeData(settings)
+
+    var dataType = settings.dataType, hasPlaceholder = /\?.+=\?/.test(settings.url)
+    if (hasPlaceholder) dataType = 'jsonp'
+
+    if (settings.cache === false || (
+         (!options || options.cache !== true) &&
+         ('script' == dataType || 'jsonp' == dataType)
+        ))
+      settings.url = appendQuery(settings.url, '_=' + Date.now())
+
+    if ('jsonp' == dataType) {
+      if (!hasPlaceholder)
+        settings.url = appendQuery(settings.url,
+          settings.jsonp ? (settings.jsonp + '=?') : settings.jsonp === false ? '' : 'callback=?')
+      return $.ajaxJSONP(settings, deferred)
+    }
+
+    var mime = settings.accepts[dataType],
+        headers = { },
+        setHeader = function(name, value) { headers[name.toLowerCase()] = [name, value] },
+        protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
+        xhr = settings.xhr(),
+        nativeSetHeader = xhr.setRequestHeader,
+        abortTimeout
+
+    if (deferred) deferred.promise(xhr)
+
+    if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
+    setHeader('Accept', mime || '*/*')
+    if (mime = settings.mimeType || mime) {
+      if (mime.indexOf(',') > -1) mime = mime.split(',', 2)[0]
+      xhr.overrideMimeType && xhr.overrideMimeType(mime)
+    }
+    if (settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() != 'GET'))
+      setHeader('Content-Type', settings.contentType || 'application/x-www-form-urlencoded')
+
+    if (settings.headers) for (name in settings.headers) setHeader(name, settings.headers[name])
+    xhr.setRequestHeader = setHeader
+
+    xhr.onreadystatechange = function(){
+      if (xhr.readyState == 4) {
+        xhr.onreadystatechange = empty
+        clearTimeout(abortTimeout)
+        var result, error = false
+        if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 || (xhr.status == 0 && protocol == 'file:')) {
+          dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader('content-type'))
+          result = xhr.responseText
+
+          try {
+            // http://perfectionkills.com/global-eval-what-are-the-options/
+            if (dataType == 'script')    (1,eval)(result)
+            else if (dataType == 'xml')  result = xhr.responseXML
+            else if (dataType == 'json') result = blankRE.test(result) ? null : $.parseJSON(result)
+          } catch (e) { error = e }
+
+          if (error) ajaxError(error, 'parsererror', xhr, settings, deferred)
+          else ajaxSuccess(result, xhr, settings, deferred)
+        } else {
+          ajaxError(xhr.statusText || null, xhr.status ? 'error' : 'abort', xhr, settings, deferred)
+        }
+      }
+    }
+
+    if (ajaxBeforeSend(xhr, settings) === false) {
+      xhr.abort()
+      ajaxError(null, 'abort', xhr, settings, deferred)
+      return xhr
+    }
+
+    if (settings.xhrFields) for (name in settings.xhrFields) xhr[name] = settings.xhrFields[name]
+
+    var async = 'async' in settings ? settings.async : true
+    xhr.open(settings.type, settings.url, async, settings.username, settings.password)
+
+    for (name in headers) nativeSetHeader.apply(xhr, headers[name])
+
+    if (settings.timeout > 0) abortTimeout = setTimeout(function(){
+        xhr.onreadystatechange = empty
+        xhr.abort()
+        ajaxError(null, 'timeout', xhr, settings, deferred)
+      }, settings.timeout)
+
+    // avoid sending empty string (#319)
+    xhr.send(settings.data ? settings.data : null)
+    return xhr
+  }
+
+  // handle optional data/success arguments
+  function parseArguments(url, data, success, dataType) {
+    if ($.isFunction(data)) dataType = success, success = data, data = undefined
+    if (!$.isFunction(success)) dataType = success, success = undefined
+    return {
+      url: url
+    , data: data
+    , success: success
+    , dataType: dataType
+    }
+  }
+
+  $.get = function(/* url, data, success, dataType */){
+    return $.ajax(parseArguments.apply(null, arguments))
+  }
+
+  $.post = function(/* url, data, success, dataType */){
+    var options = parseArguments.apply(null, arguments)
+    options.type = 'POST'
+    return $.ajax(options)
+  }
+
+  $.getJSON = function(/* url, data, success */){
+    var options = parseArguments.apply(null, arguments)
+    options.dataType = 'json'
+    return $.ajax(options)
+  }
+
+  $.fn.load = function(url, data, success){
+    if (!this.length) return this
+    var self = this, parts = url.split(/\s/), selector,
+        options = parseArguments(url, data, success),
+        callback = options.success
+    if (parts.length > 1) options.url = parts[0], selector = parts[1]
+    options.success = function(response){
+      self.html(selector ?
+        $('<div>').html(response.replace(rscript, "")).find(selector)
+        : response)
+      callback && callback.apply(self, arguments)
+    }
+    $.ajax(options)
+    return this
+  }
+
+  var escape = encodeURIComponent
+
+  function serialize(params, obj, traditional, scope){
+    var type, array = $.isArray(obj), hash = $.isPlainObject(obj)
+    $.each(obj, function(key, value) {
+      type = $.type(value)
+      if (scope) key = traditional ? scope :
+        scope + '[' + (hash || type == 'object' || type == 'array' ? key : '') + ']'
+      // handle data in serializeArray() format
+      if (!scope && array) params.add(value.name, value.value)
+      // recurse into nested objects
+      else if (type == "array" || (!traditional && type == "object"))
+        serialize(params, value, traditional, key)
+      else params.add(key, value)
+    })
+  }
+
+  $.param = function(obj, traditional){
+    var params = []
+    params.add = function(k, v){ this.push(escape(k) + '=' + escape(v)) }
+    serialize(params, obj, traditional)
+    return params.join('&').replace(/%20/g, '+')
+  }
+})(Zepto)
+
+;(function($){
+  $.fn.serializeArray = function() {
+    var result = [], el
+    $([].slice.call(this.get(0).elements)).each(function(){
+      el = $(this)
+      var type = el.attr('type')
+      if (this.nodeName.toLowerCase() != 'fieldset' &&
+        !this.disabled && type != 'submit' && type != 'reset' && type != 'button' &&
+        ((type != 'radio' && type != 'checkbox') || this.checked))
+        result.push({
+          name: el.attr('name'),
+          value: el.val()
+        })
+    })
+    return result
+  }
+
+  $.fn.serialize = function(){
+    var result = []
+    this.serializeArray().forEach(function(elm){
+      result.push(encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value))
+    })
+    return result.join('&')
+  }
+
+  $.fn.submit = function(callback) {
+    if (callback) this.bind('submit', callback)
+    else if (this.length) {
+      var event = $.Event('submit')
+      this.eq(0).trigger(event)
+      if (!event.isDefaultPrevented()) this.get(0).submit()
+    }
+    return this
+  }
+
+})(Zepto)
+
+;(function($){
+  // __proto__ doesn't exist on IE<11, so redefine
+  // the Z function to use object extension instead
+  if (!('__proto__' in {})) {
+    $.extend($.zepto, {
+      Z: function(dom, selector){
+        dom = dom || []
+        $.extend(dom, $.fn)
+        dom.selector = selector || ''
+        dom.__Z = true
+        return dom
+      },
+      // this is a kludge but works
+      isZ: function(object){
+        return $.type(object) === 'array' && '__Z' in object
+      }
+    })
+  }
+
+  // getComputedStyle shouldn't freak out when called
+  // without a valid element as argument
+  try {
+    getComputedStyle(undefined)
+  } catch(e) {
+    var nativeGetComputedStyle = getComputedStyle;
+    window.getComputedStyle = function(element){
+      try {
+        return nativeGetComputedStyle(element)
+      } catch(e) {
+        return null
+      }
+    }
+  }
+})(Zepto)
+
+},{}],5:[function(require,module,exports){
 var dataSource;dataSource=require("./data.coffee"),exports.articles=function(t,e){return dataSource.getTeasers(function(r,a){return r?e(r):t.render("articles.html",{title:"Livingdocs articles",articles:a})})},exports.article=function(t,e){return dataSource.getArticle(t.params.slug,function(r,a){return r?e(r):t.render("article.html",{title:a.title,article:a})})},exports.articleRaw=function(t,e){return dataSource.getArticle(t.params.slug,function(r,a){return r?e(r):t.render("raw.html",{content:a.html})})};
-},{"./data.coffee":8}],8:[function(require,module,exports){
-var processArticle,request,transformers;request=require("superagent"),transformers=require("./transformers.coffee"),processArticle=function(r){var t,e;return r.html=null!=(t=r.html)?t.replace(/http\:\/\/app\.resrc\.it\/https\:\/\/livingdocs\-images\-dev\.s3\.amazonaws\.com\//g,"http://suitart.gallery/images/bkXv1l4RQ/s:1000x1000/"):void 0,r.html=null!=(e=r.html)?e.replace(/http\:\/\/placehold\.it\/0x0/g,"http://suitart.gallery/default/100x100"):void 0,r},exports.getArticle=function(r,t){return request.get("http://staging.api.livingdocs.io/publications/public/"+r,function(r,e){var i;return i=e.body,(null!=i?i.error:void 0)?t(new Error(i.error)):t(null,processArticle(i.publication))})},exports.getArticles=function(r){return request.get("http://staging.api.livingdocs.io/publications/public",function(t,e){var i;return i=e.body,(null!=i?i.error:void 0)?r(new Error(i.error)):r(null,i.publications)})},exports.getTeasers=function(r){return exports.getArticles(function(t,e){return t?r(t):r(null,transformers.articlesToTeasers(e))})};
-},{"./transformers.coffee":9,"superagent":4}],9:[function(require,module,exports){
+},{"./data.coffee":6}],6:[function(require,module,exports){
+var processArticle,request,transformers;request=require("ld-request"),transformers=require("./transformers.coffee"),processArticle=function(t){var e,r;return t.html=null!=(e=t.html)?e.replace(/http\:\/\/app\.resrc\.it\/https\:\/\/livingdocs\-images\-dev\.s3\.amazonaws\.com\//g,"http://suitart.gallery/images/bkXv1l4RQ/s:1000x1000/"):void 0,t.html=null!=(r=t.html)?r.replace(/http\:\/\/placehold\.it\/0x0/g,"http://suitart.gallery/default/100x100"):void 0,t},exports.getArticle=function(t,e){return request.get("http://staging.api.livingdocs.io/publications/public/"+t,function(t,r){return t?e(t):e(null,processArticle(r.publication))})},exports.getArticles=function(t){return request.get("http://staging.api.livingdocs.io/publications/public",function(e,r){return e?t(e):t(null,r.publications)})},exports.getTeasers=function(t){return exports.getArticles(function(e,r){return e?t(e):t(null,transformers.articlesToTeasers(r))})};
+},{"./transformers.coffee":7,"ld-request":undefined}],7:[function(require,module,exports){
 exports.constructImageUrl=function(e){var t;return t=(e||"").split("amazonaws.com/")[1],t?"http://suitart.gallery/images/bkXv1l4RQ/s:1000x1000/"+t:e},exports.deduceTitleFromData=function(e){var t,r,a,n,o,i,l;for(a=0,o=e.length;o>a;a++)for(t=e[a],l=["hero","head","title"],n=0,i=l.length;i>n;n++)if(r=l[n],t.identifier==="timeline."+r&&null!=t.content.title)return t.content.title},exports.deduceTeaserImageFromData=function(e){var t,r,a,n,o,i,l;for(a=0,o=e.length;o>a;a++)for(t=e[a],l=["hero","fullsize","normal","peephole"],n=0,i=l.length;i>n;n++)if(r=l[n],t.identifier==="timeline."+r&&null!=t.content.image)return t.content.image},exports.articlesToTeasers=function(e){var t,r,a,n,o,i;for(i=[],r=0,a=e.length;a>r;r++)t=e[r],i.push({title:(null!=(n=t.metadata)?n.title:void 0)||exports.deduceTitleFromData(t.data.content),teaserImage:exports.constructImageUrl((null!=(o=t.metadata)?o.teaser_image:void 0)||exports.deduceTeaserImageFromData(t.data.content)),articleId:t.slug||t.document_id});return i};
-},{}]},{},[1]);
+},{}],"ld-request":[function(require,module,exports){
+var $;$=require("browserify-zepto"),exports.get=function(r,e){return $.getJSON(r,function(r){return r.error?e(new Error(r.error)):e(null,r)})};
+},{"browserify-zepto":4}]},{},[1]);

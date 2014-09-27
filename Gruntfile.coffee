@@ -6,6 +6,7 @@ module.exports = (grunt) ->
         extensions: ['.coffee']
         transform: ['coffeeify', 'uglifyify']
         debug: true
+        alias: ['./lib/ld-request-browser/index.coffee:ld-request']
 
       dist:
         files:
@@ -17,8 +18,8 @@ module.exports = (grunt) ->
           'assets/livingdocs_stream.css': 'client/livingdocs_stream.css'
 
     watch:
-      tests:
-        files: ['test/**/*.coffee', 'lib/**/*.coffee']
+      changes:
+        files: ['client/**/*']
         tasks: ['default']
 
 
@@ -26,5 +27,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks('grunt-browserify')
   grunt.loadNpmTasks('grunt-contrib-watch')
 
-  grunt.registerTask('default', ['browserify', 'copy'])
+  grunt.registerTask('default', ['assets', 'watch'])
+  grunt.registerTask('assets', ['browserify', 'copy'])
 

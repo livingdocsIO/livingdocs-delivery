@@ -1,6 +1,6 @@
 $ = require('browserify-zepto')
 page = require('../components/page.js/index')
-Nunjucks = require('nunjucks')
+Nunjucks = require('../components/nunjucks/browser/nunjucks.min.js')
 nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views', true))
 
 controllers = require('../shared/controllers.coffee')
@@ -17,6 +17,6 @@ $(document).ready () ->
   page('/articles', controllers.articles)
   page('/articles/:slug', controllers.article)
 
-  $('a[internal]').click (evt) ->
+  $(document).on 'click', 'a[internal]', (evt) ->
     evt.preventDefault()
     page($(this).attr('href'))

@@ -1,10 +1,10 @@
 {% extends "index.html" %}
 
 {% block content %}
-<ul style="padding-top: 60px">
+<ul class="teaser-list">
 {% for article in articles %}
 <a internal href="/articles/{{ article.articleId }}">
-  <li class="teaser" style="background-image: url({{ article.teaserImage }})">
+  <li class="teaser-list-entry" style="background-image: url({{ article.teaserImage }})">
     <div class="table">
       <div class="cell">
         <div class="constrain">
