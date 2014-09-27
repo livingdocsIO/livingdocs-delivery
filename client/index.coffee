@@ -1,6 +1,6 @@
 $ = require('browserify-zepto')
 page = require('../components/page.js/index')
-Nunjucks = require('../components/nunjucks/browser/nunjucks.min.js')
+Nunjucks = require('../components/nunjucks/browser/nunjucks-slim.min.js')
 nunjucks = new Nunjucks.Environment(new Nunjucks.WebLoader('/views', true))
 
 controllers = require('../shared/controllers.coffee')
