@@ -16,6 +16,7 @@ $(document).ready () ->
   page('/', controllers.articles)
   page('/articles', controllers.articles)
   page('/articles/:slug', controllers.article)
+  page()
 
   $(document).on 'click', 'a[internal]', (evt) ->
     evt.preventDefault()

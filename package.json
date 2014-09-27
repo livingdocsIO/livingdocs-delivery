@@ -7,6 +7,8 @@
     "npm": "~2.0.0"
   },
   "scripts": {
+    "prestart": "grunt assets",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Marc Bachmann <marc.brookman@gmail.com>",
