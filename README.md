@@ -7,6 +7,11 @@ The application uses nunjucks templates and renders them server and client side.
 [http://livingdocs-delivery.herokuapp.com](http://livingdocs-delivery.herokuapp.com)
 
 ## Installation
+npm version ~2.0.0 is required. You will have to update unless `npm -v` returns the correct version.
+```
+npm install -g npm
+```
+
 ```
 git clone git@github.com:marcbachmann/livingdocs-delivery.git
 cd livingdocs-delivery
