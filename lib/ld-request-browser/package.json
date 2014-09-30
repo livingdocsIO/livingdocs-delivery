@@ -1,5 +1,5 @@
 {
-  "name": "ld-request-client",
+  "name": "ld-request-browser",
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {

@@ -8,8 +8,7 @@
   },
   "scripts": {
     "prestart": "grunt assets",
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "author": "Marc Bachmann <marc.brookman@gmail.com>",
   "license": "ISC",
