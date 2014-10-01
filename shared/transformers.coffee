@@ -1,8 +1,11 @@
 exports.constructImageUrl = (original) ->
-  imageId = (original||'').split('amazonaws.com/')[1]
+  original = url: original if typeof original is 'string'
+  imageId = (original?.url||'').split('amazonaws.com/')[1]
   if imageId
-    return "http://suitart.gallery/images/bkXv1l4RQ/s:1000x1000/#{imageId}"
-  original
+    style = "s:1000x1000"
+    style += "-c:#{c.width}x#{c.height}x#{c.x}x#{c.y}" if c = original.crop
+    return "http://suitart.gallery/images/bkXv1l4RQ/#{style}/#{imageId}"
+  original?.url || original
 
 
 exports.deduceTitleFromData = (content) ->

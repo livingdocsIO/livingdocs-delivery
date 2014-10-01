@@ -2,7 +2,7 @@ request = require('ld-request')
 transformers = require('./transformers.coffee')
 
 processArticle = (article) ->
-  article.html = article.html?.replace(/http\:\/\/app\.resrc\.it\/https\:\/\/livingdocs\-images\-dev\.s3\.amazonaws\.com\//g, 'http://suitart.gallery/images/bkXv1l4RQ/s:1500x1500/')
+  article.html = article.html?.replace(/https\:\/\/app\.resrc\.it\/https\:\/\/livingdocs\-images\-dev\.s3\.amazonaws\.com\//g, 'https://d3iceacr719ubs.cloudfront.net/images/bkXv1l4RQ/s:1600x1500/')
   article.html = article.html?.replace(/http\:\/\/placehold\.it\/0x0/g, 'http://suitart.gallery/default/100x100')
   article
 
