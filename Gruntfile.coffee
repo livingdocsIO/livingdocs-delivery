@@ -6,7 +6,6 @@ module.exports = (grunt) ->
         extensions: ['.coffee']
         transform: ['coffeeify', 'uglifyify']
         debug: true
-        alias: ['./lib/ld-request-browser/index.coffee:ld-request']
 
       dist:
         files:

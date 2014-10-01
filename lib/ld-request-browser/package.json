@@ -1,8 +1,0 @@
-{
-  "name": "ld-request-browser",
-  "version": "1.0.0",
-  "main": "index.js",
-  "dependencies": {
-    "browserify-zepto": "^1.1.4"
-  }
-}
