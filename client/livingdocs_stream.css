@@ -56,8 +56,7 @@ html, body {
 }
 
 /* Header */
-
-.header {
+.livingdocs-blog-header {
   position: fixed;
   top: 0;
   width: 100%;
@@ -68,19 +67,23 @@ html, body {
   background-color: rgb(41, 185, 111);
 }
 
-.header .site-logo {
+.livingdocs-blog-header .site-logo {
   float: left;
   margin: 16px 0 0 15px;
 }
 
-.header img {
+.livingdocs-blog-header img {
   height: 29px;
 }
+
+.livingdocs-blog-content {
+  padding-top: 60px;
+}
+
 
 /* Start Page */
 .teaser-list {
   position: relative;
-  top: 60px;
   margin: 0;
 }
 
@@ -121,8 +124,7 @@ html, body {
 
 /* Detail Page */
 .article-wrapper {
-  margin-top: 60px;
-  padding: 60px 0.72222rem 0;
+  padding: 0 0.72222rem;
   max-width: 81ch;
   margin: 0 auto;
 }
