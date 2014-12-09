@@ -8,7 +8,7 @@ root = path.join(__dirname, '..')
 
 nunjucks = Nunjucks.configure "#{root}/views",
   autoescape: false
-  watch: process.env.NODE_ENV != 'production'
+  noWatch: process.env.NODE_ENV == 'production'
 
 nunjucks.express(app)
 
@@ -17,8 +17,13 @@ map = (controller) ->
     context =
       path: req.path
       params: req.params
-      render: res.render.bind(res)
-      locals: res.locals
+      render: (template, locals) ->
+        nunjucks.render template, locals, (err, html) ->
+          return next(err) if err
+          locals.content = html
+          nunjucks.render 'index.html', locals, (err, html) ->
+            return next(err) if err
+            res.send(html)
 
     controller(context, next)
 
@@ -27,7 +32,7 @@ app.use('/components', express.static("#{root}/components", maxAge: 3600 * 1000 
 app.use('/assets', express.static("#{root}/assets", maxAge: 3600 * 1000 * 24 * 7))
 
 views = ""
-views += Nunjucks.precompile("#{root}/views/#{template}.html", name: "#{template}.html", env: nunjucks) for template in ['index', 'article', 'articles']
+views += Nunjucks.precompile("#{root}/views/#{template}.html", name: "#{template}.html", env: nunjucks) for template in ['article', 'articles']
 app.get '/views.js', (req, res) ->
   res.set('content-type', 'application/javascript')
   res.status(200).send(views)

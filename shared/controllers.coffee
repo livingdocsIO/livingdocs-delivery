@@ -10,9 +10,3 @@ exports.article = (ctx, next) ->
   dataSource.getArticle ctx.params.slug, (err, article) ->
     return next(err) if err
     ctx.render('article.html', title: article.title, article: article)
-
-
-exports.articleRaw = (ctx, next) ->
-  dataSource.getArticle ctx.params.slug, (err, article) ->
-    return next(err) if err
-    ctx.render('raw.html', content: article.html)

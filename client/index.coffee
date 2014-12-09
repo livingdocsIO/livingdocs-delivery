@@ -8,7 +8,7 @@ controllers = require('../shared/controllers.coffee')
 page.Context.prototype.render = (view, locals) ->
   nunjucks.render view, locals, (err, html) ->
     return alert('Failed to render the view') if err
-    $('body').html(html)
+    $('body>.content').html(html)
 
 
 $(document).ready () ->
