@@ -43,6 +43,6 @@ app.get('/', map(controllers.articles))
 app.get('/articles', map(controllers.articles))
 app.get('/articles/:slug', map(controllers.article))
 
-
-app.listen (process.env.PORT || '8080'), (err) ->
-  console.log('Server started on http://localhost:8080')
+port = process.env.PORT || '8080'
+app.listen port, (err) ->
+  console.log('Server started on http://localhost:%s', port)
