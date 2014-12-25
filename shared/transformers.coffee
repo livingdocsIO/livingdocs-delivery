@@ -3,7 +3,9 @@ exports.constructImageUrl = (original) ->
   imageId = (original?.url||'').split('amazonaws.com/')[1]
 
   if imageId
-    style = "c:#{c.x}x#{c.y}x#{c.width}x#{c.height}-t:jpg-progressive" if c = original.crop
+    style = ""
+    style += "c:#{c.x}x#{c.y}x#{c.width}x#{c.height}-" if c = original.crop
+    style += "t:jpg-progressive"
     return "http://imgr.io/livingdocs/#{style}/#{imageId}"
 
   original?.url || original.originalUrl
