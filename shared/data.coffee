@@ -1,15 +1,10 @@
 request = require('ld-request')
 transformers = require('./transformers.coffee')
 
-processArticle = (article) ->
-  article.html = article.html?.replace(/http\:\/\/app\.resrc\.it/g, 'http://imgr.io/resrc/t:jpg-progressive')
-  article.html = article.html?.replace(/http\:\/\/placehold\.it\/0x0/g, 'http://imgr.io/bkXv1l4RQ/default/100x100')
-  article
-
 exports.getArticle = (slug, callback) ->
   request.get "http://api.livingdocs.io/public/publications/#{slug}", (err, data) ->
     return callback(err) if err
-    callback(null, processArticle(data.publication))
+    callback(null, data.publication)
 
 
 exports.getArticles = (callback) ->
