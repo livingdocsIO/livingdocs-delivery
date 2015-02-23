@@ -1,6 +1,6 @@
 <ul class="teaser-list">
 {% for article in articles %}
-<a internal href="/articles/{{ article.articleId }}">
+<a internal href="{{ article.url }}">
   <li class="teaser-list-entry" style="background-image: url({{ article.teaserImage }})">
     <div class="table">
       <div class="cell">

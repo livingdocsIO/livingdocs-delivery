@@ -1,7 +1,8 @@
 <html>
   <head>
   <link rel="stylesheet" type="text/css" href="/assets/livingdocs_stream.css">
-  <title>{{title | default('livingdocs-stream')}}</title>
+  <title>{{metadata.title | default('livingdocs-stream')}}</title>
+  <meta name="description" content="{{metadata.description}}">
   <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.3.1/stylesheets/timeline.css">
   <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
   </head>

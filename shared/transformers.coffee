@@ -1,3 +1,5 @@
+url = require('../lib/url')
+
 exports.constructImageUrl = (original) ->
   original = url: original if typeof original is 'string'
   imageId = (original?.url||'').split('amazonaws.com/')[1]
@@ -25,6 +27,6 @@ exports.deduceTeaserImageFromData = (content) ->
 
 exports.articlesToTeasers = (articles) ->
   for art in articles
+    url: art.slug || "/articles/"+ url.normalizeSlug(art.metadata?.title || exports.deduceTitleFromData(art.data.content)) + "-#{art.document_id}"
     title: art.metadata?.title || exports.deduceTitleFromData(art.data.content)
     teaserImage: exports.constructImageUrl(art.metadata?.teaser_image || exports.deduceTeaserImageFromData(art.data.content))
-    articleId: art.slug || art.document_id

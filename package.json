@@ -24,7 +24,8 @@
     "jsonp": "0.0.4",
     "ld-request": "./lib/ld-request",
     "nunjucks": "^1.1.0",
-    "uglifyify": "^2.5.0"
+    "uglifyify": "^2.5.0",
+    "underscore": "^1.8.2"
   },
   "devDependencies": {
     "coffeeify": "^0.7.0",
