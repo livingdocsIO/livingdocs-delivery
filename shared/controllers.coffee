@@ -14,4 +14,10 @@ exports.articles = (ctx, next) ->
 exports.article = (ctx, next) ->
   dataSource.getArticle ctx.params.slug, (err, article) ->
     return next(err) if err
-    ctx.render('article.html', title: article.title, article: article)
+    ctx.render 'article.html',
+      html: article.html
+      title: article.data.metadata?.title
+      description: article.data.metadata?.description
+      author: article.data.metadata?.author
+      teaserImage: article.data.metadata?.teaserImage?.url
+
