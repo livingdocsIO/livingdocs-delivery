@@ -1,19 +1,46 @@
 <html>
   <head>
-  <link rel="stylesheet" type="text/css" href="/assets/livingdocs_stream.css">
-  <title>{{metadata.title | default('livingdocs-stream')}}</title>
-  <meta name="description" content="{{metadata.description}}">
-  <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.3.1/stylesheets/timeline.css">
+  {% block metadata %}
+  <title>Livingdocs Blog</title>
+  <meta name="description" content="News and opinions from the creators of the content management system livingdocs.io">
+  <meta name="author" content="Livingdocs">
+  {% endblock %}
   <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+
+  <!-- For now we hardcode the design to use -->
+  <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.4.0/stylesheets/timeline.css">
+  <link rel="stylesheet" href="/assets/blog.css">
+  {% block stylesheets %}{% endblock %}
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
   <body>
     <div class="livingdocs-blog-header">
-      <a class="site-logo" internal href="/">
-        <img src="http://www.livingdocs.io/assets/images/livingdocs-logo-inverted-57e05e61.svg">
-      </a>
+      <div class="livingdocs-blog-header--inner">
+        <a class="site-logo" href="http://livingdocs.io">
+          <img src="http://www.livingdocs.io/assets/images/livingdocs-logo-inverted-57e05e61.svg">
+        </a>
+      </div>
     </div>
-    <div class="livingdocs-blog-content">{{ content }}</div>
-    <script type="text/javascript" src="/assets/index.js" async></script>
-    <script type="text/javascript" src="http://use.resrc.it/" async></script>
+    <div class="livingdocs-blog-content">
+      {% block pageContent %}
+      <h1>dummy title</h1>
+      <!-- child templates will add content to this -->
+      {% endblock %}
+    </div>
+    {% block scripts %}
+    {% endblock %}
+
+    <script src="//use.resrc.it/0.9"></script>
+    <script>
+      // hack to make resrc.it work: https://github.com/upfrontIO/livingdocs-server/issues/155
+      resrc.ready(function() {
+        var matches = $('.resrc');
+        for (var i=0; i<matches.length; i++) {
+          try {
+            resrc.run(matches[i]);
+          } catch(e) {}
+        }
+      });
+    </script>
   </body>
 </html>

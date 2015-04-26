@@ -1,0 +1,28 @@
+/* Header */
+.livingdocs-blog-header {
+  margin-left: 50%;
+}
+
+.livingdocs-blog-header--inner {
+  position: fixed;
+  z-index: 1000;
+  margin-left: -50vw;
+  width: 100vw;
+  height: 60px;
+  margin-bottom: 4px;
+  box-shadow: 0px 2px 1px rgba(0,0,0,.4);
+  background-color: rgb(41, 185, 111);
+}
+
+.livingdocs-blog-header .site-logo {
+  float: left;
+  margin: 16px 0 0 15px;
+}
+
+.livingdocs-blog-header img {
+  height: 29px;
+}
+
+.livingdocs-blog-content {
+  padding-top: 60px;
+}

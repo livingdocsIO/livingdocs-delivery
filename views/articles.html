@@ -1,15 +1,26 @@
-<ul class="teaser-list">
-{% for article in articles %}
-<a internal href="{{ article.url }}">
-  <li class="teaser-list-entry" style="background-image: url({{ article.teaserImage }})">
-    <div class="table">
-      <div class="cell">
-        <div class="constrain">
-          <h2>{{ article.title }}</h2>
+{% extends "index.html" %}
+
+{% block pageContent %}
+  {% for article in articles %}
+    {% if loop.index0 == 0 %}
+    <div class="teaser {{ 'hide-image' if not article.teaserImage }} ">
+    {% elif loop.index0 % 2 == 0 %}
+    <div class="teaser right {{ 'hide-image' if not article.teaserImage }} ">
+    {% else %}
+    <div class="teaser left {{ 'hide-image' if not article.teaserImage }} ">
+    {% endif %}
+
+      <a internal href="{{ article.url }}">
+        <div class="teaser__image container image-container resrc" style="background-image: url({{ article.teaserImage }})">
+          <div class="image--overlay"></div>
         </div>
-      </div>
+        <div class="teaser__text">
+          <div>
+            <h3>{{ article.title }}</h3>
+          </div>
+        </div>
+      </a>
     </div>
-  </li>
-</a>
-{% endfor %}
-</ul>
+  {% endfor %}
+
+{% endblock %}

@@ -1,3 +1,44 @@
-<div class="article-wrapper">
-  {{article.html}}
-</div>
+{% extends "index.html" %}
+
+{% block metadata %}
+  <title>{{ title }}"</title>
+  <meta name="description" content="{{ article.description }}">
+  <meta name="author" content="{{ author }}">
+  <meta property="og:site_name" content="Livingdocs Blog">
+  <meta property="og:image" content="{{ teaserImage }}">
+  <meta property="og:title" content="{{ title }}">
+  <meta property="og:type" content="article">
+  <meta property="og:description" content="{{ description }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+  <meta name="twitter:description" content="{{ description }}">
+  <meta name="twitter:image:src" content="{{ teaserImage }}">
+  <meta name="twitter:site" content="@livingdocsIO">
+{% endblock %}
+
+{% block stylesheets %}
+  {% for url in dependencies.cssUrls %}
+    <link rel="stylesheet" href="{{ url }}">
+  {% endfor %}
+  {% for inlineCss in dependencies.cssCode %}
+    <style>
+      {{ inlineCSS | safe }}
+    </style>
+  {% endfor %}
+{% endblock %}
+
+{% block pageContent %}
+  <div class="article-wrapper">
+    {{html}}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  {% for url in dependencies.jsUrls %}
+    <script src="{{ url }}"></script>
+  {% endfor %}
+
+  {% for code in dependencies.jsCode %}
+    <script>{{ code | safe }}</script>
+  {% endfor %}
+{% endblock %}
