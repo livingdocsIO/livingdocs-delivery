@@ -28,5 +28,6 @@ exports.deduceTeaserImageFromData = (content) ->
 exports.articlesToTeasers = (articles) ->
   for art in articles
     url: art.slug || "/articles/"+ url.normalizeSlug(art.metadata?.title || exports.deduceTitleFromData(art.data.content)) + "-#{art.document_id}"
+    url: art.slug || "/articles/"+ url.normalizeSlug(art.data.metadata?.title || exports.deduceTitleFromData(art.data.content)) + "-#{art.document_id}"
     title: art.metadata?.title || exports.deduceTitleFromData(art.data.content)
     teaserImage: exports.constructImageUrl(art.metadata?.teaser_image || exports.deduceTeaserImageFromData(art.data.content))
