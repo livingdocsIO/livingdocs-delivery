@@ -10,14 +10,24 @@
 
   <!-- For now we hardcode the design to use -->
   <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.4.0/stylesheets/timeline.css">
+  <link rel="stylesheet" href="/assets/blog.css">
   {% block stylesheets %}{% endblock %}
   <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
   <body>
-    {% block pageContent %}
-    <h1>dummy title</h1>
-    <!-- child templates will add content to this -->
-    {% endblock %}
+    <div class="livingdocs-blog-header">
+      <div class="livingdocs-blog-header--inner">
+        <a class="site-logo" href="http://livingdocs.io">
+          <img src="http://www.livingdocs.io/assets/images/livingdocs-logo-inverted-57e05e61.svg">
+        </a>
+      </div>
+    </div>
+    <div class="livingdocs-blog-content">
+      {% block pageContent %}
+      <h1>dummy title</h1>
+      <!-- child templates will add content to this -->
+      {% endblock %}
+    </div>
     <script type="text/javascript" src="/assets/index.js" async></script>
 
     {% block scripts %}
