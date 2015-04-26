@@ -1,9 +1,15 @@
 <html>
   <head>
-  <link rel="stylesheet" type="text/css" href="/assets/livingdocs_stream.css">
-  <title>{{metadata.title | default('livingdocs-stream')}}</title>
-  <meta name="description" content="{{metadata.description}}">
-  <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.3.1/stylesheets/timeline.css">
+  <link rel="stylesheet" type="text/css" href="/assets/livingdocs_teasers.css">
+  {% block metadata %}
+  <title>Livingdocs Blog</title>
+  <meta name="description" content="News and opinions from the creators of the content management system livingdocs.io">
+  <meta name="author" content="Livingdocs">
+  {% endblock %}
+
+  {% block stylesheets %}
+  <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.4.0/stylesheets/timeline.css">
+  {% endblock %}
   <meta name = "viewport" content = "user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
   </head>
   <body>
@@ -12,7 +18,10 @@
         <img src="http://www.livingdocs.io/assets/images/livingdocs-logo-inverted-57e05e61.svg">
       </a>
     </div>
-    <div class="livingdocs-blog-content">{{ content }}</div>
+    {% block pageContent %}
+    <h1>dummy title</h1>
+    <!-- child templates will add content to this -->
+    {% endblock %}
     <script type="text/javascript" src="/assets/index.js" async></script>
     <script type="text/javascript" src="http://use.resrc.it/" async></script>
   </body>

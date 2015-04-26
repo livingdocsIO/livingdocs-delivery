@@ -21,9 +21,7 @@ map = (controller) ->
         nunjucks.render template, locals, (err, html) ->
           return next(err) if err
           locals.content = html
-          nunjucks.render 'index.html', locals, (err, html) ->
-            return next(err) if err
-            res.send(html)
+          res.send(html)
 
     controller(context, next)
 

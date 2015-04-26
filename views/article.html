@@ -1,3 +1,7 @@
-<div class="article-wrapper">
-  {{article.html}}
-</div>
+{% extends "index.html" %}
+
+{% block pageContent %}
+  <div class="article-wrapper">
+    {{article.html}}
+  </div>
+{% endblock %}

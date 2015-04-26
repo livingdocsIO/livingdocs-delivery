@@ -1,4 +1,7 @@
 <ul class="teaser-list">
+{% extends "index.html" %}
+
+{% block pageContent %}
 {% for article in articles %}
 <a internal href="{{ article.url }}">
   <li class="teaser-list-entry" style="background-image: url({{ article.teaserImage }})">
@@ -13,3 +16,4 @@
 </a>
 {% endfor %}
 </ul>
+{% endblock %}
