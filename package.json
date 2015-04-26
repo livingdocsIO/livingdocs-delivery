@@ -25,7 +25,7 @@
     "ld-request": "./lib/ld-request",
     "nunjucks": "^1.1.0",
     "uglifyify": "^2.5.0",
-    "underscore": "^1.8.2"
+    "lodash": "^3.6.0"
   },
   "devDependencies": {
     "coffeeify": "^0.7.0",

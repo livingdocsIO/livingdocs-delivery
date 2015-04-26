@@ -1,3 +1,4 @@
+_ = require('lodash')
 conf = require('../conf')
 dataSource = require('./data.coffee')
 
