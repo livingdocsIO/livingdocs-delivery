@@ -1,14 +1,15 @@
 request = require('ld-request')
+conf = require('../conf')
 transformers = require('./transformers.coffee')
 
 exports.getArticle = (slug, callback) ->
-  request.get "http://api.livingdocs.io/public/publications/#{slug}", (err, data) ->
+  request.get "#{conf.api_host}/public/publications/#{slug}", (err, data) ->
     return callback(err) if err
     callback(null, data.publication)
 
 
 exports.getArticles = (callback) ->
-  request.get "http://api.livingdocs.io/public/publications?space=127", (err, data) ->
+  request.get "#{conf.api_host}/public/publications?space=#{conf.space_id}", (err, data) ->
     return callback(err) if err
     callback(null, data.publications)
 
