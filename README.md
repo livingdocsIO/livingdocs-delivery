@@ -40,6 +40,27 @@ The only thing you need to change to get the same experience as the Livingdocs B
 ### Deployment
 While you can deploy wherever you want, we provide a little description of how you can deploy your Blog to heroku (which we also do with our blog).
 
+First, install the heroku toolbelt and login with heroku as described [here](https://toolbelt.heroku.com/)
+
+Then, create your app with heroku by typing:
+```
+heroku create <your-app-name>
+```
+
+And finally push to your newly created app by typing:
+```
+git push heroku master
+```
+
+Pro-Tip: You can give a custom name to the heroku endpoint. Type `git config -e` and navigate to the heroku remote. Give it a name, e.g., `blog` and then deploy to heroku by typing `git push blog`. For the curious, this is our git config:
+```
+[remote "blog"]
+        url = git@heroku.com:livingdocs-blog.git
+        fetch = +refs/heads/*:refs/remotes/blog/*
+```
+
+Once you deployed your heroku app, heroku gives you a URL. In your DNS management tool you can create a new CNAME record for your domain that points to the heroku URL so that you can have your blog run under your own URL.
+
 ### Design / Content
 You will realize that the branding and styles are specific to Livingdocs. For example the header reads "Livingdocs" where you will probably want to have your own logo.
 Start by making this project your own! You just need a little HTML and CSS knowledge, there is no special magic here.
