@@ -10,6 +10,7 @@
   <!-- For now we hardcode the design to use -->
   <link rel="stylesheet" href="http://livingdocs-designs.s3.amazonaws.com/timeline/0.4.0/stylesheets/timeline.css">
   <link rel="stylesheet" href="/assets/blog.css">
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
   {% block stylesheets %}{% endblock %}
   <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
   </head>
@@ -27,6 +28,39 @@
       <!-- child templates will add content to this -->
       {% endblock %}
     </div>
+    <footer>
+      <div class="footer--inner">
+        <div class="wrapper">
+        <ul class="social-links nav">
+          <li>
+            <a class="icon-text" href="https://github.com/upfrontIO" target="_blank"><i class="icon-text__icon icon icon--big fa fa-github-alt"></i> Github</a>
+          </li>
+          <li>
+            <a class="icon-text" href="https://twitter.com/upfrontIO" target="_blank"><i class="icon-text__icon icon icon--big fa fa-twitter"></i> Twitter</a>
+          </li>
+          <li>
+            <a class="icon-text" href="https://vimeo.com/channels/877846" target="_blank">
+              <i class="icon-text__icon icon icon--big fa fa-vimeo-square"></i> Vimeo
+            </a>
+          </li>
+        </ul>
+        <ul class="footer-links nav">
+          <li>
+            <a href="http://livingdocs.io" target="_blank">Livingdocs</a>
+          </li>
+          <li>
+            <a href="mailto:contact@upfront.io?subject=Livingdocs">Contact</a>
+          </li>
+          <li>
+            <a href="http://upfront.io">Company</a>
+          </li>
+        </ul>
+        <div class="meta-footer">
+          <p class="copyright">Copyright ©2015 Upfront GmbH — All rights reserved</p>
+        </div>
+        </div>
+      </div>
+    </footer>
     {% block scripts %}
     {% endblock %}
 

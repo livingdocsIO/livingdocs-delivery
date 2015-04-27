@@ -26,3 +26,86 @@
 .livingdocs-blog-content {
   padding-top: 60px;
 }
+
+/* Footer (from livingdocs.io) */
+footer {
+  margin-left: 50%;
+}
+
+.footer--inner {
+  margin-left: -50vw;
+  width: 100vw;
+
+  height: 100px;
+  padding: 2.28rem 0;
+  line-height: 1.8125;
+  background: #3a2f3c;
+  font: 0.8rem "Helvetica Neue", sans-serif;
+}
+
+.footer--inner a {
+  color: white;
+}
+
+.footer--inner .wrapper {
+  max-width: 1005px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 29px;
+  box-sizing: content-box;
+}
+
+.wrapper .social-links {
+  float: left;
+}
+
+.wrapper .footer-links {
+  float: right;
+}
+
+.wrapper .nav {
+  list-style: none;
+  margin-bottom: 15px;
+  margin-left: 0;
+}
+
+.wrapper .nav li {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.wrapper .meta-footer {
+  clear: both;
+}
+
+.wrapper .meta-footer p {
+  font-size: 0.6rem;
+  color: #bbb;
+  margin-left: 0;
+}
+
+/* Icons */
+.icon-text > .icon-text__icon {
+  margin-right: 7.25px;
+}
+
+
+/**
+ * Set up icon font
+ */
+.icon {
+  font-size: 16px;
+  /**
+   * Place the icon in a box the exact same dimensions as the icon itself.
+   */
+  width: 1em;
+  height: 1em;
+}
+
+/**
+ * Icon size modifiers.
+ */
+.icon--big     { font-size: 24px; }
+.icon--huge    { font-size: 64px; }
+.icon--large   { font-size: 128px; }
+.icon--natural { font-size: inherit; }
