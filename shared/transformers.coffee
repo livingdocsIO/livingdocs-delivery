@@ -9,6 +9,6 @@ exports.deduceTitleFromData = (content) ->
 
 exports.articlesToTeasers = (articles) ->
   for art in articles
-    url: art.slug || "/articles/"+ url.normalizeSlug(art.data.metadata?.title || exports.deduceTitleFromData(art.data.content)) + "-#{art.document_id}"
-    title: art.data.metadata?.title || exports.deduceTitleFromData(art.data.content)
-    teaserImage: art.data.metadata?.teaserImage?.url
+    url: art.slug || "/articles/"+ url.normalizeSlug(art.metadata?.title || exports.deduceTitleFromData(art.content)) + "-#{art.document_id}"
+    title: art.metadata?.title
+    teaserImage: art.metadata?.teaserImage?.url
