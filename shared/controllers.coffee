@@ -39,12 +39,12 @@ exports.articles = (ctx, next) ->
 exports.article = (ctx, next) ->
   dataSource.getArticle ctx.params.slug, (err, article) ->
     return next(err) if err
-    dependencies = getDependencies(article.data.metadata)
+    dependencies = getDependencies(article.metadata)
     ctx.render 'article.html',
       html: article.html
-      title: article.data.metadata?.title
-      description: article.data.metadata?.description
-      author: article.data.metadata?.author
-      teaserImage: article.data.metadata?.teaserImage?.url
-      dependencies: getDependencies(article.data.metadata)
+      title: article.metadata?.title
+      description: article.metadata?.description
+      author: article.metadata?.author
+      teaserImage: article.metadata?.teaserImage?.url
+      dependencies: getDependencies(article.metadata)
 
