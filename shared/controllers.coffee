@@ -46,5 +46,4 @@ exports.article = (ctx, next) ->
       description: article.metadata?.description
       author: article.metadata?.author
       teaserImage: article.metadata?.teaserImage?.url
-      dependencies: getDependencies(article.metadata)
-
+      dependencies: dependencies
