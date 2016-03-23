@@ -41,10 +41,9 @@ exports.article = (ctx, next) ->
     return next(err) if err
     dependencies = getDependencies(article.metadata)
     ctx.render 'article.html',
-      html: article.html
+      html: article.channels.web
       title: article.metadata?.title
       description: article.metadata?.description
       author: article.metadata?.author
       teaserImage: article.metadata?.teaserImage?.url
-      dependencies: getDependencies(article.metadata)
-
+      dependencies: dependencies

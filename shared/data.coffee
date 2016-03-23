@@ -5,7 +5,7 @@ transformers = require('./transformers.coffee')
 exports.getArticle = (slug, callback) ->
   request.get "#{conf.api_host}/public/publications/#{slug}", (err, data) ->
     return callback(err) if err
-    callback(null, data.publication)
+    callback(null, data)
 
 
 exports.getArticles = (callback) ->

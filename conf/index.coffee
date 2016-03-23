@@ -19,4 +19,3 @@ module.exports =
   # ordered automatically by publication date
   start_page_document: 1705
   # staging test: 1290
-
