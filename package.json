@@ -11,7 +11,7 @@
     "prestart": "grunt assets",
     "start": "node index.js"
   },
-  "author": "upfrontIO",
+  "author": "Livingdocs <dev@livingdocs.io>",
   "dependencies": {
     "browserify": "^5.12.0",
     "browserify-zepto": "^1.1.4",
