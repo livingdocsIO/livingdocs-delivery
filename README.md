@@ -13,7 +13,7 @@ npm install -g npm
 ```
 
 ```
-git clone git@github.com:upfrontIO/livingdocs-delivery.git
+git clone git@github.com:livingdocsIO/livingdocs-delivery.git
 cd livingdocs-delivery
 npm install
 ```
